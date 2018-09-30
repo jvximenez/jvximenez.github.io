@@ -13,6 +13,19 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-item>
+        <ion-label fixed>Remedios: </ion-label>
+        <ion-select ([ngModel])="controle.remedios"  interface="popover"></ion-select>
+          <ion-option *ngFor="let rem of remedios">{{rem.title}}</ion-option>
+      </ion-item>
+
+      <ion-item>
+        <ion-item></ion-item>
+      </ion-item>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

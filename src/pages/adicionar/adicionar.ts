@@ -15,7 +15,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdicionarPage {
 
+  remedios: any = []
+
+  controle = { 
+    'remedios': '',
+
+  }
+
+  
+  
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.remedios = [
+      {title: "teste"},
+      {title: "teste"},
+      {title: "teste"},
+
+    ]
   }
 
   ionViewDidLoad() {
