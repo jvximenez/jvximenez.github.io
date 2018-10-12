@@ -20,7 +20,6 @@ export class AdicionarPage {
   atividades: any = []
   pessoas: any = []
   role: any = []
-  outros: any = []
   estudos: any = []
   
 
@@ -50,6 +49,13 @@ export class AdicionarPage {
     'Role':'',
     'Pessoas':'',
     'resumo':'',
+    'barba':'',
+    'agradecimento':'',
+    'meditacao':'',
+    'escrever':'',
+    'raser':'',
+    'leitura':'',
+
 
     
 
@@ -94,6 +100,41 @@ export class AdicionarPage {
       {title: "Gêmeos"},
       {title: "Outro"},
     ]
+
+    this.estudos = [
+      {title: "Frances"},
+      {title: "Ingles"},
+      {title: "Outro"},
+    ]
+
+    this.pessoas = [
+      {title: "Dani"},
+      {title: "Amanda"},
+      {title: "Luma"},
+      {title: "India"},
+      {title: "Filippo"},
+      {title: "Marina"},
+      {title: "Marianinha"},
+      {title: "Outro"},      
+    ]
+
+    this.role = [
+      {title: "Pizza"},
+      {title: "Mcdonalds"},
+      {title: "Burger King"},
+      {title: "Hamburguer"},
+      {title: "Aniversário"},
+      {title: "Bar"},
+      {title: "Churrasco"},
+      {title: "Dani"},
+      {title: "Japones"},
+      {title: "Balada"},
+      {title: "Festa"},
+      {title: "Turistar"},
+      {title: "Viajar"},
+      {title: "Outro"},
+    ]
+    
   }
 
   ionViewDidLoad() {

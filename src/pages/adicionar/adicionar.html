@@ -24,8 +24,19 @@
       </ion-item>
 
       <ion-item>
-        <ion-item></ion-item>
+        <ion-label fixed>Dentes: </ion-label>
+        <ion-select ([ngModel])="controle.dentes" interface="popover" multiple =  True>
+          <ion-option *ngFor="let den of dentes">{{den.title}}</ion-option>
+        </ion-select>
       </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Atividades: </ion-label>
+        <ion-select ([ngModel])="controle.atividades" interface="popover" multiple =  True>
+          <ion-option *ngFor="let ativ of atividades">{{ativ.title}}</ion-option>
+        </ion-select>
+      </ion-item>
+
     </ion-row>
   </ion-grid>
 
