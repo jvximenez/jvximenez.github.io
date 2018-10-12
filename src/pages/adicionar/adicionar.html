@@ -18,8 +18,9 @@
     <ion-row>
       <ion-item>
         <ion-label fixed>Remedios: </ion-label>
-        <ion-select ([ngModel])="controle.remedios"  interface="popover"></ion-select>
+        <ion-select ([ngModel])="controle.remedios" interface="popover" multiple =  True>
           <ion-option *ngFor="let rem of remedios">{{rem.title}}</ion-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
