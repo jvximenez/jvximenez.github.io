@@ -19,7 +19,7 @@ export class AdicionarPage {
   dentes: any = []
   atividades: any = []
   pessoas: any = []
-  role: any = []
+  role: any = []  
   estudos: any = []
   
 
@@ -35,17 +35,16 @@ export class AdicionarPage {
     'UHU':'',
     'cafe':'',	
     'lancheM':'',
-    'almoço':'',
+    'almoco':'',
     'lancheT':'',
     'jantar':'',
     'doce':'',
     'refrigerante':'',
     'alcool':'',
     'besteira':'',
-    'Estudos':'',
-    'TempoE':'',
+    'estudos':'',
+    'tempoE':'',
     'TempoA':'',
-    'Outros':'',
     'Role':'',
     'Pessoas':'',
     'resumo':'',
