@@ -9,11 +9,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  */
 
 @IonicPage()
+
+
 @Component({
   selector: 'page-adicionar',
   templateUrl: 'adicionar.html',
+
+  
 })
+
+
+
+
 export class AdicionarPage {
+
+  
 
   remedios: any = []
   dentes: any = []
@@ -21,6 +31,8 @@ export class AdicionarPage {
   pessoas: any = []
   role: any = []  
   estudos: any = []
+
+  public rows;
   
 
   controle = { 
@@ -64,6 +76,8 @@ export class AdicionarPage {
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.rows = 5;
+    
     this.remedios = [
       {title: "Homeopatia - manhã"},
       {title: "Homeopatia - noite"},
@@ -135,6 +149,12 @@ export class AdicionarPage {
     ]
     
   }
+
+  
+  roww(){
+    this.rows = 5;
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdicionarPage');

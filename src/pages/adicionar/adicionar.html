@@ -184,45 +184,104 @@
       </ion-item>
     </ion-row>
 
-    <ion-grid no-padding justify-content-center>
-      <ion-row>
-      <ion-col col-3 no-paddig>
-        <ion-row justify-content-center>
-          <ion-item no-lines>
-            <ion-label class="nome">Resumo:</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row justify-content-center>
-          <ion-toggle class="toggle" checked="false"></ion-toggle>
-        </ion-row>
-      </ion-col>
+      <ion-grid no-padding justify-content-center>
+        <ion-row>
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines>
+              <ion-label class="nome2">Barba:</ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+      
 
-      <ion-col col-3 no-paddig>
-        <ion-row justify-content-center>
-          <ion-item no-lines>
-            <ion-label class="nome">Barba:</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row justify-content-center>
-          <ion-toggle class="toggle" checked="false" ></ion-toggle>
-        </ion-row>
-      </ion-col>
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines justify-content-center>
+              <ion-label class="nome2">Agradecer: </ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines justify-content-center>
+              <ion-label class="nome2">Meditação: </ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines justify-content-center>
+              <ion-label class="nome2">Escrever: </ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines justify-content-center>
+              <ion-label class="nome2">Raser: </ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines justify-content-center>
+              <ion-label class="nome2">Leitura: </ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     
+    <ion-row>
+      <ion-list-header>Pessoas e Role:</ion-list-header>
+      <ion-item no-lines>
+        <ion-label class="nome" fixed>Role: </ion-label>
+          <ion-select class="input" ([ngModel])="controle.role" interface="popover" multiple =  True>
+            <ion-option *ngFor="let rol of role">{{rol.title}}</ion-option>
+          </ion-select>
+      </ion-item>
+    </ion-row>
 
-      <ion-col col-3 no-paddig>
-        <ion-row justify-content-center>
-          <ion-item no-lines>
-            <ion-label class="nome">Barba:</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row justify-content-center>
-          <ion-toggle class="toggle" checked="false" ></ion-toggle>
-        </ion-row>
-      </ion-col>
-   </ion-row>
-  </ion-grid>
+    <ion-row>
+      <ion-item>
+          <ion-label class="nome" fixed>Pessoas: </ion-label>
+            <ion-select class="input" ([ngModel])="controle.pessoas" interface="popover" multiple =  True>
+              <ion-option *ngFor="let pes of pessoas">{{pes.title}}</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-row>
 
-
+    <ion-row>
+      <ion-item>
+        <ion-label floating >Resumo: </ion-label>
+        <ion-textarea (click)="roww()" style="color: black; font-size: 13px;" rows="5" text-right autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>
+      </ion-item>
+    </ion-row>
+    
+ 
   </ion-grid>
 </ion-content>
 
