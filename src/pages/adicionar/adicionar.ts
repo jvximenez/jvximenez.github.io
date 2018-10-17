@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+
 
 /**
  * Generated class for the AdicionarPage page.
@@ -36,7 +39,10 @@ export class AdicionarPage {
   
 
   controle = { 
-    'remedios': '',
+    'dia':'',
+    'mes':'',
+    'ano':'',
+    'remedios': [],
     'dentes':  '',
     'atividades': '',
     'passos':'',
@@ -60,12 +66,12 @@ export class AdicionarPage {
     'Role':'',
     'Pessoas':'',
     'resumo':'',
-    'barba':'',
-    'agradecimento':'',
-    'meditacao':'',
-    'escrever':'',
-    'raser':'',
-    'leitura':'',
+    'barba':'False',
+    'agradecimento':'False',
+    'meditacao':'False',
+    'escrever':'False',
+    'raser':'False',
+  'leitura':'False',
 
 
     
@@ -75,7 +81,7 @@ export class AdicionarPage {
   
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.rows = 5;
     
     this.remedios = [
@@ -159,5 +165,26 @@ export class AdicionarPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdicionarPage');
   }
+
+  Data(){
+    var data = new Date();
+    var dia = data.getDate();
+    var mes = data.getMonth() + 1;
+    var ano = data.getFullYear();
+    var array = [dia,mes,ano];
+    return array
+  }
+
+  Criacao(controle){
+    var array = this.Data();
+    this.controle.dia = String(array[0]);
+    this.controle.mes = String(array[1]);
+    this.controle.ano = String(array[2]);
+    this.dbService.save('diario',controle)
+
+
+  }
+
+
 
 }

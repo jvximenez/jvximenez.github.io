@@ -193,7 +193,7 @@
             </ion-item>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.barba" ></ion-toggle>
           </ion-row>
         </ion-col>
       
@@ -205,7 +205,7 @@
             </ion-item>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.agradecimento" ></ion-toggle>
           </ion-row>
         </ion-col>
 
@@ -216,7 +216,7 @@
             </ion-item>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.meditacao" ></ion-toggle>
           </ion-row>
         </ion-col>
 
@@ -227,7 +227,7 @@
             </ion-item>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.escrever" ></ion-toggle>
           </ion-row>
         </ion-col>
 
@@ -238,7 +238,7 @@
             </ion-item>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.raser" ></ion-toggle>
           </ion-row>
         </ion-col>
 
@@ -249,7 +249,7 @@
             </ion-item>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-toggle class="toggle" checked="false" ></ion-toggle>
+            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.leitura" ></ion-toggle>
           </ion-row>
         </ion-col>
       </ion-row>
@@ -276,12 +276,16 @@
 
     <ion-row>
       <ion-item>
-        <ion-label floating >Resumo: </ion-label>
-        <ion-textarea (click)="roww()" style="color: black; font-size: 13px;" rows="5" text-right autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>
+        <ion-label class="nome" no-padding >Resumo: </ion-label>
+        <ion-textarea [(ngModel)]="controle.resumo"  (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>
       </ion-item>
     </ion-row>
-    
- 
+
+    <ion-row><ion-item no-lines></ion-item></ion-row>
+    <ion-row justify-content-center>
+      <button class="btn" ion-button outline (click)="Criacao(controle)">Adicionar</button>
+  </ion-row>
+
   </ion-grid>
 </ion-content>
 
