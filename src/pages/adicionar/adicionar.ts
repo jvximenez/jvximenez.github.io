@@ -72,6 +72,7 @@ export class AdicionarPage {
     'escrever':'False',
     'raser':'False',
     'leitura':'False',
+    'total':'',
 
 
     
@@ -173,6 +174,7 @@ export class AdicionarPage {
     var ano = data.getFullYear();
     var array = [dia,mes,ano];
     return array
+    
   }
 
   Criacao(controle){
@@ -180,9 +182,23 @@ export class AdicionarPage {
     this.controle.dia = String(array[0]);
     this.controle.mes = String(array[1]);
     this.controle.ano = String(array[2]);
+    this.controle.total = String(this.Total())
     this.dbService.save('diario',controle)
 
 
+  }
+
+  Total(){
+    var total;
+    var data = new Date();
+    var dia = data.getDate();
+    var mes = data.getMonth();
+    var ano = data.getFullYear();
+    var hora = data.getHours();
+    var min = data.getMinutes();
+    total = Number(ano*10000 + (mes+1)*100 + dia);
+    return total
+  
   }
 
 
