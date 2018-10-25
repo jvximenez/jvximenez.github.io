@@ -65,8 +65,8 @@ export class FirebaseServiceProvider {
   }
 
 
-  getArray(dado,parametro,especifico){
-    var teste =  this.getAllEspecifico(dado,parametro,especifico)
+  getArray(dado){
+    var teste =  this.getAll2(dado)
     var array = []
     teste.forEach(dado => dado.forEach(dado2 => array.push(dado2)));
     return (array)

@@ -14,6 +14,10 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let c of ( controleHoje | async )">{{today}} -</ion-card>
-
+  <ion-card *ngFor="let h of (controleHoje  | async )">
+  <ion-card-header>{{h.dia}}/{{h.mes}}/{{h.ano}}</ion-card-header>
+  <ion-item >{{h.total}}</ion-item>
+  </ion-card>
+  <ion-item *ngFor="let o of (controleOntem | async )">{{ontem.total}}</ion-item>
 </ion-content>
+

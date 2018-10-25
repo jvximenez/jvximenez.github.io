@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+
+
+
+
 /**
  * Generated class for the HojePage page.
  *
@@ -14,23 +18,19 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
   templateUrl: 'hoje.html',
 })
 export class HojePage {
-
-  today: any;
+  public testeee;
   public controleHoje;
-  public visual;
+  public controle
+  public today;
+  public controleOntem;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
-  this.today = this.Total();
-  this.controleHoje = this.dbService.getAll('diario','total')
-  this.controleHoje = this.dbService.getAll2('compras').map(a => a.reverse());
-  console.log(this.controleHoje)
-  this.visual = this.dbService.getAll2('visual')
-  console.log(this.visual)
+  
 
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HojePage');
+  constructor(public navCtrl: NavController, public dbService: FirebaseServiceProvider) {
+    this.today = this.Total();
+    this.controleHoje=  this.dbService.getAllEspecifico('diario','total',this.today)
+    this.controleOntem = this.dbService.getAllEspecifico('diario','total',(String(Number(this.today -1 ))))
+    
   }
 
   Total(){
@@ -39,9 +39,8 @@ export class HojePage {
     var dia = data.getDate();
     var mes = data.getMonth();
     var ano = data.getFullYear();
-    var hora = data.getHours();
-    var min = data.getMinutes();
     total = Number(ano*10000 + (mes+1)*100 + dia);
+    total = String(total)
     return total
   
   }
