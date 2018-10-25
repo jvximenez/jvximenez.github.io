@@ -45,4 +45,15 @@ export class HojePage {
   
   }
 
+  Sinal(termo){
+    if (termo == true) { return "✔"};
+    if (termo == false) { return "✘"}
+    
+  }
+
+  Termos(termo){
+    var valor = ("termo".match(/,/g)||[]).length
+    return valor;
+  }
+
 }

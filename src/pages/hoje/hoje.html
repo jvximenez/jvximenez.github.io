@@ -19,6 +19,9 @@
 
   <ion-grid no-padding>
     <ion-row>
+        <ion-item-divider>
+            Saude
+          </ion-item-divider>
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
         <ion-item no-lines justify-content-center>
@@ -26,7 +29,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>TESTE</ion-badge>
+        <ion-badge>{{(h.remedios.length)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -37,9 +40,13 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>TESTE</ion-badge>
+        <ion-badge>{{h.dentes.length}}</ion-badge>
       </ion-row>
     </ion-col>
+
+    <ion-item-divider>
+        Atividades
+      </ion-item-divider>
 
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
@@ -48,7 +55,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>TESTE ✔ ✘ </ion-badge>
+        <ion-badge>{{h.atividades.length}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -88,17 +95,6 @@
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
         <ion-item no-lines justify-content-center>
-          <ion-label class="nome2">Passos: </ion-label>
-        </ion-item>
-      </ion-row>
-      <ion-row justify-content-center>
-        <ion-badge>{{h.passos}}</ion-badge>
-      </ion-row>
-    </ion-col>
-
-    <ion-col col-4 no-paddig>
-      <ion-row justify-content-center>
-        <ion-item no-lines justify-content-center>
           <ion-label class="nome2">Correndo: </ion-label>
         </ion-item>
       </ion-row>
@@ -128,6 +124,10 @@
         <ion-badge>{{h.UHU}}</ion-badge>
       </ion-row>
     </ion-col>
+
+    <ion-item-divider>
+      Alimentação
+    </ion-item-divider>
 
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
@@ -219,6 +219,10 @@
       </ion-row>
     </ion-col>
 
+    <ion-item-divider>
+        Saude
+    </ion-item-divider>
+
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
         <ion-item no-lines justify-content-center>
@@ -248,7 +252,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>{{h.barba}}</ion-badge>
+        <ion-badge>{{Sinal(h.barba)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -259,7 +263,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>{{h.agradecimento}}</ion-badge>
+        <ion-badge>{{Sinal(h.agradecimento)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -270,7 +274,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>{{h.meditacao}}</ion-badge>
+        <ion-badge>{{Sinal(h.meditacao)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -281,7 +285,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>{{h.escrever}}</ion-badge>
+        <ion-badge>{{Sinal(h.escrever)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -292,7 +296,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>{{h.raser}}</ion-badge>
+        <ion-badge>{{Sinal(h.raser)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -303,7 +307,7 @@
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
-        <ion-badge>{{h.leitura}}</ion-badge>
+        <ion-badge>{{Sinal(h.leitura)}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -328,28 +332,23 @@
         <ion-badge>{{h.TempoA}} - Teste</ion-badge>
       </ion-row>
     </ion-col>
-
     </ion-row>
-      <ion-item no-lines>
-        Remedios: {{h.remedios}}
-      </ion-item>
-      <ion-item no-lines>
-        Atividades: {{h.atividades}}
-      </ion-item>
-      <ion-item no-lines>
-        Role: {{h.role}}
-      </ion-item>
-      <ion-item no-lines>
-        Pessoas: {{h.pessoas}}
-      </ion-item>
+      
 
-      <p ion-text>Remedios: {{h.remedios}} <br>
+      <p margin ion-text>Remedios: {{h.remedios}} <br>
+          Dentes: {{h.dentes}} <br> 
           Atividades: {{h.atividades}} <br>
+          Estudos: {{h.estudos}} <br>
           Role: {{h.role}} <br>
-          Pessoas: {{h.pessoas}} <br> </p>
+          Pessoas: {{h.pessoas}} <br>
+          Resumo: {{h.resumo}} <br>
+        </p>
   </ion-grid>
 
+  
   </ion-card>
+ 
   <ion-item *ngFor="let o of (controleOntem | async )">{{o.total}}</ion-item>
+
 </ion-content>
 

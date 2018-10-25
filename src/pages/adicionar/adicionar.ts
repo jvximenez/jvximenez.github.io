@@ -66,12 +66,12 @@ export class AdicionarPage {
     'role':'',
     'pessoas':'',
     'resumo':'',
-    'barba':'False',
-    'agradecimento':'False',
-    'meditacao':'False',
-    'escrever':'False',
-    'raser':'False',
-    'leitura':'False',
+    'barba': false,
+    'agradecimento':false,
+    'meditacao': false,
+    'escrever':false,
+    'raser':false,
+    'leitura':false,
     'total':'',
 
 
