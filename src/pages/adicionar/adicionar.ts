@@ -50,6 +50,7 @@ export class AdicionarPage {
     'andando':'',
     'correndo':'',
     'tempinho':'',
+    'tempinhoQ':'',
     'UHU':'',
     'cafe':'',	
     'lancheM':'',
