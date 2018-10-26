@@ -13,6 +13,7 @@ import { HojePage } from '../pages/hoje/hoje';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { CardsDoMesPage } from '../pages/cards-do-mes/cards-do-mes';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     CardsPage,
     Graficos1Page,
     HojePage,
+    CardsDoMesPage,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     CardsPage,
     Graficos1Page,
     HojePage,
+    CardsDoMesPage,
   ],
   providers: [
     StatusBar,

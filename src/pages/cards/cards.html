@@ -14,8 +14,8 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let itens of meses">
-  <ion-card-header>{{itens}}</ion-card-header>
+  <ion-card *ngFor="let itens of meses" (click)="goToMes(itens)">
+  <ion-card-header>{{RetornaData(itens)}}</ion-card-header>
   </ion-card>
   
   <ion-card *ngFor="let h of (controle  | async )">
