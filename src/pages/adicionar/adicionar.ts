@@ -74,6 +74,7 @@ export class AdicionarPage {
     'raser':false,
     'leitura':false,
     'total':'',
+    'parcial':'',
 
 
     
@@ -183,7 +184,8 @@ export class AdicionarPage {
     this.controle.dia = String(array[0]);
     this.controle.mes = String(array[1]);
     this.controle.ano = String(array[2]);
-    this.controle.total = String(this.Total())
+    this.controle.total = String(this.Total());
+    this.controle.parcial =  String(this.Parcial());
     this.dbService.save('diario',controle)
 
 
@@ -200,6 +202,16 @@ export class AdicionarPage {
     total = Number(ano*10000 + (mes+1)*100 + dia);
     return total
   
+  }
+
+  Parcial(){
+    var total;
+    var data = new Date();
+    var mes = data.getMonth();
+    var ano = data.getFullYear();
+    total = Number(ano*100 + (mes+1));
+    return total
+
   }
 
 

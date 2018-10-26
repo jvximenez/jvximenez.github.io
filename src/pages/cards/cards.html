@@ -14,6 +14,350 @@
 
 
 <ion-content>
-  <ion-card></ion-card>
+  <ion-card *ngFor="let itens of meses">
+  <ion-card-header>{{itens}}</ion-card-header>
+  </ion-card>
+  
+  <ion-card *ngFor="let h of (controle  | async )">
+    <ion-card-header>Dia: {{h.dia}}/{{h.mes}}/{{h.ano}}</ion-card-header>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-item-divider>
+          Saude
+        </ion-item-divider>
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Remédios: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{(h.remedios.length)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Dentes: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.dentes.length}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-item-divider>
+          Atividades
+        </ion-item-divider>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Atividades: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.atividades.length}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Passos: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.passos}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Peso: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.peso}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Andando: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.andando}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Correndo: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.correndo}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Tempinho: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.tempinho}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Tempinho: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.tempinhoQ}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Uhu: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.UHU}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-item-divider>
+        Alimentação
+      </ion-item-divider>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Café: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.cafe}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Lanche: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.lancheM}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Almoço: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.almoco}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Lanche: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.lancheT}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Jantar: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.jantar}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Doce: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.doce}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Refrigerante: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.refrigerante}}</ion-badge>
+        </ion-row>
+      </ion-col>
+    
+    
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Alcool: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.alcool}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-item-divider>
+          Saude
+      </ion-item-divider>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Estudos: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.tempoE}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Aulas: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.tempoA}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Barba: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.barba)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Agradecimento: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.agradecimento)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Meditacao: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.meditacao)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Escrever: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.escrever)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Raser: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.raser)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Leitura: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.leitura)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Role: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.tempoA}}</ion-badge>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Pessoas: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.TempoA}}</ion-badge>
+        </ion-row>
+      </ion-col>
+      </ion-row>
+        
+  
+        <p margin ion-text>Remedios: {{h.remedios}} <br>
+            Dentes: {{h.dentes}} <br> 
+            Atividades: {{h.atividades}} <br>
+            Estudos: {{h.estudos}} <br>
+            Role: {{h.role}} <br>
+            Pessoas: {{h.pessoas}} <br>
+            Resumo: {{h.resumo}} <br>
+          </p>
+    </ion-grid>
+    </ion-card>
 
 </ion-content>
