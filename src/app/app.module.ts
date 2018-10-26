@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
+import { HttpModule } from '@angular/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,6 +15,7 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CardsDoMesPage } from '../pages/cards-do-mes/cards-do-mes';
+import { FuncoesGeraisProvider } from '../providers/funcoes-gerais/funcoes-gerais';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { CardsDoMesPage } from '../pages/cards-do-mes/cards-do-mes';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyCS77TuCe2jrXqmSDh9Ivs7gWedPM7PJ3E",
       authDomain: "ionic3-gastos-45fd4.firebaseapp.com",
@@ -57,6 +60,8 @@ import { CardsDoMesPage } from '../pages/cards-do-mes/cards-do-mes';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseServiceProvider,
+    FuncoesGeraisProvider,
+    
     
   ]
 })
