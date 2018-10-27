@@ -44,7 +44,7 @@ export class CardsPage {
   }
 
   Today(){
-    console.log("entrou")
+    
     var total;
     var array = [];
     var data = new Date();
@@ -71,7 +71,7 @@ export class CardsPage {
     if (teste1 < 100) {
 
       while (comeco <= total){
-        console.log(comeco,total,"comeco e total")
+
         array.push(comeco)
         comeco += 1
       }
@@ -80,9 +80,7 @@ export class CardsPage {
     return array
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CardsPage');
-  }
+
 
 
   Mes(){
@@ -93,8 +91,7 @@ export class CardsPage {
     data = String(data)
     var datinha = data.substr(0,4);
     var datinha2 = data.substr(4,2);
-    var final = [datinha2,datinha].join('/')
-    console.log(final)
+    var final = [datinha2,datinha].join('/')  
     return final
   }
 

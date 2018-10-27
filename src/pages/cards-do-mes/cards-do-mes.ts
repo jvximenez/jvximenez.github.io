@@ -19,15 +19,32 @@ import { EdicaoPage } from '../edicao/edicao';
 export class CardsDoMesPage {
   public mes: any
   public dias: any
+  public verdade: boolean
+
+  public teste
+  public passos;tempinho;quantidade;UHU;cafe;lancheM;almoco;lancheT;jantar
+ 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.mes = this.navParams.get('mes');
+    this.verdade = true;
 
     this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CardsDoMesPage');
+    this.passos = this.Media("passos");
+    this.tempinho = this.Media("tempinho");
+    this.quantidade =this.Media("tempinhoQ");
+    this.UHU = this.Media("UHU");
+    this.cafe = this.Media("cafe");
+    this.lancheM = this.Media("lancheM");
+    this.almoco = this.Media("almoco");
+    this.lancheT = this.Media("lancheT");
+    this.jantar = this.Media("jantar");
+
+
+    
+
+    
   }
 
   FormataParcial2(data){
@@ -35,7 +52,6 @@ export class CardsDoMesPage {
     var datinha = data.substr(0,4);
     var datinha2 = data.substr(4,2);
     var final = [datinha2,datinha].join('/')
-    console.log(final)
     return final
 
   }
@@ -56,5 +72,27 @@ export class CardsDoMesPage {
       {'single' : single});
     
   }
+
+
+  Media(dado){
+    let soma = 0
+    let quantidade = 0
+    let array: number[] = []
+    let final : number;
+    this.dias.forEach(element => {element.forEach(dia => {console.log(dia),quantidade += 1 ,  soma += Number(dia[dado]), console.log(soma, quantidade) }),
+    console.log("final", quantidade,soma),
+    final = Number(soma)/Number(quantidade),
+    final =  Math.round(final)
+    console.log("final2", final), array.push(final)})
+    console.log("final3",array)
+    return array;
+  }
+
+  
+
+
+
+
+ 
 
 }
