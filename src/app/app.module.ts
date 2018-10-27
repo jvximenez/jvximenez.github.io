@@ -16,6 +16,7 @@ import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CardsDoMesPage } from '../pages/cards-do-mes/cards-do-mes';
 import { FuncoesGeraisProvider } from '../providers/funcoes-gerais/funcoes-gerais';
+import { EdicaoPage } from '../pages/edicao/edicao';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FuncoesGeraisProvider } from '../providers/funcoes-gerais/funcoes-gerai
     Graficos1Page,
     HojePage,
     CardsDoMesPage,
+    EdicaoPage,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,7 @@ import { FuncoesGeraisProvider } from '../providers/funcoes-gerais/funcoes-gerai
     Graficos1Page,
     HojePage,
     CardsDoMesPage,
+    EdicaoPage,
   ],
   providers: [
     StatusBar,

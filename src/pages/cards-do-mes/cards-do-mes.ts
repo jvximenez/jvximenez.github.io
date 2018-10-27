@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { EdicaoPage } from '../edicao/edicao';
 
 
 /**
@@ -22,7 +23,7 @@ export class CardsDoMesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.mes = this.navParams.get('mes');
 
-    this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes))
+    this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
   }
 
   ionViewDidLoad() {
@@ -48,6 +49,12 @@ export class CardsDoMesPage {
   Termos(termo){
     var valor = ("termo".match(/,/g)||[]).length
     return valor;
+  }
+
+  GoEdicao(single){
+    this.navCtrl.push(EdicaoPage, 
+      {'single' : single});
+    
   }
 
 }

@@ -14,7 +14,7 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let h of (controleHoje  | async )">
+  <ion-card *ngFor="let h of (controleHoje  | async )" (click)="GoEdicao(h)">
   <ion-card-header>Hoje: {{h.dia}}/{{h.mes}}/{{h.ano}}</ion-card-header>
 
   <ion-grid no-padding>
@@ -358,7 +358,7 @@
   </ion-card>
  
 
-  <ion-card *ngFor="let h of (controleOntem  | async )">
+  <ion-card *ngFor="let h of (controleOntem  | async )" (click)="GoEdicao(h)" >
     <ion-card-header>Ontem: {{h.dia}}/{{h.mes}}/{{h.ano}}</ion-card-header>
 
     <ion-grid no-padding>

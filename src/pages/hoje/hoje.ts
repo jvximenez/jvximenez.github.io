@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { EdicaoPage } from '../edicao/edicao';
 
 
 
@@ -28,8 +29,8 @@ export class HojePage {
 
   constructor(public navCtrl: NavController, public dbService: FirebaseServiceProvider) {
     this.today = this.Total();
-    this.controleHoje=  this.dbService.getAllEspecifico('diario','total',this.today)
-    this.controleOntem = this.dbService.getAllEspecifico('diario','total',(String(Number(this.today -1 ))))
+    this.controleHoje=  this.dbService.getAllEspecifico('diario','total',this.today).map(a => a.reverse());
+    this.controleOntem = this.dbService.getAllEspecifico('diario','total',(String(Number(this.today -1 )))).map(a => a.reverse());
     
   }
 
@@ -54,6 +55,12 @@ export class HojePage {
   Termos(termo){
     var valor = ("termo".match(/,/g)||[]).length
     return valor;
+  }
+
+  GoEdicao(single){
+    this.navCtrl.push(EdicaoPage, 
+      {'single' : single});
+    
   }
 
 }
