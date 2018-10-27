@@ -80,11 +80,13 @@ export class AdicionarPage {
     
 
   }
+  
 
   
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, private statusBar: StatusBar) {
+    this.statusBar.backgroundColorByHexString('#ffffff');
     this.rows = 5;
     
     this.remedios = [
