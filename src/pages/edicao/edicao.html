@@ -15,7 +15,7 @@
 
 <ion-content>
     <ion-grid>
-  
+
       <ion-row  class="roww">
         <ion-item>
           <ion-label class="nome">Remedios: </ion-label>
@@ -76,7 +76,7 @@
           </ion-item>
         </ion-row>
   
-     <ion-row  class="roww">
+      <ion-row  class="roww">
         <ion-item no-lines>
           <ion-range no-padding min="0" max="60"  [(ngModel)]="controle.tempinho">
             <ion-label class="nome" range-left>Tempinho: </ion-label>
@@ -88,7 +88,7 @@
       <ion-row  class="roww">
         <ion-item no-lines>
           <ion-range no-padding min="0" max="10"  [(ngModel)]="controle.tempinhoQ">
-            <ion-label class="nome" range-left>Quantidade: </ion-label>
+            <ion-label class="nome" range-left>Tempinho: </ion-label>
             <ion-label range-right>{{controle.tempinhoQ}}</ion-label>
           </ion-range>
         </ion-item>
@@ -141,10 +141,19 @@
   
   
       <ion-row  class="roww">
-        <ion-item>
+        <ion-item no-lines>
           <ion-range no-padding min="0" max="5" [(ngModel)]="controle.jantar">
             <ion-label class="nome" range-left>Jantar: </ion-label>
             <ion-label range-right>{{controle.jantar}}</ion-label>
+          </ion-range>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row  class="roww">
+        <ion-item>
+          <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheN">
+            <ion-label class="nome" range-left>Lanche: </ion-label>
+            <ion-label range-right>{{controle.lancheN}}</ion-label>
           </ion-range>
         </ion-item>
       </ion-row>
@@ -196,6 +205,29 @@
   
         <ion-grid no-padding justify-content-center>
           <ion-row>
+          <ion-col col-4 no-paddig>
+            <ion-row justify-content-center>
+              <ion-item no-lines>
+                <ion-label class="nome2">Viagem:</ion-label>
+              </ion-item>
+            </ion-row>
+            <ion-row justify-content-center>
+              <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.viagem" ></ion-toggle>
+            </ion-row>
+          </ion-col>
+  
+          <ion-col col-4 no-paddig>
+            <ion-row justify-content-center>
+              <ion-item no-lines>
+                <ion-label class="nome2">Besteira:</ion-label>
+              </ion-item>
+            </ion-row>
+            <ion-row justify-content-center>
+              <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.besteira" ></ion-toggle>
+            </ion-row>
+          </ion-col>
+  
+  
           <ion-col col-4 no-paddig>
             <ion-row justify-content-center>
               <ion-item no-lines>
@@ -255,6 +287,17 @@
           <ion-col col-4 no-paddig>
             <ion-row justify-content-center>
               <ion-item no-lines justify-content-center>
+                <ion-label class="nome2">Exercicios: </ion-label>
+              </ion-item>
+            </ion-row>
+            <ion-row justify-content-center>
+              <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.exercicios" ></ion-toggle>
+            </ion-row>
+          </ion-col>
+  
+          <ion-col col-4 no-paddig>
+            <ion-row justify-content-center>
+              <ion-item no-lines justify-content-center>
                 <ion-label class="nome2">Leitura: </ion-label>
               </ion-item>
             </ion-row>
@@ -296,40 +339,16 @@
       <ion-row>
         <ion-item>
           <ion-label class="nome" no-padding >Resumo: </ion-label>
-          <ion-textarea [(ngModel)]="controle.resumo"  (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>
+          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>
         </ion-item>
       </ion-row>
-
-    <ion-row class="roww">
-      <ion-item>
-        <ion-label class="nome" >Dia: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.dia"></ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row class="roww">
-      <ion-item>
-        <ion-label class="nome" >Mes: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.mes"></ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row class="roww">
-      <ion-item>
-        <ion-label class="nome" >Ano: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.ano"></ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row class="roww">
-      <ion-item>
-        <ion-label class="nome" >Total: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.total"></ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row class="roww">
-      <ion-item>
-        <ion-label class="nome" >Parcial: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.parcial"></ion-input>
-      </ion-item>
-    </ion-row>
+  
+      <ion-row>
+        <ion-item>
+          <ion-label class="nome" no-padding >Viagem: </ion-label>
+          <ion-input [(ngModel)]="controle.viagemLugar"  (click)="roww()" style="color: black; font-size: 13px;" rows="1" autocomplete="on" autocorrect="on" type="text" value="" ></ion-input>
+        </ion-item>
+      </ion-row>
   
       <ion-row><ion-item no-lines></ion-item></ion-row>
       <ion-row justify-content-center>

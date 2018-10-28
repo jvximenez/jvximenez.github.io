@@ -22,8 +22,8 @@ export class CardsDoMesPage {
   public verdade: boolean
 
   public teste
-  public passos;tempinho;quantidade;UHU;cafe;lancheM;almoco;lancheT;jantar
- 
+  public passos;tempinho;quantidade;UHU;cafe;lancheM;almoco;lancheT;jantar;estudos;aulas
+  public refrigerante; alcool;leitura;agradecimento
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.mes = this.navParams.get('mes');
@@ -40,6 +40,17 @@ export class CardsDoMesPage {
     this.almoco = this.Media("almoco");
     this.lancheT = this.Media("lancheT");
     this.jantar = this.Media("jantar");
+    this.estudos = this.Media("tempoE");
+    this.aulas = this.Media("tempoA");
+    
+    
+    this.refrigerante = this.SeHouve('refrigerante')
+    this.alcool = this.SeHouve('alcool')
+    this.leitura = this.SeHouve('leitura')
+    this.agradecimento = this.SeHouve('agradecimento')
+   
+    
+    
 
 
     
@@ -86,6 +97,21 @@ export class CardsDoMesPage {
     console.log("final2", final), array.push(final)})
     console.log("final3",array)
     return array;
+  }
+
+  SeHouve(dado){
+    let soma = 0
+    let quantidade = 0
+    let array: number[] = []
+    let final : number;
+    this.dias.forEach(element => {element.forEach(dia => {console.log(dia),quantidade += 1 ; if (dia[dado] > 0 || dia[dado] == true)  {soma += 1} ; console.log(soma, quantidade) }),
+    console.log("final", quantidade,soma),
+    final = (Number(soma)/Number(quantidade))*100,
+    final =  Math.round(final)
+    console.log("final2", final), array.push(final)})
+    console.log("final3",array)
+    return array;
+
   }
 
   

@@ -19,9 +19,9 @@
 
   <ion-grid no-padding>
     <ion-row>
-      <ion-item-divider>
-        Saude
-      </ion-item-divider>
+        <ion-item-divider>
+            Saude
+          </ion-item-divider>
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
         <ion-item no-lines justify-content-center>
@@ -117,7 +117,7 @@
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
         <ion-item no-lines justify-content-center>
-          <ion-label class="nome2">Tempinho: </ion-label>
+          <ion-label class="nome2">Quantidade: </ion-label>
         </ion-item>
       </ion-row>
       <ion-row justify-content-center>
@@ -193,6 +193,17 @@
       </ion-row>
       <ion-row justify-content-center>
         <ion-badge>{{h.jantar}}</ion-badge>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-4 no-paddig>
+      <ion-row justify-content-center>
+        <ion-item no-lines justify-content-center>
+          <ion-label class="nome2">Lanche: </ion-label>
+        </ion-item>
+      </ion-row>
+      <ion-row justify-content-center>
+        <ion-badge>{{h.lancheN}}</ion-badge>
       </ion-row>
     </ion-col>
 
@@ -325,6 +336,39 @@
     <ion-col col-4 no-paddig>
       <ion-row justify-content-center>
         <ion-item no-lines justify-content-center>
+          <ion-label class="nome2">Viagem: </ion-label>
+        </ion-item>
+      </ion-row>
+      <ion-row justify-content-center>
+        <ion-badge>{{Sinal(h.viagem)}}</ion-badge>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-4 no-paddig>
+      <ion-row justify-content-center>
+        <ion-item no-lines justify-content-center>
+          <ion-label class="nome2">Besteira: </ion-label>
+        </ion-item>
+      </ion-row>
+      <ion-row justify-content-center>
+        <ion-badge>{{Sinal(h.besteira)}}</ion-badge>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-4 no-paddig>
+      <ion-row justify-content-center>
+        <ion-item no-lines justify-content-center>
+          <ion-label class="nome2">Exercicios: </ion-label>
+        </ion-item>
+      </ion-row>
+      <ion-row justify-content-center>
+        <ion-badge>{{Sinal(h.exercicios)}}</ion-badge>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-4 no-paddig>
+      <ion-row justify-content-center>
+        <ion-item no-lines justify-content-center>
           <ion-label class="nome2">Role: </ion-label>
         </ion-item>
       </ion-row>
@@ -353,9 +397,10 @@
           Role: {{h.role}} <br>
           Pessoas: {{h.pessoas}} <br>
           Resumo: {{h.resumo}} <br>
+          Viagem: {{h.viagemLugar}} <br>
         </p>
   </ion-grid>
-  </ion-card>
+</ion-card>
  
 
   <ion-card *ngFor="let h of (controleOntem  | async )" (click)="GoEdicao(h)" >
@@ -539,6 +584,17 @@
           <ion-badge>{{h.jantar}}</ion-badge>
         </ion-row>
       </ion-col>
+
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Lanche: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{h.lancheN}}</ion-badge>
+        </ion-row>
+      </ion-col>
   
       <ion-col col-4 no-paddig>
         <ion-row justify-content-center>
@@ -665,6 +721,39 @@
           <ion-badge>{{Sinal(h.leitura)}}</ion-badge>
         </ion-row>
       </ion-col>
+
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Viagem: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.viagem)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Besteira: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.besteira)}}</ion-badge>
+        </ion-row>
+      </ion-col>
+
+      <ion-col col-4 no-paddig>
+        <ion-row justify-content-center>
+          <ion-item no-lines justify-content-center>
+            <ion-label class="nome2">Exercicios: </ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-badge>{{Sinal(h.exercicios)}}</ion-badge>
+        </ion-row>
+      </ion-col>
   
       <ion-col col-4 no-paddig>
         <ion-row justify-content-center>
@@ -697,6 +786,7 @@
             Role: {{h.role}} <br>
             Pessoas: {{h.pessoas}} <br>
             Resumo: {{h.resumo}} <br>
+            Viagem: {{h.viagemLugar}}
           </p>
     </ion-grid>
   </ion-card>
