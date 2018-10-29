@@ -24,6 +24,8 @@ export class CardsDoMesPage {
   barChart: any;
   @ViewChild('pieCanvas') pieCanvas;
   pieChart: any;
+  @ViewChild('barCanvas2') barCanvas2;
+  bar2Chart: any;
 
   public mes: any
   public dias: any
@@ -34,6 +36,10 @@ export class CardsDoMesPage {
   public refrigerante; alcool;leitura;agradecimento
 
   public graficoG;graficoData;graficoDado
+  public graficoCafeG;graficoCafeData;graficoCafeDado
+  public graficoLancheMG;graficoLancheMData;graficoLancheMDado
+
+  public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
 
@@ -46,7 +52,30 @@ export class CardsDoMesPage {
     this.graficoG = this.Media2('passos');
     this.graficoData = this.graficoG[0];
     this.graficoDado = this.graficoG[1];
-    console.log("aqui",this.graficoG,this.graficoDado,this.graficoData)
+
+    this.graficoCafeG = this.Media2('cafe');
+    this.graficoCafeData = this.graficoCafeG[0];
+    this.graficoCafeDado = this.graficoCafeG[1];
+
+    this.graficoLancheMG = this.Media2('lancheM');
+    this.graficoLancheMData = this.graficoLancheMG[0];
+    this.graficoLancheMDado = this.graficoLancheMG[1];
+
+    this.graficoLancheMG = this.Media2('almoco');
+    this.graficoAlmocoData = this.graficoLancheMG[0];
+    
+    this.graficoLancheMG = this.Media2('lancheT');
+    this.graficoLancheTData = this.graficoLancheMG[0];
+
+    this.graficoLancheMG = this.Media2('jantar');
+    this.graficoJantarData = this.graficoLancheMG[0];
+
+    this.graficoLancheMG = this.Media2('lancheN');
+    this.graficoLancheNData = this.graficoLancheMG[0];
+
+
+   
+    console.log("aqui",this.graficoCafeG,this.graficoDado,this.graficoData)
 
     this.passos = this.Media("passos");
     this.tempinho = this.Media("tempinho");
@@ -121,7 +150,8 @@ export class CardsDoMesPage {
     let final : number;
     this.dias.forEach(element => {element.forEach(dia => {quantidade += 1 ,  soma += Number(dia[dado]) }),
     final = Number(soma)/Number(quantidade),
-    final =  Math.round(final)
+    final =  parseFloat(final.toFixed(1))
+    
     array.push(final)})
     return array;
   }
@@ -146,16 +176,21 @@ export class CardsDoMesPage {
   ngAfterViewInit(){
     setTimeout(()=> {
       this.barChart = this.getBarChart();
+      this.bar2Chart = this.getBarChart2();
+      
+    },250)
+
+    setTimeout(()=> {
       
     },100)
-   }
+}
 
     getBarChart(){
       const data = {
-        labels: ['Passos',"dsfdfs","ddsdas"],
+        labels: this.graficoDado,
         datasets: [{
-          label: ['passos'],
-          data: [151,1516,545],
+          label: ['Passos'],
+          data: this.graficoData,
           backgroundColor:  '#2f6acf',
           borderWidth: 2
       }]
@@ -181,6 +216,9 @@ export class CardsDoMesPage {
     
   
     return this.getChart(this.barCanvas.nativeElement, 'bar', data, options);
+
+
+    
   }
   
     getChart(context, charType, data, options){
@@ -191,5 +229,88 @@ export class CardsDoMesPage {
       })
     }
 
+    getBarChart2(){
+      const data = {
+        labels: this.graficoCafeDado,
+        datasets: [{
+          label: ['Café'],
+          data: this.graficoCafeData,
+          backgroundColor:  '#2f6acf',
+          borderWidth: 2
+      },{
+        label: ['LancheM'],
+        data: this.graficoLancheMData,
+        backgroundColor: "#6892da",
+        borderWidth: 2
+      },{
+        label: ['Almoco'],
+        data: this.graficoAlmocoData,
+        backgroundColor: '#85a6e0',
+        borderWidth: 2
+      },{
+        label: ['Lanche T'],
+        data: this.graficoLancheTData,
+        backgroundColor: '#a1bbe6',
+        borderWidth: 2
+      },{
+        label: ['Jantar'],
+        data: this.graficoJantarData,
+        backgroundColor: '#becfec',
+        borderWidth: 2
+      },{
+        label: ['Lanche N'],
+        data: this.graficoLancheNData,
+        backgroundColor: '#dae3f1',
+        borderWidth: 2
+      }],
+    
+    };
+  
+    const options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            autoSkip: false,
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            autoSkip: false,
+          }
+  
+        }]
+      }
+    }
+    
+  
+    return this.getChart(this.barCanvas2.nativeElement, 'bar', data, options);
+
+    }
+
+    getPieChart(){
+      const data = {
+        labels: ["Sim","Não"],
+        datasets: [{
+          label: 'Refri',
+          data: [this.refrigerante,(100-this.refrigerante)],
+          backgroundColor: "#2f6acf" ,
+          borderWidth: 2
+      },{
+        label: 'Gasto',
+        data: [0],
+        backgroundColor: "#2f6acf",
+        borderWidth: 2
+      }],
+    
+    };
+  
+    const options = {
+    }
+    
+  
+    return this.getChart(this.pieCanvas.nativeElement, 'pie', data, options);
+      
+    }
 
 }

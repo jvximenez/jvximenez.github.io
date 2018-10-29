@@ -14,10 +14,24 @@
 
 
 <ion-content>
-
+  <ion-card>
     <div>
-      <canvas #barCanvas height="200vh" ></canvas>
+      <canvas #barCanvas height="100vh" width="200vh" ></canvas>
     </div>
+  </ion-card>
+
+  <ion-card>
+    <div>
+      <canvas #barCanvas2 height="100vh" width="200vh" ></canvas>
+    </div>
+  </ion-card>
+
+  
+      <div>
+        <canvas #pieCanvas height="10px" width="10px" ></canvas>
+      </div>
+  
+   
 
 
     <ion-card>
@@ -154,7 +168,7 @@
                   </ion-item>
                 </ion-row>
                 <ion-row justify-content-center>
-                  <ion-badge>{{estudos[0]}}%</ion-badge>
+                  <ion-badge>{{estudos[0]}}</ion-badge>
                 </ion-row>
               </ion-col>
       
@@ -165,7 +179,7 @@
                   </ion-item>
                 </ion-row>
                 <ion-row justify-content-center>
-                  <ion-badge>{{aulas[0]}}%</ion-badge>
+                  <ion-badge>{{aulas[0]}}</ion-badge>
                 </ion-row>
               </ion-col>
       
