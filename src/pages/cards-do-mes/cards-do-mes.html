@@ -14,6 +14,8 @@
 
 
 <ion-content>
+
+  
   <ion-card>
     <div>
       <canvas #barCanvas height="100vh" width="200vh" ></canvas>
@@ -205,7 +207,15 @@
         </ion-grid>
       </ion-card>
 
-  
+    <ion-card>
+      <ion-grid >
+        <ion-row>
+          <ion-col col-2   *ngFor="let h of (dias  | async )" (click)="GoEdicao(h)">
+              <ion-badge>{{h.dia}}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
 
 
 
