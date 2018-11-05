@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edicao</ion-title>
+    <ion-title>Edição</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,6 +15,42 @@
 
 <ion-content>
     <ion-grid>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Dia: </ion-label>
+          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.dia"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Mes: </ion-label>
+          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.mes"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Ano: </ion-label>
+          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.ano"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Total: </ion-label>
+          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.total"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Total: </ion-label>
+          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.parcial"></ion-input>
+        </ion-item>
+      </ion-row>
+
 
       <ion-row  class="roww">
         <ion-item>
@@ -46,7 +82,7 @@
       <ion-row class="roww">
         <ion-item>
           <ion-label class="nome" >Passos: </ion-label>
-          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.passos"></ion-input>
+          <ion-input text-right type="number" value="" [(ngModel)]="controle.passos"></ion-input>
         </ion-item>
       </ion-row>
   
@@ -54,7 +90,7 @@
       <ion-row class="roww">
         <ion-item>
           <ion-label class="nome" >Peso: </ion-label>
-          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.peso"></ion-input>
+          <ion-input text-right type="number"  value="" [(ngModel)]="controle.peso"></ion-input>
         </ion-item>
       </ion-row>
   
@@ -355,7 +391,8 @@
         <button class="btn" ion-button outline color="danger" (click)="Deletar(controle)">Deletar</button>
         <ion-col col-1><ion-item></ion-item></ion-col>
         <button class="btn" ion-button outline (click)="Atualizar(controle)">Atualizar</button>
-    </ion-row>
+      </ion-row>
+      
   
     </ion-grid>
   </ion-content>

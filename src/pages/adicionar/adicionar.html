@@ -46,7 +46,7 @@
     <ion-row class="roww">
       <ion-item>
         <ion-label class="nome" >Passos: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.passos"></ion-input>
+        <ion-input text-right type="number" value="" [(ngModel)]="controle.passos"></ion-input>
       </ion-item>
     </ion-row>
 
@@ -54,7 +54,7 @@
     <ion-row class="roww">
       <ion-item>
         <ion-label class="nome" >Peso: </ion-label>
-        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="controle.peso"></ion-input>
+        <ion-input text-right type="number"  value="" [(ngModel)]="controle.peso"></ion-input>
       </ion-item>
     </ion-row>
 
@@ -353,7 +353,11 @@
     <ion-row><ion-item no-lines></ion-item></ion-row>
     <ion-row justify-content-center>
       <button class="btn" ion-button outline (click)="Criacao(controle)">Adicionar</button>
-  </ion-row>
+    </ion-row>
+
+    <ion-row justify-content-center>
+      <button class="btn2" ion-button outline (click)="Ontem(controle)">Ontem</button>
+   </ion-row>
 
   </ion-grid>
 </ion-content>

@@ -221,6 +221,18 @@ export class AdicionarPage {
 
   }
 
+  Ontem(controle){
+    var array = this.Data();
+    this.controle.dia = String(array[0]-1);
+    this.controle.mes = String(array[1]);
+    this.controle.ano = String(array[2]);
+    this.controle.total = String(this.Total());
+    this.controle.parcial =  String(this.Parcial());
+    this.dbService.save('diario',controle)
+
+    
+  }
+
 
 
 }
