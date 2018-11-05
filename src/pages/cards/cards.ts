@@ -52,8 +52,7 @@ export class CardsPage {
     var ano = data.getFullYear();
     total = Number(ano*100 + (mes+1));
     var comeco = 201810;
-
-    total = (201905)
+    
     var teste1 = (total - 201810);
     
     if (teste1 > 15) {
