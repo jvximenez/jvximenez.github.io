@@ -208,7 +208,8 @@
       </ion-card>
 
     <ion-card>
-      <ion-grid >
+      <ion-card-header>Dias com controle:</ion-card-header>
+      <ion-grid>  
         <ion-row>
           <ion-col col-2   *ngFor="let h of (dias  | async )" (click)="GoEdicao(h)">
               <ion-badge>{{h.dia}}</ion-badge>

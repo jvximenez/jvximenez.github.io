@@ -29,6 +29,7 @@ export class CardsDoMesPage {
 
   public mes: any
   public dias: any
+  public dias2: any
   public verdade: boolean
 
   public teste
@@ -48,6 +49,7 @@ export class CardsDoMesPage {
     this.mes = this.navParams.get('mes');
     this.verdade = true;
     this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
+    this.dias2 = this.dias.map(a => a.reverse());
 
     this.graficoG = this.Media2('passos');
     this.graficoData = this.graficoG[0];
@@ -136,7 +138,7 @@ export class CardsDoMesPage {
     let array2 = []
     let array3 = []
     let final : number;
-    this.dias.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia']))})
+    this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia']))})
     console.log(array, array2)})
     array3 = [array,array2]
     console.log("3", array3)
@@ -148,7 +150,7 @@ export class CardsDoMesPage {
     let quantidade = 0
     let array: number[] = []
     let final : number;
-    this.dias.forEach(element => {element.forEach(dia => {quantidade += 1 ,  soma += Number(dia[dado]) }),
+    this.dias2.forEach(element => {element.forEach(dia => {quantidade += 1 ,  soma += Number(dia[dado]) }),
     final = Number(soma)/Number(quantidade),
     final =  parseFloat(final.toFixed(1))
     
@@ -161,7 +163,7 @@ export class CardsDoMesPage {
     let quantidade = 0
     let array: number[] = []
     let final : number;
-    this.dias.forEach(element => {element.forEach(dia => {quantidade += 1 ; if (dia[dado] > 0 || dia[dado] == true)  {soma += 1} }),
+    this.dias2.forEach(element => {element.forEach(dia => {quantidade += 1 ; if (dia[dado] > 0 || dia[dado] == true)  {soma += 1} }),
     
     final = (Number(soma)/Number(quantidade))*100,
     final =  Math.round(final)
