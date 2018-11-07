@@ -111,6 +111,8 @@ export class AdicionarPage {
 
     ]
 
+    
+
     this.dentes = [
       {title: "Manhã"},
       {title: "Tarde"},
@@ -233,6 +235,11 @@ export class AdicionarPage {
     
   }
 
+  atualiza(){
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
 
+  
 
+  
 }

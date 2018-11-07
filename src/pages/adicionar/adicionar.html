@@ -8,6 +8,10 @@
 
   <ion-navbar>
     <ion-title>Adicionar</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="atualiza()">
+        <ion-icon name="sync"></ion-icon>
+    </button></ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -358,6 +362,8 @@
     <ion-row justify-content-center>
       <button class="btn2" ion-button outline (click)="Ontem(controle)">Ontem</button>
    </ion-row>
+
+ 
 
   </ion-grid>
 </ion-content>

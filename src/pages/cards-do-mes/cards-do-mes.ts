@@ -48,7 +48,13 @@ export class CardsDoMesPage {
 
     this.mes = this.navParams.get('mes');
     this.verdade = true;
-    this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
+    if(this.mes != "total"){
+      this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
+    }
+    if(this.mes == "total"){
+      this.dias = this.dbService.getAll('diario','parcial').map(a => a.reverse());
+    }
+   
     this.dias2 = this.dias.map(a => a.reverse());
 
     this.graficoG = this.Media2('passos');
@@ -315,4 +321,7 @@ export class CardsDoMesPage {
       
     }
 
+  
+
+    
 }
