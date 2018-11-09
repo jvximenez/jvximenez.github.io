@@ -21,12 +21,18 @@ export class CardsPage {
   public teste: any
   public controle: any
   public heightt: any
+  public gastos: any
+
+  public compras;ComprasArray
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.meses = this.Today();
     this.teste = (this.dbService.getAllEspecifico('diario','total','20181026'))
     this.controle = this.dbService.getAll('diario','total')
     this.heightt = "500px"
+
+    this.compras = this.dbService.getAll('compras','total')
+    this.ComprasArray = this.arrayCompras(this.compras);
    
   }
 
@@ -96,8 +102,17 @@ export class CardsPage {
 
   goToMes(itens){
       this.navCtrl.push(CardsDoMesPage, 
-      {'mes' : itens});
+      {'mes' : itens,
+      'gastos': this.ComprasArray})}
     
+  
+
+
+  arrayCompras(compras){
+    let array = []
+    let linha = []
+    compras.forEach( itens => itens.forEach(item => {linha = [], linha.push(item.payload,item.title,item.categoria,item.pagamento,item.total), array.push(linha)}))
+    return (array)
   }
 
   

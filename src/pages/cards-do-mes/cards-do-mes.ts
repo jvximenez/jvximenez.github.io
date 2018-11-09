@@ -31,6 +31,7 @@ export class CardsDoMesPage {
   public dias: any
   public dias2: any
   public verdade: boolean
+  public gastos: any
 
   public teste
   public passos;tempinho;quantidade;UHU;cafe;lancheM;almoco;lancheT;jantar;estudos;aulas
@@ -40,13 +41,15 @@ export class CardsDoMesPage {
   public graficoCafeG;graficoCafeData;graficoCafeDado
   public graficoLancheMG;graficoLancheMData;graficoLancheMDado
 
-  public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData
+  public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData;graficoMedia
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+    
 
     
 
     this.mes = this.navParams.get('mes');
+    this.gastos = this.navParams.get('gastos');
     this.verdade = true;
     if(this.mes != "total"){
       this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
@@ -64,6 +67,7 @@ export class CardsDoMesPage {
     this.graficoCafeG = this.Media2('cafe');
     this.graficoCafeData = this.graficoCafeG[0];
     this.graficoCafeDado = this.graficoCafeG[1];
+    console.log(this.cafe)
 
     this.graficoLancheMG = this.Media2('lancheM');
     this.graficoLancheMData = this.graficoLancheMG[0];
@@ -82,9 +86,6 @@ export class CardsDoMesPage {
     this.graficoLancheNData = this.graficoLancheMG[0];
 
 
-   
-    console.log("aqui",this.graficoCafeG,this.graficoDado,this.graficoData)
-
     this.passos = this.Media("passos");
     this.tempinho = this.Media("tempinho");
     this.quantidade =this.Media("tempinhoQ");
@@ -102,6 +103,10 @@ export class CardsDoMesPage {
     this.alcool = this.SeHouve('alcool')
     this.leitura = this.SeHouve('leitura')
     this.agradecimento = this.SeHouve('agradecimento')
+
+
+    this.graficoMedia = this.MediaAlimentacao()
+
    
     
     
@@ -163,6 +168,18 @@ export class CardsDoMesPage {
     array.push(final)})
     return array;
   }
+
+  MediaAlimentacao(){
+    console.log("oi")
+    var array = []
+    var MEDIA
+    this.dias2.forEach(itens => {itens.forEach (item => {MEDIA = (Number(item.cafe)*5 + 
+      Number(item.almoco)*5 + Number(item.jantar)*5 + Number(item.lancheM) + 
+      Number(item.lancheT) + Number(item.lancheN))/Number(18),array.push(MEDIA)})})
+    console.log(array,"array")
+    return array
+  }
+
 
   SeHouve(dado){
     let soma = 0
@@ -270,7 +287,13 @@ export class CardsDoMesPage {
         data: this.graficoLancheNData,
         backgroundColor: '#dae3f1',
         borderWidth: 2
-      }],
+      },{
+      label: ['Média'],
+      data: this.graficoMedia,
+      type: 'line',
+      backgroundColor: 'rgba(255, 255, 255, .4)',
+      borderColor: '#2f6acf'
+    }]
     
     };
   
@@ -320,6 +343,20 @@ export class CardsDoMesPage {
     return this.getChart(this.pieCanvas.nativeElement, 'pie', data, options);
       
     }
+
+
+
+
+
+    somaPagamento(data){
+      var valorPag = 0 
+      this.gastos.forEach(item => {if (String(item[4]) == String(data)) { valorPag = valorPag + Number(item[0])}}
+      );
+    
+      return(Math.round(valorPag))
+    }
+
+  
 
   
 

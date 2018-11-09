@@ -107,6 +107,7 @@ export class AdicionarPage {
       {title: "Buscopan"},
       {title: "Eno"},
       {title: "Omeoprazol"},
+      {title: ""}
 
 
     ]
@@ -120,6 +121,7 @@ export class AdicionarPage {
       {title: "Outro"},
       {title: "Fio dental"},
       {title: "Aparelho"},
+      {title: ""}
     ]
 
     this.atividades =[
@@ -130,12 +132,16 @@ export class AdicionarPage {
       {title: "Flexões"},
       {title: "Gêmeos"},
       {title: "Outro"},
+      {title: ""}
+      
     ]
 
     this.estudos = [
       {title: "Frances"},
       {title: "Ingles"},
       {title: "Outro"},
+      {title: ""}
+      
     ]
 
     this.pessoas = [
@@ -146,7 +152,8 @@ export class AdicionarPage {
       {title: "Filippo"},
       {title: "Marina"},
       {title: "Marianinha"},
-      {title: "Outro"},      
+      {title: "Outro"},
+      {title: ""}      
     ]
 
     this.role = [
@@ -164,6 +171,7 @@ export class AdicionarPage {
       {title: "Turistar"},
       {title: "Viajar"},
       {title: "Outro"},
+      {title: ""}
     ]
     
   }
