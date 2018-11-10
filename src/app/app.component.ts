@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { FilmesPage } from '../pages/filmes/filmes';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
+
   rootPage:any = TabsPage;
   testemesmo: any
+  
+  
 
   
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor( public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 
 
     
@@ -25,6 +30,11 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
+  abrirFilmes(){
+    this.nav.setRoot(FilmesPage)
+  }
+  
 
 
 }
