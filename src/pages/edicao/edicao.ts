@@ -90,9 +90,12 @@ export class EdicaoPage {
       {title: "Buscopan"},
       {title: "Eno"},
       {title: "Omeoprazol"},
+      {title: ""}
 
 
     ]
+
+    
 
     this.dentes = [
       {title: "Manhã"},
@@ -101,6 +104,7 @@ export class EdicaoPage {
       {title: "Outro"},
       {title: "Fio dental"},
       {title: "Aparelho"},
+      {title: ""}
     ]
 
     this.atividades =[
@@ -111,12 +115,18 @@ export class EdicaoPage {
       {title: "Flexões"},
       {title: "Gêmeos"},
       {title: "Outro"},
+      {title: ""}
+      
     ]
 
     this.estudos = [
       {title: "Frances"},
       {title: "Ingles"},
+      {title: "Projet Constru"},
+      {title: "Programação"},
       {title: "Outro"},
+      {title: ""}
+      
     ]
 
     this.pessoas = [
@@ -127,7 +137,13 @@ export class EdicaoPage {
       {title: "Filippo"},
       {title: "Marina"},
       {title: "Marianinha"},
-      {title: "Outro"},      
+      {title: "Pai"},
+      {title: "Mãe"},
+      {title: "Felipe"},
+      {title: "Sttefany"},
+      {title: "Bella"},
+      {title: "Outro"},
+      {title: ""}      
     ]
 
     this.role = [
@@ -145,9 +161,9 @@ export class EdicaoPage {
       {title: "Turistar"},
       {title: "Viajar"},
       {title: "Outro"},
+      {title: ""}
     ]
-    
-  }
+  } 
 
   
   roww(){

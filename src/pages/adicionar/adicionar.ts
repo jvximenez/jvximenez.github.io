@@ -139,6 +139,8 @@ export class AdicionarPage {
     this.estudos = [
       {title: "Frances"},
       {title: "Ingles"},
+      {title: "Projet Constru"},
+      {title: "Programação"},
       {title: "Outro"},
       {title: ""}
       
@@ -152,6 +154,11 @@ export class AdicionarPage {
       {title: "Filippo"},
       {title: "Marina"},
       {title: "Marianinha"},
+      {title: "Pai"},
+      {title: "Mãe"},
+      {title: "Felipe"},
+      {title: "Sttefany"},
+      {title: "Bella"},
       {title: "Outro"},
       {title: ""}      
     ]

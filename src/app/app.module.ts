@@ -17,6 +17,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CardsDoMesPage } from '../pages/cards-do-mes/cards-do-mes';
 import { FuncoesGeraisProvider } from '../providers/funcoes-gerais/funcoes-gerais';
 import { EdicaoPage } from '../pages/edicao/edicao';
+import { FilmesPage } from '../pages/filmes/filmes';
+import { SeriesPage } from '../pages/series/series';
+import { VinhosPage } from '../pages/vinhos/vinhos';
+import { ViagensPage } from '../pages/viagens/viagens';
+import { TarefasPage } from '../pages/tarefas/tarefas';
 
 
 @NgModule({
@@ -29,6 +34,11 @@ import { EdicaoPage } from '../pages/edicao/edicao';
     HojePage,
     CardsDoMesPage,
     EdicaoPage,
+    FilmesPage,
+    SeriesPage,
+    VinhosPage,
+    ViagensPage,
+    TarefasPage,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +67,11 @@ import { EdicaoPage } from '../pages/edicao/edicao';
     HojePage,
     CardsDoMesPage,
     EdicaoPage,
+    FilmesPage,
+    SeriesPage,
+    VinhosPage,
+    ViagensPage,
+    TarefasPage,
   ],
   providers: [
     StatusBar,
