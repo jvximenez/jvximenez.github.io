@@ -6,6 +6,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
 import { FilmesPage } from '../pages/filmes/filmes';
 import { SeriesPage } from '../pages/series/series';
+import { TarefasPage } from '../pages/tarefas/tarefas';
+import { VinhosPage } from '../pages/vinhos/vinhos';
+import { ViagensPage } from '../pages/viagens/viagens';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,7 +42,16 @@ export class MyApp {
   abrirSeries(){
     this.nav.setRoot(SeriesPage)
   }
-  
+
+  abrirTarefa(){
+    this.nav.setRoot(TarefasPage)
+  }
+  abrirVinhos(){
+    this.nav.setRoot(VinhosPage)
+  }
+  abrirViagens(){
+    this.nav.setRoot(ViagensPage)
+  }
 
 
 }

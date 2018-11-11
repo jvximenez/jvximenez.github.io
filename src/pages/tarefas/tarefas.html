@@ -36,10 +36,22 @@
       <ion-row><ion-item no-lines></ion-item></ion-row>
   
       <ion-list>
-      <button ion-item *ngFor="let f of (tarefas  | async) " (click)="itemSelected(item)">
-        <h2> {{ f.title }} </h2>
-        <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
-      </button>  
+        <ion-row *ngFor="let f of (tarefas | async)">
+          <ion-col col-2>
+            <ion-item >
+                <ion-checkbox color="dark" checked="f.check"></ion-checkbox>    
+            </ion-item>
+          </ion-col>
+           <ion-col col-10>
+             <ion-item  (click)="goToEdit(f)">
+                <ion-label >{{f.title }}</ion-label>
+                <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+             </ion-item>
+              
+           </ion-col>
+        </ion-row>
+        
+          
     </ion-list>
 
 </ion-content>

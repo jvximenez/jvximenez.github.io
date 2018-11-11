@@ -24,7 +24,7 @@ export class TarefasPage {
     'total':'',
     'parcial':'',
     'title':'',
-    'netflix': false,
+    'check': false,
   }
 
   public tarefas
