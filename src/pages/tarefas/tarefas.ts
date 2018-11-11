@@ -69,6 +69,19 @@ export class TarefasPage {
   
   }
 
+  Total2(){
+    var total;
+    var data = new Date();
+    var dia = data.getDate();
+    var mes = data.getMonth();
+    var ano = data.getFullYear();
+    var hora = data.getHours();
+    var min = data.getMinutes();
+    total = Number(ano*10000 + (mes+1)*100 + dia-1);
+    return total
+  
+  }
+
   Parcial(){
     var total;
     var data = new Date();
@@ -84,7 +97,7 @@ export class TarefasPage {
     this.tarefa.dia = String(array[0]-1);
     this.tarefa.mes = String(array[1]);
     this.tarefa.ano = String(array[2]);
-    this.tarefa.total = String(this.Total());
+    this.tarefa.total = String(this.Total2());
     this.tarefa.parcial =  String(this.Parcial());
     this.dbService.save('tarefas',tarefa)
 
@@ -96,7 +109,15 @@ export class TarefasPage {
     {'tarefa' : itens})}
 
 
+  
+
+  Atualizar(tarefas){
+    this.dbService.update('tarefas',tarefas)
+    }
+
   }
+
+
   
 
 

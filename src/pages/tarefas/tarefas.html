@@ -39,7 +39,7 @@
         <ion-row *ngFor="let f of (tarefas | async)">
           <ion-col col-2>
             <ion-item >
-                <ion-checkbox color="dark" checked="f.check"></ion-checkbox>    
+                <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
             </ion-item>
           </ion-col>
            <ion-col col-10>

@@ -100,6 +100,19 @@ export class VinhosPage {
   
   }
 
+  Total2(){
+    var total;
+    var data = new Date();
+    var dia = data.getDate();
+    var mes = data.getMonth();
+    var ano = data.getFullYear();
+    var hora = data.getHours();
+    var min = data.getMinutes();
+    total = Number(ano*10000 + (mes+1)*100 + dia-1);
+    return total
+  
+  }
+
   Parcial(){
     var total;
     var data = new Date();
@@ -115,7 +128,7 @@ export class VinhosPage {
     this.vinho.dia = String(array[0]-1);
     this.vinho.mes = String(array[1]);
     this.vinho.ano = String(array[2]);
-    this.vinho.total = String(this.Total());
+    this.vinho.total = String(this.Total2());
     this.vinho.parcial =  String(this.Parcial());
     this.dbService.save('vinhos',vinho)
 

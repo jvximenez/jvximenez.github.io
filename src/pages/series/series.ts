@@ -87,6 +87,19 @@ export class SeriesPage {
   
   }
 
+  Total2(){
+    var total;
+    var data = new Date();
+    var dia = data.getDate();
+    var mes = data.getMonth();
+    var ano = data.getFullYear();
+    var hora = data.getHours();
+    var min = data.getMinutes();
+    total = Number(ano*10000 + (mes+1)*100 + dia-1);
+    return total
+  
+  }
+
   Parcial(){
     var total;
     var data = new Date();
@@ -102,7 +115,7 @@ export class SeriesPage {
     this.serie.dia = String(array[0]-1);
     this.serie.mes = String(array[1]);
     this.serie.ano = String(array[2]);
-    this.serie.total = String(this.Total());
+    this.serie.total = String(this.Total2());
     this.serie.parcial =  String(this.Parcial());
     this.dbService.save('series',serie)
 
