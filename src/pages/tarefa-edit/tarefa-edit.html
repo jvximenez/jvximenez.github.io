@@ -7,12 +7,71 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>TarefaEdit</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Editar Tarefa</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+    <ion-grid>
+      <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Dia: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.dia"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Mes: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.mes"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Ano: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.ano"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Total: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.total"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Parcial: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.parcial"></ion-input>
+          </ion-item>
+        </ion-row>
+
+
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Tarefa: </ion-label>
+            <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.title"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row><ion-item></ion-item></ion-row>
+
+
+        <ion-row justify-content-center>
+            <button class="btn" ion-button outline color="danger" (click)="Deletar(tarefa)">Deletar</button>
+            <ion-col col-1><ion-item></ion-item></ion-col>
+            <button class="btn" ion-button outline (click)="Atualizar(tarefa)">Atualizar</button>
+          </ion-row>
+
+      </ion-grid>
+
+
 
 </ion-content>

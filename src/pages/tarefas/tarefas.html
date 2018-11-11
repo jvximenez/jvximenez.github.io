@@ -21,7 +21,7 @@
       <ion-row class="roww">
         <ion-item>
           <ion-label class="nome" >Tarefa: </ion-label>
-          <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.title"></ion-input>
+          <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.title" (keyup.enter)="Criacao(tarefa)"></ion-input>
         </ion-item>
       </ion-row>
     </ion-grid>
@@ -43,8 +43,8 @@
             </ion-item>
           </ion-col>
            <ion-col col-10>
-             <ion-item  (click)="goToEdit(f)">
-                <ion-label >{{f.title }}</ion-label>
+             <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
+                <ion-label >{{f.title }} </ion-label>
                 <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
              </ion-item>
               

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 /**
  * Generated class for the TarefaEditPage page.
@@ -15,11 +16,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TarefaEditPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public tarefa
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public dbService: FirebaseServiceProvider) {
+    this.tarefa = this.navParams.get('tarefa')
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TarefaEditPage');
-  }
+  
+
+  Atualizar(tarefa){
+    this.dbService.update('tarefas',tarefa).then( d => {
+      this.navCtrl.pop()});
+    }
+  
+
+  Deletar(tarefa){
+    this.dbService.revome('tarefas',tarefa).then( d => {
+      this.navCtrl.pop()
+    });
+    }
 
 }
