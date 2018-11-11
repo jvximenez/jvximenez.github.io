@@ -22,6 +22,7 @@ import { SeriesPage } from '../pages/series/series';
 import { VinhosPage } from '../pages/vinhos/vinhos';
 import { ViagensPage } from '../pages/viagens/viagens';
 import { TarefasPage } from '../pages/tarefas/tarefas';
+import { FilmeEditPage } from '../pages/filme-edit/filme-edit';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { TarefasPage } from '../pages/tarefas/tarefas';
     VinhosPage,
     ViagensPage,
     TarefasPage,
+    FilmeEditPage,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,7 @@ import { TarefasPage } from '../pages/tarefas/tarefas';
     VinhosPage,
     ViagensPage,
     TarefasPage,
+    FilmeEditPage
   ],
   providers: [
     StatusBar,
