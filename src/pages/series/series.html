@@ -17,51 +17,35 @@
   <ion-grid>
     <ion-row class="roww">
       <ion-item>
-        <ion-label class="nome" >Título: </ion-label>
-        <ion-input text-right type="text"  value="" [(ngModel)]="filme.title"></ion-input>
+        <ion-label class="nome" >Série: </ion-label>
+        <ion-input text-right type="text"  value="" [(ngModel)]="serie.title"></ion-input>
       </ion-item>
     </ion-row>
 
     <ion-row class="roww">
       <ion-item>
-        <ion-label class="nome" >Nota: </ion-label>
-        <ion-input text-right type="number"  value="" [(ngModel)]="filme.nota"></ion-input>
+        <ion-label class="nome" >Temporada: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.temp"></ion-input>
       </ion-item>
     </ion-row>
 
     <ion-row class="roww">
       <ion-item>
-        <ion-label class="nome" >Diretor: </ion-label>
-        <ion-input text-right type="text"  value="" [(ngModel)]="filme.diretor"></ion-input>
+        <ion-label class="nome" >Episódio: </ion-label>
+        <ion-input text-right type="text"  value="" [(ngModel)]="serie.ep"></ion-input>
       </ion-item>
     </ion-row>
 
-    <ion-row class="roww">
-      <ion-item>
-        <ion-label class="nome" >Ano: </ion-label>
-        <ion-input text-right type="number"  value="" [(ngModel)]="filme.lancamento"></ion-input>
-      </ion-item>
-    </ion-row>
 
     <ion-row  class="roww">
       <ion-item>
-        <ion-label class="nome">Genero: </ion-label>
-          <ion-select class="input" [(ngModel)]="filme.genero" interface="popover" multiple =  True>
-            <ion-option *ngFor="let gen of Genero">{{gen.title}}</ion-option>
-          </ion-select>
-      </ion-item>
-    </ion-row>
-
-    <ion-row  class="roww">
-      <ion-item>
-        <ion-label class="nome">Prémios: </ion-label>
-          <ion-select class="input" [(ngModel)]="filme.premios" interface="popover" multiple =  True>
-            <ion-option *ngFor="let prem of Premiacao">{{prem.title}}</ion-option>
+        <ion-label class="nome">Série: </ion-label>
+          <ion-select class="input" [(ngModel)]="serie.title" interface="popover" multiple =  True>
+            <ion-option *ngFor="let ser of Serie">{{ser.title}}</ion-option>
           </ion-select>
       </ion-item>
     </ion-row>
     
-
     <ion-row>
       <ion-col col-4 no-paddig>
         <ion-row justify-content-center>
@@ -70,24 +54,9 @@
           </ion-item>
         </ion-row>
         <ion-row justify-content-center>
-          <ion-toggle class="toggle" checked="false" [(ngModel)]="filme.netflix" ></ion-toggle>
+          <ion-toggle class="toggle" checked="true" [(ngModel)]="serie.netflix" ></ion-toggle>
         </ion-row>
       </ion-col>
-    
-
-    
-      <ion-col col-4 no-paddig>
-        <ion-row justify-content-center>
-          <ion-item no-lines justify-content-center>
-            <ion-label class="nome2">Cinema: </ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row justify-content-center>
-          <ion-toggle class="toggle" checked="false" [(ngModel)]="filme.cinema" ></ion-toggle>
-        </ion-row>
-      </ion-col>
-   
-
     
       <ion-col col-4 no-paddig>
         <ion-row justify-content-center>
@@ -96,15 +65,15 @@
           </ion-item>
         </ion-row>
         <ion-row justify-content-center>
-          <ion-toggle class="toggle" checked="false" [(ngModel)]="filme.producaoN" ></ion-toggle>
+          <ion-toggle class="toggle" checked="false" [(ngModel)]="serie.producaoN" ></ion-toggle>
         </ion-row>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-item>
-        <ion-label class="nome" no-padding >Resumo: </ion-label>
-        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="filme.comentario"></ion-textarea>
+        <ion-label class="nome" no-padding >Comentário: </ion-label>
+        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="serie.comentario"></ion-textarea>
       </ion-item>
     </ion-row>
     
@@ -115,13 +84,13 @@
 
   <ion-row><ion-item no-lines></ion-item></ion-row>
     <ion-row justify-content-center>
-      <button class="btn2" ion-button outline (click)="Criacao(filme)">Adicionar</button>
-      <button class="btn2" ion-button outline (click)="Ontem(filme)">Ontem</button>
+      <button class="btn2" ion-button outline (click)="Criacao(serie)">Adicionar</button>
+      <button class="btn2" ion-button outline (click)="Ontem(serie)">Ontem</button>
    </ion-row>
    <ion-row><ion-item no-lines></ion-item></ion-row>
 
    <ion-list>
-    <button ion-item *ngFor="let f of (Filmes  | async) " (click)="itemSelected(item)">
+    <button ion-item *ngFor="let f of (series  | async) " (click)="itemSelected(item)">
       <h2> {{ f.title }} </h2>
       <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
     </button>  
