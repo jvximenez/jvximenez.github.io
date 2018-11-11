@@ -11,6 +11,10 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     <ion-title>Series</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="AtualizarP()">
+        <ion-icon name="sync"></ion-icon>
+    </button></ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -36,6 +40,13 @@
       <ion-item>
         <ion-label class="nome" >Episódio: </ion-label>
         <ion-input text-right type="number"  value="" [(ngModel)]="serie.ep"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Duração: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.duracao"></ion-input>
       </ion-item>
     </ion-row>
 
@@ -95,7 +106,7 @@
    <ion-row><ion-item no-lines></ion-item></ion-row>
 
    <ion-list>
-    <button ion-item *ngFor="let f of (series  | async) " (click)="itemSelected(item)">
+    <button ion-item *ngFor="let f of (series  | async) " (click)="goToEdit(f)">
       <h2> {{ f.title }} </h2>
       <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
     </button>  

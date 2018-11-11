@@ -26,6 +26,7 @@ export class SeriesPage {
     'title':'',
     'temp':'',
     'ep':'',
+    'duracao':'',
     'comentario':'',
     'netflix': true,
     'producaoN':false,
@@ -70,6 +71,7 @@ export class SeriesPage {
     this.serie.total = String(this.Total());
     this.serie.parcial =  String(this.Parcial());
     this.dbService.save('series',serie)
+    this.serie.ep = String(Number(this.serie.ep) +1)
 
 
   }
@@ -118,6 +120,7 @@ export class SeriesPage {
     this.serie.total = String(this.Total2());
     this.serie.parcial =  String(this.Parcial());
     this.dbService.save('series',serie)
+    this.serie.ep = String(Number(this.serie.ep) +1)
 
     
   }
@@ -127,6 +130,9 @@ export class SeriesPage {
     {'serie' : itens})}
 
 
+  AtualizarP(){
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
+}
 

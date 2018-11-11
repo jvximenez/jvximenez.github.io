@@ -10,15 +10,49 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Editar</ion-title>
+    <ion-title>Editar Série</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-content>
-    <ion-grid>
+  <ion-grid>
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Dia: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.dia"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Mes: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.mes"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Ano: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.ano"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Total: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.total"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Parcial: </ion-label>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.parcial"></ion-input>
+      </ion-item>
+    </ion-row>
+
       <ion-row class="roww">
         <ion-item>
           <ion-label class="nome" >Série: </ion-label>
@@ -37,6 +71,13 @@
         <ion-item>
           <ion-label class="nome" >Episódio: </ion-label>
           <ion-input text-right type="number"  value="" [(ngModel)]="serie.ep"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Duração: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="serie.duracao"></ion-input>
         </ion-item>
       </ion-row>
   

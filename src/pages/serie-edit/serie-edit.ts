@@ -22,21 +22,18 @@ export class SerieEditPage {
    this.serie = this.navParams.get('serie')
   
    
-    this.Serie = {
-      'dia':'',
-      'mes':'',
-      'ano':'',
-      'total':'',
-      'parcial':'',
-      'title':'',
-      'temp':'',
-      'ep':'',
-      'comentario':'',
-      'netflix': true,
-      'producaoN':false,
-      
-  
-    }}
+   this.Serie = [
+    {title: "Modern Family"},
+    {title: "Izoombie"},
+    {title: "House of cards"},
+    {title: "How to get away with murder"},
+    {title: "The flash"},
+    {title: "Santa Clarita Diet"},
+    {title: "Atypical"},
+    {title: "Suits"},
+    {title: "Orphan black"}
+  ]
+  }
 
     Data(){
       var data = new Date();
