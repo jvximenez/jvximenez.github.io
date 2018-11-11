@@ -6,6 +6,9 @@
 -->
 <ion-header>
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
     <ion-title>Filmes</ion-title>
   </ion-navbar>
 </ion-header>
@@ -58,6 +61,14 @@
           </ion-select>
       </ion-item>
     </ion-row>
+
+
+    <ion-row>
+        <ion-item>
+          <ion-label class="nome" no-padding >Comentário: </ion-label>
+          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="filme.comentario"></ion-textarea>
+        </ion-item>
+      </ion-row>
     
 
     <ion-row>
@@ -99,12 +110,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-item>
-        <ion-label class="nome" no-padding >Comentário: </ion-label>
-        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="filme.comentario"></ion-textarea>
-      </ion-item>
-    </ion-row>
+    
     
 
 

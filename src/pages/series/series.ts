@@ -111,7 +111,7 @@ export class SeriesPage {
 
   goToEdit(itens){
     this.navCtrl.push(SerieEditPage, 
-    {'serie' : itens,})}
+    {'serie' : itens})}
 
 
   }

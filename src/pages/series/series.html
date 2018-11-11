@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
     <ion-title>Series</ion-title>
   </ion-navbar>
 
@@ -32,7 +35,7 @@
     <ion-row class="roww">
       <ion-item>
         <ion-label class="nome" >Episódio: </ion-label>
-        <ion-input text-right type="text"  value="" [(ngModel)]="serie.ep"></ion-input>
+        <ion-input text-right type="number"  value="" [(ngModel)]="serie.ep"></ion-input>
       </ion-item>
     </ion-row>
 
@@ -45,9 +48,16 @@
           </ion-select>
       </ion-item>
     </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <ion-label class="nome" no-padding >Comentário: </ion-label>
+        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="serie.comentario"></ion-textarea>
+      </ion-item>
+    </ion-row>
     
     <ion-row>
-      <ion-col col-4 no-paddig>
+      <ion-col col-6 no-paddig>
         <ion-row justify-content-center>
           <ion-item no-lines justify-content-center>
             <ion-label class="nome2">Netflix: </ion-label>
@@ -58,7 +68,7 @@
         </ion-row>
       </ion-col>
     
-      <ion-col col-4 no-paddig>
+      <ion-col col-6 no-paddig>
         <ion-row justify-content-center>
           <ion-item no-lines justify-content-center>
             <ion-label class="nome2">Produção Netflix: </ion-label>
@@ -70,12 +80,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-item>
-        <ion-label class="nome" no-padding >Comentário: </ion-label>
-        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="serie.comentario"></ion-textarea>
-      </ion-item>
-    </ion-row>
+    
     
 
 
