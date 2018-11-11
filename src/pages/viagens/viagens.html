@@ -7,12 +7,21 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Viagens</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let f of (series  | async) " (click)="itemSelected(item)">
+      <h2> {{ f.title }} </h2>
+      <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+    </button>  
+  </ion-list>
 
 </ion-content>

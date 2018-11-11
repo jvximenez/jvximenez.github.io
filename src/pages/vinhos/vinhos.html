@@ -7,12 +7,92 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Vinhos</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-grid>
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Vinho: </ion-label>
+          <ion-input text-right type="text"  value="" [(ngModel)]="vinho.title"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Nota: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="vinho.nota"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Tipo: </ion-label>
+          <ion-input text-right type="text"  value="" [(ngModel)]="vinho.tipo"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Safra: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="vinho.safra"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Preço: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="vinho.preco"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+  
+      <ion-row  class="roww">
+        <ion-item>
+          <ion-label class="nome">Uva: </ion-label>
+            <ion-select class="input" [(ngModel)]="vinho.uva" interface="popover" multiple =  True>
+              <ion-option *ngFor="let uva of Uvas">{{uva.title}}</ion-option>
+            </ion-select>
+        </ion-item>
+      </ion-row>
+
+      <ion-row  class="roww">
+        <ion-item>
+          <ion-label class="nome">Pais: </ion-label>
+            <ion-select class="input" [(ngModel)]="vinho.pais" interface="popover" multiple =  True>
+              <ion-option *ngFor="let p of pais">{{p.title}}</ion-option>
+            </ion-select>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row>
+        <ion-item>
+          <ion-label class="nome" no-padding>Comentário: </ion-label>
+          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="vinho.comentario"></ion-textarea>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+  
+  
+    <ion-row><ion-item no-lines></ion-item></ion-row>
+      <ion-row justify-content-center>
+        <button class="btn2" ion-button outline (click)="Criacao(serie)">Adicionar</button>
+        <button class="btn2" ion-button outline (click)="Ontem(serie)">Ontem</button>
+      </ion-row>
+      <ion-row><ion-item no-lines></ion-item></ion-row>
+  
+      <ion-list>
+      <button ion-item *ngFor="let f of (vinhos  | async) " (click)="itemSelected(item)">
+        <h2> {{ f.title }} </h2>
+        <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+      </button>  
+    </ion-list>
 
 </ion-content>

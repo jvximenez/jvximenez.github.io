@@ -24,6 +24,9 @@ import { ViagensPage } from '../pages/viagens/viagens';
 import { TarefasPage } from '../pages/tarefas/tarefas';
 import { FilmeEditPage } from '../pages/filme-edit/filme-edit';
 import { SerieEditPage } from '../pages/serie-edit/serie-edit';
+import { TarefaEditPage } from '../pages/tarefa-edit/tarefa-edit';
+import { VinhoEditPage } from '../pages/vinho-edit/vinho-edit';
+import { ViagemEditPage } from '../pages/viagem-edit/viagem-edit';
 
 
 @NgModule({
@@ -43,6 +46,9 @@ import { SerieEditPage } from '../pages/serie-edit/serie-edit';
     TarefasPage,
     FilmeEditPage,
     SerieEditPage,
+    TarefaEditPage,
+    VinhoEditPage,
+    ViagemEditPage,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +83,10 @@ import { SerieEditPage } from '../pages/serie-edit/serie-edit';
     ViagensPage,
     TarefasPage,
     FilmeEditPage,
-    SerieEditPage
+    SerieEditPage,
+    TarefaEditPage,
+    VinhoEditPage,
+    ViagemEditPage,
   ],
   providers: [
     StatusBar,
