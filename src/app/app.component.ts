@@ -53,5 +53,9 @@ export class MyApp {
     this.nav.setRoot(ViagensPage)
   }
 
+  abrirRoot(){
+    this.nav.setRoot(TabsPage)
+  }
+
 
 }

@@ -147,6 +147,8 @@ export class FilmeEditPage {
       this.navCtrl.pop()
     });
     }
+
+  
     
 
 }

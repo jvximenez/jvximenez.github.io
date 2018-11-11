@@ -52,7 +52,7 @@ export class TarefasPage {
     this.tarefa.total = String(this.Total());
     this.tarefa.parcial =  String(this.Parcial());
     this.dbService.save('tarefas',tarefa)
-    this.tarefa.title = ""
+    this.tarefa.title = " "
 
 
   }

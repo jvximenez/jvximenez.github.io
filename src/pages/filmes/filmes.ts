@@ -151,5 +151,7 @@ export class FilmesPage {
     this.navCtrl.push(FilmeEditPage, 
     {'filme' : itens,})}
 
-
+  AtualizarP(){
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
 }
