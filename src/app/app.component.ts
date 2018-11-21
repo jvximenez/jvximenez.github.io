@@ -9,6 +9,7 @@ import { SeriesPage } from '../pages/series/series';
 import { TarefasPage } from '../pages/tarefas/tarefas';
 import { VinhosPage } from '../pages/vinhos/vinhos';
 import { ViagensPage } from '../pages/viagens/viagens';
+import { LivrosPage } from '../pages/livros/livros';
 
 @Component({
   templateUrl: 'app.html'
@@ -55,6 +56,10 @@ export class MyApp {
 
   abrirRoot(){
     this.nav.setRoot(TabsPage)
+  }
+
+  AbrirLivros(){
+    this.nav.setRoot(LivrosPage)
   }
 
 

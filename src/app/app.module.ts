@@ -27,6 +27,8 @@ import { SerieEditPage } from '../pages/serie-edit/serie-edit';
 import { TarefaEditPage } from '../pages/tarefa-edit/tarefa-edit';
 import { VinhoEditPage } from '../pages/vinho-edit/vinho-edit';
 import { ViagemEditPage } from '../pages/viagem-edit/viagem-edit';
+import { LivrosEditPage } from '../pages/livros-edit/livros-edit';
+import { LivrosPage } from '../pages/livros/livros';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { ViagemEditPage } from '../pages/viagem-edit/viagem-edit';
     TarefaEditPage,
     VinhoEditPage,
     ViagemEditPage,
+    LivrosEditPage,
+    LivrosPage,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +91,8 @@ import { ViagemEditPage } from '../pages/viagem-edit/viagem-edit';
     TarefaEditPage,
     VinhoEditPage,
     ViagemEditPage,
+    LivrosEditPage,
+    LivrosPage,
   ],
   providers: [
     StatusBar,
