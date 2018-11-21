@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 /**
  * Generated class for the VinhoEditPage page.
@@ -19,7 +20,7 @@ export class VinhoEditPage {
   public pais; vinhos
   public Uvas; Tipo
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.vinho = this.navParams.get('vinho')
 
     this.Uvas = [
@@ -57,8 +58,16 @@ export class VinhoEditPage {
     ]
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad VinhoEditPage');
-  }
+  Atualizar(tarefa){
+    this.dbService.update('vinhos',tarefa).then( d => {
+      this.navCtrl.pop()});
+    }
+  
+
+  Deletar(tarefa){
+    this.dbService.revome('vinhos',tarefa).then( d => {
+      this.navCtrl.pop()
+    });
+    }
 
 }

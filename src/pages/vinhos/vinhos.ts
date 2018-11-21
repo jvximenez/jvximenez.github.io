@@ -37,7 +37,7 @@ export class VinhosPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
-    this.vinhos = this.dbService.getAll('vinhos','total')
+    this.vinhos = this.dbService.getAll('vinhos','total').map(a => a.reverse())
 
   this.Uvas = [
     {'title':"Terroir"},

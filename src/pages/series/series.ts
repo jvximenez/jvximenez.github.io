@@ -37,7 +37,7 @@ export class SeriesPage {
   public Serie;series
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
-  this.series = this.dbService.getAll('series','total')
+  this.series = this.dbService.getAll('series','total').map(a => a.reverse())
 
   this.Serie = [
     {title: "Modern Family"},
