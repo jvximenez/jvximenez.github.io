@@ -31,7 +31,7 @@ export class TarefasPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
   
-    this.tarefas = this.dbService.getAll('tarefas','total')
+    this.tarefas = this.dbService.getAll('tarefas','total').map(d => d.reverse())
   }
 
   Data(){

@@ -7,12 +7,121 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>VinhoEdit</ion-title>
+    <ion-title>Editar Vinho</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+    <ion-grid>
+      <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Dia: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="vinho.dia"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Mes: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="vinho.mes"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Ano: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="vinho.ano"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Total: </ion-label>
+            <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="vinho.total"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Vinho: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="vinho.title"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Nota: </ion-label>
+            <ion-input text-right type="number"  value="" [(ngModel)]="vinho.nota"></ion-input>
+          </ion-item>
+        </ion-row>
+    
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Tipo: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="vinho.tipo"></ion-input>
+          </ion-item>
+        </ion-row>
+    
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Safra: </ion-label>
+            <ion-input text-right type="number"  value="" [(ngModel)]="vinho.safra"></ion-input>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Preço: </ion-label>
+            <ion-input text-right type="number"  value="" [(ngModel)]="vinho.preco"></ion-input>
+          </ion-item>
+        </ion-row>
+    
+    
+        <ion-row  class="roww">
+          <ion-item>
+            <ion-label class="nome">Uva: </ion-label>
+              <ion-select class="input" [(ngModel)]="vinho.uva" interface="popover" multiple =  True>
+                <ion-option *ngFor="let uva of Uvas">{{uva.title}}</ion-option>
+              </ion-select>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row  class="roww">
+          <ion-item>
+            <ion-label class="nome">Pais: </ion-label>
+              <ion-select class="input" [(ngModel)]="vinho.pais" interface="popover" multiple =  True>
+                <ion-option *ngFor="let p of pais">{{p.title}}</ion-option>
+              </ion-select>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row  class="roww">
+          <ion-item>
+            <ion-label class="nome">Tipo: </ion-label>
+              <ion-select class="input" [(ngModel)]="vinho.tipo" interface="popover" multiple =  True>
+                <ion-option *ngFor="let p of Tipo">{{p.title}}</ion-option>
+              </ion-select>
+          </ion-item>
+        </ion-row>
+    
+        <ion-row>
+          <ion-item>
+            <ion-label class="nome" no-padding>Comentário: </ion-label>
+            <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="vinho.comentario"></ion-textarea>
+          </ion-item>
+        </ion-row>
+
+        <ion-row><ion-item no-lines></ion-item></ion-row>
+        <ion-row justify-content-center>
+          <button class="btn" ion-button outline color="danger" (click)="Deletar(vinho)">Deletar</button>
+          <ion-col col-1><ion-item></ion-item></ion-col>
+          <button class="btn" ion-button outline (click)="Atualizar(vinho)">Atualizar</button>
+        </ion-row>
+
+      </ion-grid>
+  
+       
 
 </ion-content>

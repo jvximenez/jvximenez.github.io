@@ -71,6 +71,15 @@
             </ion-select>
         </ion-item>
       </ion-row>
+
+      <ion-row  class="roww">
+        <ion-item>
+          <ion-label class="nome">Tipo: </ion-label>
+            <ion-select class="input" [(ngModel)]="vinho.tipo" interface="popover" multiple =  True>
+              <ion-option *ngFor="let p of Tipo">{{p.title}}</ion-option>
+            </ion-select>
+        </ion-item>
+      </ion-row>
   
       <ion-row>
         <ion-item>
@@ -83,13 +92,13 @@
   
     <ion-row><ion-item no-lines></ion-item></ion-row>
       <ion-row justify-content-center>
-        <button class="btn2" ion-button outline (click)="Criacao(serie)">Adicionar</button>
-        <button class="btn2" ion-button outline (click)="Ontem(serie)">Ontem</button>
+        <button class="btn2" ion-button outline (click)="Criacao(vinho)">Adicionar</button>
+        <button class="btn2" ion-button outline (click)="Ontem(vinho)">Ontem</button>
       </ion-row>
       <ion-row><ion-item no-lines></ion-item></ion-row>
   
       <ion-list>
-      <button ion-item *ngFor="let f of (vinhos  | async) " (click)="itemSelected(item)">
+      <button ion-item *ngFor="let f of (vinhos | async) " (click)="goToEdit(f)">
         <h2> {{ f.title }} </h2>
         <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
       </button>  

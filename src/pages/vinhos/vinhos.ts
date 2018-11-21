@@ -17,8 +17,8 @@ import { VinhoEditPage } from '../vinho-edit/vinho-edit';
 })
 export class VinhosPage {
 
-  public pais;
-  public uva;
+  public pais; vinhos
+  public Uvas; Tipo
 
   vinho = {
     'dia':'',
@@ -37,9 +37,9 @@ export class VinhosPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
-  
+    this.vinhos = this.dbService.getAll('vinhos','total')
 
-  this.uva = [
+  this.Uvas = [
     {'title':"Terroir"},
     {'title':"Cabernet Syrah"},
     {'title':"Cabernet Souvignon"},
@@ -62,6 +62,15 @@ export class VinhosPage {
     {'title':"Brasil"},
     {'title':""},
 
+  ]
+
+  this.Tipo = [
+    {'title':"Branco"},
+    {'title':"Tinto"},
+    {'title':"Rose"},
+    {'title':"Espumante"},
+    {'title':"Doce"},
+    {'title':""},
   ]
 }
 
