@@ -145,7 +145,14 @@ export class TarefasPage {
     this.dbService.revome('tarefas',tarefas)
     }
 
-  }
+  
+
+  atualiza(){
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }
+
+    
+}
 
 
   
