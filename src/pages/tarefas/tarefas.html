@@ -17,7 +17,7 @@
         <ion-icon name="sync"></ion-icon>
       </button>
       <button ion-button icon-only (click)="goToTotal()">
-        <ion-icon name="sync"></ion-icon>
+        <ion-icon name="calendar"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -44,10 +44,10 @@
     
 
     <ion-card no-padding>
-      <ion-card-header>Hoje: {{hoje}}</ion-card-header>
+      <ion-card-header  class="item">Hoje: </ion-card-header>
       <ion-list>
         <div *ngFor="let f of (tarefas | async)">
-          <ion-row *ngIf="f.total == hoje" class="iten">
+          <ion-row *ngIf="f.total == hoje" class="item">
             <ion-col col-2>
               <ion-item class="item" >
                   <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
@@ -56,20 +56,21 @@
               <ion-col col-10>
                 <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
                   <ion-label >{{f.title }} </ion-label>
-                  <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+                  <ion-note item-end><p>{{f.dia}}/{{f.mes}}</p></ion-note>
                 </ion-item>
                 
               </ion-col>
           </ion-row>
         </div>  
+        <ion-row style="max-height: 1em;"><ion-item  ></ion-item> </ion-row>
       </ion-list>
     </ion-card>
 
     <ion-card>
-      <ion-card-header>Ontem: {{ontem}}</ion-card-header>
+      <ion-card-header  class="item">Ontem: </ion-card-header>
       <ion-list>
         <div *ngFor="let f of (tarefas | async)">
-          <ion-row *ngIf="f.total == ontem">
+          <ion-row *ngIf="f.total == ontem" class="item">
             <ion-col col-2>
               <ion-item >
                   <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
@@ -78,20 +79,21 @@
               <ion-col col-10>
                 <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
                   <ion-label >{{f.title }} </ion-label>
-                  <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+                  <ion-note item-end><p>{{f.dia}}/{{f.mes}}</p></ion-note>
                 </ion-item>
                 
               </ion-col>
           </ion-row>
         </div>  
+        <ion-row style="max-height: 1em;"><ion-item  ></ion-item> </ion-row>
       </ion-list>
     </ion-card>
 
     <ion-card>
-      <ion-card-header>Amanha: {{amanha}}</ion-card-header>
+      <ion-card-header class="item">Amanha:</ion-card-header>
       <ion-list>
         <div *ngFor="let f of (tarefas | async)">
-          <ion-row *ngIf="f.total == amanha">
+          <ion-row *ngIf="f.total == amanha" class="item">
             <ion-col col-2>
               <ion-item >
                   <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
@@ -100,12 +102,13 @@
               <ion-col col-10>
                 <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
                   <ion-label >{{f.title }} </ion-label>
-                  <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+                  <ion-note item-end><p>{{f.dia}}/{{f.mes}}</p></ion-note>
                 </ion-item>
                 
               </ion-col>
           </ion-row>
         </div>  
       </ion-list>
+      <ion-row style="max-height: 1em;"><ion-item  ></ion-item> </ion-row>
     </ion-card>
 </ion-content>
