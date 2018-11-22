@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TarefaEditPage } from '../tarefa-edit/tarefa-edit';
+import { TodasTarefasPage } from '../todas-tarefas/todas-tarefas';
 
 /**
  * Generated class for the TarefasPage page.
@@ -27,11 +28,14 @@ export class TarefasPage {
     'check': false,
   }
 
-  public tarefas
+  public tarefas;hoje;ontem;amanha
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
   
     this.tarefas = this.dbService.getAll('tarefas','total').map(d => d.reverse())
+    this.hoje =  this.Total();
+    this.amanha = this.Total3();
+    this.ontem = this.Total2();
   }
 
   Data(){
@@ -132,7 +136,15 @@ export class TarefasPage {
 
   goToEdit(itens){
     this.navCtrl.push(TarefaEditPage, 
-    {'tarefa' : itens})}
+    {'tarefa' : itens})
+  }
+
+  goToTotal(){
+    this.navCtrl.push(TodasTarefasPage, 
+    {'tarefas' : this.tarefas})
+  }
+
+
 
 
   
@@ -151,7 +163,7 @@ export class TarefasPage {
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }
 
-    
+
 }
 
 

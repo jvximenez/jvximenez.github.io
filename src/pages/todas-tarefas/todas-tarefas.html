@@ -1,0 +1,56 @@
+<ion-header>
+
+    <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Todas as tarefas</ion-title>
+  
+      <ion-buttons end>
+        <button ion-button icon-only (click)="atualiza()">
+          <ion-icon name="sync"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content>
+      <ion-grid>
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Tarefa: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.title" (keyup.enter)="Criacao(tarefa)"></ion-input>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+    
+    
+      <ion-row><ion-item no-lines></ion-item></ion-row>
+        <ion-row justify-content-center>
+            <button class="btn2" ion-button outline (click)="Amanha(tarefa)">Amanhã</button>
+          <button class="btn2" ion-button outline (click)="Criacao(tarefa)">Adicionar</button>
+          <button class="btn2" ion-button outline (click)="Ontem(tarefa)">Ontem</button>
+      </ion-row>
+      <ion-row><ion-item no-lines></ion-item></ion-row>
+
+      <ion-list>
+        <ion-row *ngFor="let f of (tarefas | async)">
+          <ion-col col-2>
+            <ion-item >
+                <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
+            </ion-item>
+          </ion-col>
+            <ion-col col-10>
+              <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
+                <ion-label >{{f.title }} </ion-label>
+                <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+              </ion-item>
+              
+            </ion-col>
+        </ion-row>
+      </ion-list>
+        
+  
+  </ion-content>
+  

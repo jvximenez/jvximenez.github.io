@@ -29,6 +29,7 @@ import { VinhoEditPage } from '../pages/vinho-edit/vinho-edit';
 import { ViagemEditPage } from '../pages/viagem-edit/viagem-edit';
 import { LivrosEditPage } from '../pages/livros-edit/livros-edit';
 import { LivrosPage } from '../pages/livros/livros';
+import { TodasTarefasPage } from '../pages/todas-tarefas/todas-tarefas';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { LivrosPage } from '../pages/livros/livros';
     ViagemEditPage,
     LivrosEditPage,
     LivrosPage,
+    TodasTarefasPage,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +95,7 @@ import { LivrosPage } from '../pages/livros/livros';
     ViagemEditPage,
     LivrosEditPage,
     LivrosPage,
+    TodasTarefasPage,
   ],
   providers: [
     StatusBar,
