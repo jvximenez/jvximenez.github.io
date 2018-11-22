@@ -35,21 +35,21 @@
     </ion-grid>
   
   
-    <ion-row><ion-item no-lines></ion-item></ion-row>
-      <ion-row justify-content-center>
-          <button class="btn2" ion-button outline (click)="Amanha(tarefa)">Amanhã</button>
-        <button class="btn2" ion-button outline (click)="Criacao(tarefa)">Adicionar</button>
-        <button class="btn2" ion-button outline (click)="Ontem(tarefa)">Ontem</button>
+    
+      <ion-row justify-content-center >
+        <button class="btn2" ion-button outline round small (click)="Amanha(tarefa)">Amanhã</button>
+        <button class="btn3" ion-button  round small  (click)="Criacao(tarefa)">Adicionar</button>
+        <button class="btn2" ion-button outline  round small (click)="Ontem(tarefa)">Ontem</button>
     </ion-row>
-    <ion-row><ion-item no-lines></ion-item></ion-row>
+    
 
-    <ion-card>
+    <ion-card no-padding>
       <ion-card-header>Hoje: {{hoje}}</ion-card-header>
       <ion-list>
         <div *ngFor="let f of (tarefas | async)">
-          <ion-row *ngIf="f.total == hoje">
+          <ion-row *ngIf="f.total == hoje" class="iten">
             <ion-col col-2>
-              <ion-item >
+              <ion-item class="item" >
                   <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
               </ion-item>
             </ion-col>
@@ -108,24 +108,4 @@
         </div>  
       </ion-list>
     </ion-card>
-    
-  
-    <ion-list>
-      <ion-row *ngFor="let f of (tarefas | async)">
-        <ion-col col-2>
-          <ion-item >
-              <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" ></ion-checkbox>    
-          </ion-item>
-        </ion-col>
-          <ion-col col-10>
-            <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
-              <ion-label >{{f.title }} </ion-label>
-              <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
-            </ion-item>
-            
-          </ion-col>
-      </ion-row>
-    </ion-list>
-      
-
 </ion-content>

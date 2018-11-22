@@ -50,22 +50,29 @@ page-tarefas {
         background: transparent;
     }
 
-    .btn {
-        display:block;
-        height: 50px;
-        width: 85px;
-        border-radius: 50%;
-        border: 1.5px solid;
-        font-size: 11px;
-    }
-
     .btn2 {
         display:block;
-        height: 60px;
-        width: 60px;
-        border-radius: 50%;
+        height: 40px;
+        width: 70px;
         border: 1.5px solid;
-        font-size: 8px;
+        font-size: 11px;
+        margin: 10px;
+        margin-top: 15px;
+    }
+    
+    .btn3 {
+        display:block;
+        height: 50px;
+        width: 80px;
+        border: 1.5px solid;
+        font-size: 11px;
+        margin: 10px;
+    }
+
+
+
+    .item{
+        max-height: 3em;
     }
 
 }

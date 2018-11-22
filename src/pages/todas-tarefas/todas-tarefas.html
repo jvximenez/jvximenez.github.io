@@ -26,13 +26,11 @@
       </ion-grid>
     
     
-      <ion-row><ion-item no-lines></ion-item></ion-row>
-        <ion-row justify-content-center>
-            <button class="btn2" ion-button outline (click)="Amanha(tarefa)">Amanhã</button>
-          <button class="btn2" ion-button outline (click)="Criacao(tarefa)">Adicionar</button>
-          <button class="btn2" ion-button outline (click)="Ontem(tarefa)">Ontem</button>
-      </ion-row>
-      <ion-row><ion-item no-lines></ion-item></ion-row>
+      <ion-row justify-content-center >
+        <button class="btn2" ion-button outline round small (click)="Amanha(tarefa)">Amanhã</button>
+        <button class="btn3" ion-button  round small  (click)="Criacao(tarefa)">Adicionar</button>
+        <button class="btn2" ion-button outline  round small (click)="Ontem(tarefa)">Ontem</button>
+    </ion-row>
 
       <ion-list>
         <ion-row *ngFor="let f of (tarefas | async)">
