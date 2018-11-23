@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Toggle } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { FilmeEditPage } from '../filme-edit/filme-edit';
 
@@ -34,6 +34,8 @@ export class FilmesPage {
     'netflix': false,
     'producaoN':false,
   }
+
+  public show = false
 
   public Genero;Premiacao;Filmes
 
@@ -154,4 +156,12 @@ export class FilmesPage {
   AtualizarP(){
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
+
+
+  Show(){
+    this.show=true;
+    return (this.show)
+  }
+
+  
 }
