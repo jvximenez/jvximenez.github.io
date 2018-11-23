@@ -30,6 +30,8 @@ import { ViagemEditPage } from '../pages/viagem-edit/viagem-edit';
 import { LivrosEditPage } from '../pages/livros-edit/livros-edit';
 import { LivrosPage } from '../pages/livros/livros';
 import { TodasTarefasPage } from '../pages/todas-tarefas/todas-tarefas';
+import { RestaurantesEditPage } from '../pages/restaurantes-edit/restaurantes-edit';
+import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 
 
 @NgModule({
@@ -55,6 +57,9 @@ import { TodasTarefasPage } from '../pages/todas-tarefas/todas-tarefas';
     LivrosEditPage,
     LivrosPage,
     TodasTarefasPage,
+    RestaurantesEditPage,
+    RestaurantesPage,
+    
   ],
   imports: [
     BrowserModule,
@@ -96,6 +101,8 @@ import { TodasTarefasPage } from '../pages/todas-tarefas/todas-tarefas';
     LivrosEditPage,
     LivrosPage,
     TodasTarefasPage,
+    RestaurantesEditPage,
+    RestaurantesPage,
   ],
   providers: [
     StatusBar,

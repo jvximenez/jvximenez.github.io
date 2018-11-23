@@ -10,6 +10,7 @@ import { TarefasPage } from '../pages/tarefas/tarefas';
 import { VinhosPage } from '../pages/vinhos/vinhos';
 import { ViagensPage } from '../pages/viagens/viagens';
 import { LivrosPage } from '../pages/livros/livros';
+import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ import { LivrosPage } from '../pages/livros/livros';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = TabsPage;
+  rootPage:any = RestaurantesPage;
   testemesmo: any
   
   
@@ -60,6 +61,10 @@ export class MyApp {
 
   AbrirLivros(){
     this.nav.setRoot(LivrosPage)
+  }
+
+  AbrirRestaurantes(){
+    this.nav.setRoot(RestaurantesPage)
   }
 
 
