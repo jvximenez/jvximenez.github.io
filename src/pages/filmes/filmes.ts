@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Toggle } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { FilmeEditPage } from '../filme-edit/filme-edit';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the FilmesPage page.
@@ -39,7 +40,7 @@ export class FilmesPage {
 
   public Genero;Premiacao;Filmes
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider,public alertCtrl: AlertController ) {
     this.Filmes = this.dbService.getAll('filmes','total').map(a => a.reverse())
 
     this.Genero = [
@@ -159,9 +160,19 @@ export class FilmesPage {
 
 
   Show(){
-    this.show=true;
+    this.show = !this.show;
     return (this.show)
   }
+
+  Informacoes(filme) {
+    const alert = this.alertCtrl.create({
+      title: filme.title,
+      subTitle: ("Data: " + filme.dia+"/"+filme.mes+"/"+filme.ano+ "<br>Tipo: " + filme.genero + "<br>Nota: " + filme.nota + "<br>Diretor: " +filme.diretor + "<br>Comentario: " + filme.comentario) ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 
   
 }
