@@ -23,6 +23,8 @@
 
 
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
+
     <ion-grid>
       <ion-row class="roww">
         <ion-item>
@@ -51,6 +53,16 @@
         <button class="btn3" ion-button  round small  (click)="Criacao(restaurante)">Adicionar</button>
       </ion-row>
   </ion-grid>
+
+  <div *ngIf = "showA == true">
+    <ion-grid no-padding>
+      <ion-row justify-content-center >
+        <ion-col col-3 *ngFor="let atalho of (atalhos)">
+          <button class="btn4" ion-button round small outline (click)="saveAtalho(compras,atalho)" (press)="atalhoPush(atalho)">{{atalho}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
   <ion-list>
       <button ion-item *ngFor="let f of (restaurantes  | async) " (click)="goToEdit(f)" (press)="Informacoes(f)">

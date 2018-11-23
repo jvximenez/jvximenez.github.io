@@ -21,6 +21,8 @@ export class RestaurantesPage {
   public show = true
   public tipos; tipos2
   public restaurantes;
+  showA = false
+  public atalhos
 
   restaurante = {
     'dia':'',
@@ -40,8 +42,19 @@ export class RestaurantesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider,public alertCtrl: AlertController ) {
     this.restaurantes = this.dbService.getAll('restaurantes','total').map(a=>a.reverse())
     this.tipos = this.Tipos();
+    this.atalhos = this.Atalhos();
+    console.log(this.atalhos)
+
     
   
+  }
+
+  doRefresh(refresher) {
+    this.showA = !this.showA
+
+    setTimeout(() => {
+      refresher.complete();
+    }, 50);
   }
 
 
@@ -50,6 +63,16 @@ export class RestaurantesPage {
     var B = false
     var array2 
     this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.tipo) { B = true}}); if (B == false) {array.push(elem.tipo)}})
+  })
+  
+  return (array)
+  }
+
+  Atalhos(){
+    var array = []
+    var B = false
+    var array2 
+    this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.title) { B = true}}); if (B == false) {array.push(elem.title)}})
   })
   
   return (array)
