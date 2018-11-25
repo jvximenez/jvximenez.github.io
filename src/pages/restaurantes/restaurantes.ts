@@ -123,6 +123,20 @@ export class RestaurantesPage {
 
   }
 
+  CriacaoO(restaurante){
+    var array = this.Data();
+    this.restaurante.dia = String(array[0]-1);
+    this.restaurante.mes = String(array[1]);
+    this.restaurante.ano = String(array[2]);
+    this.restaurante.total = String(this.Total()-1);
+    this.restaurante.parcial =  String(this.Parcial());
+    this.dbService.save('restaurantes',restaurante)
+
+
+  }
+
+
+
   Total(){
     var total;
     var data = new Date();
@@ -203,6 +217,14 @@ export class RestaurantesPage {
 
     
     
+  }
+
+  Casa(item){
+    var  a = item.casa;
+    a != a
+    item.casa = a
+    this.dbService.update('restaurante',item)
+
   }
 
 

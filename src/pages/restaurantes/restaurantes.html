@@ -50,6 +50,7 @@
         </ion-row>
   
       <ion-row justify-content-center >
+        <button class="btn3" ion-button  outline round small  (click)="CriacaoO(restaurante)">Ontem</button>
         <button class="btn3" ion-button  round small  (click)="Criacao(restaurante)">Adicionar</button>
       </ion-row>
   </ion-grid>
@@ -71,9 +72,6 @@
         <ion-icon *ngIf="f.casa == false" style="color: rgb(233, 233, 233)" name="home" item-end></ion-icon>
         <ion-icon *ngIf="f.cia != ''" style="color: black" name="people" item-end></ion-icon>
         <ion-icon *ngIf="f.cia == ''" style="color: rgb(233, 233, 233)" name="people" item-end></ion-icon>
-        
-        
-      
       </button>  
     </ion-list>
 

@@ -47,12 +47,11 @@
           </ion-row>
         </ion-grid>
 
-      <ion-row><ion-item no-lines></ion-item></ion-row>
+      
       <ion-row justify-content-center>
-        <button class="btn2" ion-button outline (click)="Criacao(livro)">Adicionar</button>
-        <button class="btn2" ion-button outline (click)="Ontem(livro)">Ontem</button>
+        <button class="btn3" round small ion-button outline (click)="Criacao(livro)">Adicionar</button>
+        <button class="btn3" round small ion-button outline (click)="Ontem(livro)">Ontem</button>
       </ion-row>
-      <ion-row><ion-item no-lines></ion-item></ion-row>
 
       <ion-list>
       <button ion-item *ngFor="let f of (livros | async) " (click)="goToEdit(f)">
