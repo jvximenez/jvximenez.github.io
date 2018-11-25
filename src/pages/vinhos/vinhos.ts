@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { VinhoEditPage } from '../vinho-edit/vinho-edit';
 
@@ -36,7 +36,7 @@ export class VinhosPage {
     'comentario': '',
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.vinhos = this.dbService.getAll('vinhos','total').map(a => a.reverse())
 
   this.Uvas = [
@@ -144,9 +144,20 @@ export class VinhosPage {
     
   }
 
-  goToEdit(itens){
+   goToEdit(itens){
     this.navCtrl.push(VinhoEditPage, 
     {'vinho' : itens})}
+
+
+    Alert(item){
+      const alert = this.alertCtrl.create({
+        title: item.title,
+        subTitle: ("Data: " + item.dia+"/"+item.mes+"/"+item.ano+ "<br>Nota: " + item.nota + "<br>Tipo: " + item.tipo + "<br>Safra: " + item.safra + "<br>Preço: " + item.preco + "<br>Uva: " + item.uva +  "<br>Pais: " + item.pais + "<br>Comentário: " + item.comentario),
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+
 
 
   }
