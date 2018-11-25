@@ -179,7 +179,8 @@ export class RestaurantesPage {
     console.log( 'itens', itens)
     this.navCtrl.push(RestaurantesEditPage, 
     {'restaurante' : itens,
-      'restaurantes': this.restaurantes})}
+      'restaurantes': this.restaurantes,
+      'tipos': this.tipos})}
 
   AtualizarP(){
     this.navCtrl.setRoot(this.navCtrl.getActive().component);

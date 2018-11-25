@@ -17,11 +17,13 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 export class RestaurantesEditPage {
   public restaurante :any
   public restaurantes;
+  public tipos;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.restaurante = this.navParams.get('restaurante')
     this.restaurantes =  this.navParams.get('restaurantes')
+    this.tipos = this.navParams.get('tipos')
   }
 
 
