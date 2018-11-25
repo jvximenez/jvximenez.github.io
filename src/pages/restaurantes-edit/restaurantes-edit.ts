@@ -26,7 +26,7 @@ export class RestaurantesEditPage {
 
 
   Atualizar(tarefa){
-    this.dbService.update('rastaurantes',tarefa).then( d => {
+    this.dbService.update('restaurantes',tarefa).then( d => {
       this.navCtrl.pop()});
     }
   
