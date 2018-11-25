@@ -21,6 +21,7 @@ export class RestaurantesPage {
   public show = true
   public tipos; tipos2
   public restaurantes;
+  public restaurantesArray;
   showA = false
   public atalhos
 
@@ -43,6 +44,8 @@ export class RestaurantesPage {
     this.restaurantes = this.dbService.getAll('restaurantes','total').map(a=>a.reverse())
     this.tipos = this.Tipos();
     this.atalhos = this.Atalhos();
+    this.restaurantesArray = this.ArrayTotal();
+    console.log("aqui", this.restaurantesArray)
     console.log(this.atalhos)
 
     
@@ -57,6 +60,14 @@ export class RestaurantesPage {
     }, 50);
   }
 
+  ArrayTotal(){
+    var linha = [];
+    var coluna = []
+    this.restaurantes.forEach(itens => { itens.forEach( item => {linha = []; linha.push(item.title); linha.push(item.tipo); coluna.push(linha)})})
+    console.log(coluna)
+    return coluna
+
+  }
 
   Tipos(){
     var array = []
@@ -173,6 +184,18 @@ export class RestaurantesPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  Conta(atalho){
+    var a = 0
+    console.log(this.restaurantesArray)
+    this.restaurantesArray.forEach(itens => {console.log(itens); if(itens[0] == atalho) {a+=1} })
+    console.log(atalho)
+    return (a)
+  }
+
+  CriaNovo(){
+    
   }
 
 

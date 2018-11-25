@@ -58,7 +58,7 @@
     <ion-grid no-padding>
       <ion-row justify-content-center >
         <ion-col col-3 *ngFor="let atalho of (atalhos)">
-          <button class="btn4" ion-button round small outline (click)="saveAtalho(compras,atalho)" (press)="atalhoPush(atalho)">{{atalho}}</button>
+          <button class="btn4" ion-button round small outline (click)="saveAtalho(compras,atalho)" (press)="atalhoPush(atalho)">{{atalho}} - {{Conta(atalho)}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
