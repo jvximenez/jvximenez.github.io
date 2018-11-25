@@ -7,12 +7,116 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>RestaurantesEdit</ion-title>
+    <ion-title>Editar Restaurante</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-content>
+    <ion-grid>
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Dia: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="restaurante.dia"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Mes: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="restaurante.mes"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Ano: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="restaurante.ano"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Total: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="restaurante.total"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Parcial: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="restaurante.parcial"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Título: </ion-label>
+          <ion-input text-right type="text"  value="" [(ngModel)]="restaurante.title"></ion-input>
+        </ion-item>
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Tipo: </ion-label>
+          <ion-input text-right type="text"  value="" [(ngModel)]="restaurante.tipo"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Preço: </ion-label>
+          <ion-input text-right type="number"  value="" [(ngModel)]="restaurante.preco"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row  class="roww">
+        <ion-item>
+          <ion-label class="nome">Tipo Dropdown: </ion-label>
+            <ion-select class="input" [(ngModel)]="restaurante.tipo" interface="popover" multiple =  True>
+              <ion-option *ngFor="let tip of tipos">{{tip}}</ion-option>
+            </ion-select>
+        </ion-item>
+      </ion-row>
+
+    
+      <ion-row>
+        <ion-item>
+          <ion-label class="nome" no-padding >Comentário: </ion-label>
+          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="restaurante.comentario"></ion-textarea>
+        </ion-item>
+      </ion-row>
+
+      <ion-row>
+        <ion-item>
+          <ion-label class="nome" no-padding >Companhia: </ion-label>
+          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="restaurante.cia"></ion-textarea>
+        </ion-item>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-4 no-paddig>
+          <ion-row justify-content-center>
+            <ion-item no-lines justify-content-center>
+              <ion-label class="nome2">Casa: </ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-toggle class="toggle" [(ngModel)]="restaurante.casa" ></ion-toggle>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-row justify-content-center>
+        <button class="btn3" round ion-button outline color="danger" (click)="Deletar(restaurante)">Deletar</button>
+        <button class="btn3" round ion-button outline (click)="Atualizar(restaurante)">Atualizar</button>
+    </ion-row>
+
+  
+
+
 
 </ion-content>
