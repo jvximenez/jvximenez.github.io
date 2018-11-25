@@ -39,6 +39,13 @@
           </ion-item>
         </ion-row>
 
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Idioma: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="livro.idioma"></ion-input>
+          </ion-item>
+        </ion-row>
+
         <ion-row>
             <ion-item>
               <ion-label class="nome" no-padding>Comentário: </ion-label>
@@ -54,9 +61,10 @@
       </ion-row>
 
       <ion-list>
-      <button ion-item *ngFor="let f of (livros | async) " (click)="goToEdit(f)">
+      <button ion-item *ngFor="let f of (livros | async) " (click)="goToEdit(f)" (press)="Alert(f)">
         <h2> {{ f.title }}</h2>
-        <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+        <ion-icon *ngIf="f.fim != ''" style="color: black" name="book" item-end></ion-icon>
+        <ion-icon *ngIf="f.fim == ''" style="color: rgb(233, 233, 233)" name="book" item-end></ion-icon>
       </button>  
     </ion-list>
 </ion-content>

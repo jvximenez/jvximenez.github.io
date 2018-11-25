@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { LivrosEditPage } from '../livros-edit/livros-edit';
 
@@ -27,11 +27,12 @@ export class LivrosPage {
     'title':'',
     'autor':'',
     'paginas':'',
+    'idioma':'',
     'comentario':'',
     'fim':'',
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController ) {
     this.livros = this.dbService.getAll('livros','total').map(a => a.reverse())
 
   }
@@ -109,6 +110,15 @@ export class LivrosPage {
   goToEdit(itens){
     this.navCtrl.push(LivrosEditPage, 
     {'livro' : itens})}
+
+    Alert(item){
+      const alert = this.alertCtrl.create({
+        title: item.title,
+        subTitle: ("Data: " + item.dia+"/"+item.mes+"/"+item.ano+ "<br>Autor: " + item.autor + "<br>Páginas: " + item.paginas + "<br>Fim:" +item.fim + "<br>Comentario: " + item.comentario) ,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
 
 
   

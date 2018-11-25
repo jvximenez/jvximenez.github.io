@@ -65,6 +65,13 @@
         </ion-row>
 
         <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Idioma: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="livro.idioma"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="roww">
             <ion-item>
               <ion-label class="nome" >Fim: </ion-label>
               <ion-input text-right type="number"  value="" [(ngModel)]="livro.fim"></ion-input>
