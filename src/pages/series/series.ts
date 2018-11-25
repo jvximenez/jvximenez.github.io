@@ -39,19 +39,19 @@ export class SeriesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
   this.series = this.dbService.getAll('series','total').map(a => a.reverse())
 
-  this.Serie = [
-    {title: "Modern Family"},
-    {title: "Izoombie"},
-    {title: "House of cards"},
-    {title: "How to get away with murder"},
-    {title: "The flash"},
-    {title: "Santa Clarita Diet"},
-    {title: "Atypical"},
-    {title: "Suits"},
-    {title: "Orphan black"}
-  ]
+  this.Serie = this.SeriesA()
+  console.log(this.Serie , "oia")
   }
 
+  SeriesA(){
+    var array = []
+    var B = false
+    var array2 
+    this.series.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.title) { B = true}}); if (B == false) {array.push(elem.title)}})
+    
+  })
+  return (array)
+  }
 
   Data(){
     var data = new Date();
@@ -132,6 +132,16 @@ export class SeriesPage {
 
   AtualizarP(){
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  Atalho(Serie){
+    this.serie.title = Serie.title
+    this.serie.duracao = Serie.duracao
+    this.serie.ep = String(Number(Serie.ep) + 1)
+    this.serie.netflix = Serie.netflix
+    this.serie.producaoN = Serie.producaoN
+    this.serie.temp = Serie.temp
+    this.Criacao(this.serie)
   }
 
 }

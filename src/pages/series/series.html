@@ -55,7 +55,7 @@
       <ion-item>
         <ion-label class="nome">Série: </ion-label>
           <ion-select class="input" [(ngModel)]="serie.title" interface="popover" multiple =  True>
-            <ion-option *ngFor="let ser of Serie">{{ser.title}}</ion-option>
+            <ion-option *ngFor="let ser of Serie">{{ser}}</ion-option>
           </ion-select>
       </ion-item>
     </ion-row>
@@ -107,7 +107,7 @@
  
 
    <ion-list>
-    <button ion-item *ngFor="let f of (series  | async) " (click)="goToEdit(f)">
+    <button ion-item *ngFor="let f of (series  | async) " (click)="goToEdit(f)" (press)="Atalho(f)">
       <h2> {{ f.title }} - {{f.ep}} </h2>
       <ion-note item-end><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
     </button>  
