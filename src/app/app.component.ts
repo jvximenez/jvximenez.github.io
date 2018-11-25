@@ -18,7 +18,7 @@ import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = RestaurantesPage;
+  rootPage:any = TabsPage;
   testemesmo: any
   
   
