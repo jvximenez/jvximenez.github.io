@@ -228,6 +228,15 @@ export class RestaurantesPage {
 
   }
 
+  Alert(item){
+    const alert = this.alertCtrl.create({
+      title: item.title,
+      subTitle: ("Data: " + item.dia+"/"+item.mes+"/"+item.ano+ "<br>Tipo: " + item.tipo + "<br>Companhia: " + item.cia + "<br>Comentario: " + item.comentario) ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 
   
 }

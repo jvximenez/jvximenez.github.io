@@ -66,7 +66,7 @@
   </div>
 
   <ion-list>
-      <button ion-item *ngFor="let f of (restaurantes  | async) " (click)="goToEdit(f)" (press)="Informacoes(f)">
+      <button ion-item *ngFor="let f of (restaurantes  | async) " (click)="goToEdit(f)" (press)="Alert(f)">
         <h2> {{ f.title }}</h2>
         <ion-icon *ngIf="f.casa == true" style="color: black" name="home" item-end></ion-icon>
         <ion-icon *ngIf="f.casa == false" style="color: rgb(233, 233, 233)" name="home" item-end></ion-icon>
