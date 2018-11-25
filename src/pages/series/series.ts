@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SerieEditPage } from '../serie-edit/serie-edit';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the SeriesPage page.
@@ -35,8 +36,9 @@ export class SeriesPage {
   }
 
   public Serie;series
+ 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
   this.series = this.dbService.getAll('series','total').map(a => a.reverse())
 
   this.Serie = this.SeriesA()
@@ -142,6 +144,16 @@ export class SeriesPage {
     this.serie.producaoN = Serie.producaoN
     this.serie.temp = Serie.temp
     this.Criacao(this.serie)
+  }
+
+  Alert(item){
+    const alert = this.alertCtrl.create({
+      title: item.title,
+      subTitle: ("Data: " + item.dia+"/"+item.mes+"/"+item.ano+ "<br>Temporada: " + item.temp + "<br>Episódio: " + item.ep + "<br>Duração: " +item.duracao + "<br>Comentario: " + item.comentario) ,
+      buttons: ['OK']
+    });
+    alert.present();
+
   }
 
 }
