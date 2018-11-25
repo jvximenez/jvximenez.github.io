@@ -135,7 +135,8 @@
    <ion-list>
     <button ion-item *ngFor="let f of (Filmes  | async) " (click)="goToEdit(f)" (press)="Informacoes(f)">
       <h2> {{ f.title }}</h2>
-      <ion-icon *ngIf="f.cinema == true" name="film" item-end></ion-icon>
+      <ion-icon *ngIf="f.cinema == true" style="color: black" name="film" item-end></ion-icon>
+      <ion-icon *ngIf="f.cinema == false" style="color: rgb(233, 233, 233)" name="film" item-end></ion-icon>
       <ion-note *ngIf="show==true" item-end ><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
       
     

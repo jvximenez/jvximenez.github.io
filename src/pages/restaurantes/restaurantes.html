@@ -58,7 +58,7 @@
     <ion-grid no-padding>
       <ion-row justify-content-center >
         <ion-col col-3 *ngFor="let atalho of (atalhos)">
-          <button class="btn4" ion-button round small outline (click)="saveAtalho(compras,atalho)" (press)="atalhoPush(atalho)">{{atalho}} - {{Conta(atalho)}}</button>
+          <button class="btn4" ion-button round small outline (click)=Atalho(atalho)>{{atalho}} - {{Conta(atalho)}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -67,8 +67,11 @@
   <ion-list>
       <button ion-item *ngFor="let f of (restaurantes  | async) " (click)="goToEdit(f)" (press)="Informacoes(f)">
         <h2> {{ f.title }}</h2>
-        <ion-icon *ngIf="f.cinema == true" name="film" item-end></ion-icon>
-        <ion-note *ngIf="show==true" item-end ><p>{{f.dia}}/{{f.mes}}/{{f.ano}}</p></ion-note>
+        <ion-icon *ngIf="f.casa == true" style="color: black" name="home" item-end></ion-icon>
+        <ion-icon *ngIf="f.casa == false" style="color: rgb(233, 233, 233)" name="home" item-end></ion-icon>
+        <ion-icon *ngIf="f.cia != ''" style="color: black" name="people" item-end></ion-icon>
+        <ion-icon *ngIf="f.cia == ''" style="color: rgb(233, 233, 233)" name="people" item-end></ion-icon>
+        
         
       
       </button>  

@@ -45,8 +45,7 @@ export class RestaurantesPage {
     this.tipos = this.Tipos();
     this.atalhos = this.Atalhos();
     this.restaurantesArray = this.ArrayTotal();
-    console.log("aqui", this.restaurantesArray)
-    console.log(this.atalhos)
+    
 
     
   
@@ -64,7 +63,6 @@ export class RestaurantesPage {
     var linha = [];
     var coluna = []
     this.restaurantes.forEach(itens => { itens.forEach( item => {linha = []; linha.push(item.title); linha.push(item.tipo); coluna.push(linha)})})
-    console.log(coluna)
     return coluna
 
   }
@@ -188,13 +186,20 @@ export class RestaurantesPage {
 
   Conta(atalho){
     var a = 0
-    console.log(this.restaurantesArray)
-    this.restaurantesArray.forEach(itens => {console.log(itens); if(itens[0] == atalho) {a+=1} })
-    console.log(atalho)
+    
+    this.restaurantesArray.forEach(itens => { if(itens[0] == atalho) {a+=1} })
+    
     return (a)
   }
 
-  CriaNovo(){
+  Atalho(atalho){
+    this.restaurante.title =  atalho;
+    this.restaurantesArray.forEach(itens => {console.log(itens); if(itens[0] == atalho) {this.restaurante.tipo=itens[1]}})
+    console.log("aqui mesmo", this.restaurante.title, this.restaurante.tipo)
+    this.Criacao(this.restaurante)
+
+
+    
     
   }
 
