@@ -70,7 +70,6 @@ export class RestaurantesPage {
   Tipos(){
     var array = []
     var B = false
-    var array2 
     this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.tipo) { B = true}}); if (B == false) {array.push(elem.tipo)}})
   })
   
@@ -80,7 +79,6 @@ export class RestaurantesPage {
   Atalhos(){
     var array = []
     var B = false
-    var array2 
     this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.title) { B = true}}); if (B == false) {array.push(elem.title)}})
   })
   

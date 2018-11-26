@@ -148,7 +148,6 @@ export class CardsDoMesPage {
     let array = []
     let array2 = []
     let array3 = []
-    let final : number;
     this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia']))})
     console.log(array, array2)})
     array3 = [array,array2]
