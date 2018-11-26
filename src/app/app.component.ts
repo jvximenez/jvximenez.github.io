@@ -11,6 +11,7 @@ import { VinhosPage } from '../pages/vinhos/vinhos';
 import { ViagensPage } from '../pages/viagens/viagens';
 import { LivrosPage } from '../pages/livros/livros';
 import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
+import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +19,7 @@ import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = TabsPage;
+  rootPage:any = TimeTrackerPage;
   testemesmo: any
   
   

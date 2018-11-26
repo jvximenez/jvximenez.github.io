@@ -32,6 +32,8 @@ import { LivrosPage } from '../pages/livros/livros';
 import { TodasTarefasPage } from '../pages/todas-tarefas/todas-tarefas';
 import { RestaurantesEditPage } from '../pages/restaurantes-edit/restaurantes-edit';
 import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
+import { TimeTrackerEditPage } from '../pages/time-tracker-edit/time-tracker-edit';
+import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
     TodasTarefasPage,
     RestaurantesEditPage,
     RestaurantesPage,
+    TimeTrackerEditPage,
+    TimeTrackerPage,
     
   ],
   imports: [
@@ -103,6 +107,8 @@ import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
     TodasTarefasPage,
     RestaurantesEditPage,
     RestaurantesPage,
+    TimeTrackerEditPage,
+    TimeTrackerPage,
   ],
   providers: [
     StatusBar,
