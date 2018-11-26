@@ -68,7 +68,7 @@ export class TarefasPage {
     var mes = data.getMonth();
     var ano = data.getFullYear();
     var hora = data.getHours();
-    var min = data.getMinutes();
+
     total = Number(ano*10000 + (mes+1)*100 + dia);
     return total
   
@@ -80,8 +80,6 @@ export class TarefasPage {
     var dia = data.getDate();
     var mes = data.getMonth();
     var ano = data.getFullYear();
-    var hora = data.getHours();
-    var min = data.getMinutes();
     total = Number(ano*10000 + (mes+1)*100 + dia-1);
     return total
   
@@ -93,8 +91,6 @@ export class TarefasPage {
     var dia = data.getDate();
     var mes = data.getMonth();
     var ano = data.getFullYear();
-    var hora = data.getHours();
-    var min = data.getMinutes();
     total = Number(ano*10000 + (mes+1)*100 + dia+1);
     return total
   
