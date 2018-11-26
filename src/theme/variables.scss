@@ -38,10 +38,13 @@ $colors: (
   secondary:  #32b9db,
   danger:     #dd3838,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  primaryM:   #23509c,
+  dangerM:    #9b2929,
+  verde:        green,
 );
 
-$text-input-highlight-color-valid:( #2b5eb8 );
+$text-input-highlight-color-valid:( #23509c );
 
 
 // App iOS Variables

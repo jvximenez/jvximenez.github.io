@@ -1,3 +1,78 @@
 page-time-tracker {
 
+    .input{
+        text-align: right;
+        justify-content: right;
+
+    }
+
+    .nome{
+        width: 30%;
+        color: grey;
+        font-size: 13px;
+
+    }
+
+    .nome2{
+        width: 30%;
+        color: grey;
+        font-size: 13px;
+        text-align: center;
+
+    }
+
+    .roww{
+        height: 45px;
+    }
+    
+    .roww2{
+    min-height: 5px;
+    }
+
+    .toggle{
+        zoom: 0.8;
+    }
+
+    .caixa{
+        zoom: 0.8;
+        height: 200px;
+        -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    width: 100%;
+    }
+
+    #myInput {
+        width: calc(100% - 10px);
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .btn2 {
+        display:block;
+        height: 40px;
+        width: 70px;
+        border: 1.5px solid;
+        font-size: 11px;
+        margin: 10px;
+        margin-top: 15px;
+    }
+    
+    .btn3 {
+        display:block;
+        height: 50px;
+        width: 80px;
+        border: 1.5px solid;
+        font-size: 11px;
+        margin: 10px;
+    }
+
+
+
+    .item{
+        max-height: 3em;
+    }
+
 }

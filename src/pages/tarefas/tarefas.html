@@ -5,13 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Tarefas</ion-title>
-
     <ion-buttons end>
       <button ion-button icon-only (click)="atualiza()">
         <ion-icon name="sync"></ion-icon>
@@ -25,14 +23,14 @@
 
 
 <ion-content>
-    <ion-grid>
-      <ion-row class="roww">
-        <ion-item>
-          <ion-label class="nome" >Tarefa: </ion-label>
-          <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.title" (keyup.enter)="Criacao(tarefa)"></ion-input>
-        </ion-item>
-      </ion-row>
-    </ion-grid>
+  <ion-grid>
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Tarefa: </ion-label>
+        <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.title" (keyup.enter)="Criacao(tarefa)"></ion-input>
+      </ion-item>
+    </ion-row>
+  </ion-grid>
   
   
     
