@@ -48,7 +48,6 @@ export class SeriesPage {
   SeriesA(){
     var array = []
     var B = false
-    var array2 
     this.series.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.title) { B = true}}); if (B == false) {array.push(elem.title)}})
     
   })

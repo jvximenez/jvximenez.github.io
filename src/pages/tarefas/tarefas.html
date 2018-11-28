@@ -53,7 +53,7 @@
             </ion-col>
               <ion-col col-10>
                 <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
-                  <ion-label >{{f.title }} </ion-label>
+                  <ion-label >{{f.title}} </ion-label>
                   <ion-note item-end><p>{{f.dia}}/{{f.mes}}</p></ion-note>
                 </ion-item>
                 
@@ -64,7 +64,7 @@
       </ion-list>
     </ion-card>
 
-    <ion-card>
+    <ion-card no-padding>
       <ion-card-header  class="item">Ontem: </ion-card-header>
       <ion-list>
         <div *ngFor="let f of (tarefas | async)">
@@ -87,7 +87,7 @@
       </ion-list>
     </ion-card>
 
-    <ion-card>
+    <ion-card no-padding>
       <ion-card-header class="item">Amanha:</ion-card-header>
       <ion-list>
         <div *ngFor="let f of (tarefas | async)">
