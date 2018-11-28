@@ -7,12 +7,70 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>timeTrackerEdit</ion-title>
+    <ion-title>Editar timetracker</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
+    <ion-grid>
+        <ion-row class="roww">
+            <ion-item no-lines>
+              <ion-label class="nome" >Tracker: </ion-label>
+              <ion-input text-right type="text"  value="" [(ngModel)]="tracker.title" (keyup.enter)="Criacao(tracker)"></ion-input>
+            </ion-item>
+        </ion-row>
+    
+        <ion-row class="roww">
+          <ion-col col-11>
+            <ion-item no-lines>
+                <ion-range  min="-2" max="2"  snaps color="{{Cor(tracker.nivel)}}" [(ngModel)]="tracker.nivel">
+                  <ion-icon range-left color="{{Cor(tracker.nivel)}}"  small name="close-circle"></ion-icon>
+                  <ion-icon range-right  color="{{Cor(tracker.nivel)}}"  small name="checkmark-circle"></ion-icon>
+                </ion-range>
+              </ion-item>
+          </ion-col>
+          <ion-col col-1 >
+            <button ion-button icon-start round clear no-padding >
+              <ion-icon name="clipboard"> </ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    
+      <ion-row justify-content-center >
+        <button class="btn2" ion-button outline round small (click)="Amanha(tracker)">Amanhã</button>
+        <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>
+        <button class="btn2" ion-button outline  round small (click)="Ontem(tracker)">Ontem</button>
+      </ion-row>
+    
+      <ion-card no-padding *ngFor="let d of dias">
+        <ion-card-header  class="item">{{d.title}} </ion-card-header>
+        <ion-list>
+          <div *ngFor="let f of (trackers | async)">
+            <ion-row *ngIf="f.total == RetornaDia(d.title)" class="item"  >
+              <ion-col col-1 >
+               <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>
+                  <ion-icon name="{{Icone(f)}}"> </ion-icon>
+                </button>
+              </ion-col>
+                <ion-col col-10>
+                  <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
+                    <ion-label >{{f.title }} </ion-label>
+                    <ion-note item-end><p>{{f.duracao}}</p></ion-note>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-1 >
+                  <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>
+                    <ion-icon name="more"></ion-icon>
+                  
+                  </button>
+                </ion-col>
+             </ion-row>
+          </div>  
+          <ion-row style="max-height: 1em;"><ion-item  ></ion-item> </ion-row>
+        </ion-list>
+      </ion-card>
 
 </ion-content>

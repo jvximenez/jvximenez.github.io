@@ -19,7 +19,7 @@ import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = TimeTrackerPage;
+  rootPage:any = TabsPage;
   testemesmo: any
   
   
@@ -40,6 +40,10 @@ export class MyApp {
 
   abrirFilmes(){
     this.nav.setRoot(FilmesPage)
+  }
+
+  abrirTime(){
+    this.nav.setRoot(TimeTrackerPage)
   }
 
   abrirSeries(){

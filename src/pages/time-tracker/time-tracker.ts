@@ -257,6 +257,12 @@ export class TimeTrackerPage {
     }
   }
 
+  AlteraNivel(track,Nivel){
+    track.nivel = Nivel
+    this.dbService.update('trackers',track)
+
+  }
+
   Opcoes(track){
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Opções',
@@ -265,48 +271,58 @@ export class TimeTrackerPage {
           text: 'Copiar',
           icon: 'copy',
           handler: () => {
-            console.log('Archive clicked');
+            this.tracker.title = track.title;
+            this.tracker.nivel = track.nivel;
+            this.Criacao(this.tracker);
           }
           
         },{
           text: 'Limpar final',
           handler: () => {
-            console.log('Archive clicked');
+            track.Hfim = '';
+            track.Mfim ='';
+            this.dbService.update('trackers',track);
           }
         },{
           text: 'Limpar tudo',
           handler: () => {
-            console.log('Archive clicked');
+            track.Hfim = '';
+            track.Mfim = '';
+            track.Hinicio = '';
+            track.Minicio = '';
+            track.duracao = '';
+            this.dbService.update('trackers',track);
+            
           }
         },{
           text: 'Nível 2',
           handler: () => {
-            console.log('Archive clicked');
+            this.AlteraNivel(track,"2")
           }
         },{
           text: 'Nível 1',
           handler: () => {
-            console.log('Archive clicked');
+            this.AlteraNivel(track,"1")
           }
         },{
           text: 'Nível 0',
           handler: () => {
-            console.log('Archive clicked');
+             this.AlteraNivel(track,"0")
           }
         },{
           text: 'Nível -1',
           handler: () => {
-            console.log('Archive clicked');
+            this.AlteraNivel(track,"-1")
           }
         },{
           text: 'Nível -2',
           handler: () => {
-            console.log('Archive clicked');
+            this.AlteraNivel(track,"-2")
           }
         },{
           text: 'Necessario',
           handler: () => {
-            console.log('Archive clicked');
+            this.AlteraNivel(track,"3")
           }
         },{
           text: 'Cancelar',
