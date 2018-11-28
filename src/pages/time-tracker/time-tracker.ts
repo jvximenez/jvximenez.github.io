@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
@@ -37,7 +37,7 @@ export class TimeTrackerPage {
 
   public select;dias;hoje;ontem;amanha
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
     this.trackers =  this.dbService.getAll('trackers','total')
 
@@ -256,6 +256,70 @@ export class TimeTrackerPage {
       return('pause')
     }
   }
+
+  Opcoes(track){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Opções',
+      buttons: [
+        {
+          text: 'Copiar',
+          icon: 'copy',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+          
+        },{
+          text: 'Limpar final',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Limpar tudo',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Nível 2',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Nível 1',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Nível 0',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Nível -1',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Nível -2',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Necessario',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+  
 
   
 
