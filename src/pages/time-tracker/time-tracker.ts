@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the TimeTrackerPage page.
@@ -38,9 +39,11 @@ export class TimeTrackerPage {
 
   public select;dias;hoje;ontem;amanha
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
+  constructor(public statusBar:StatusBar , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
     this.trackers =  this.dbService.getAll('trackers','total')
+    this.statusBar.backgroundColorByHexString('#ffffff');
+
 
     this.dias = [{title: "Hoje"},
       {title:"Ontem"},
