@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 /**
  * Generated class for the TimeTrackerEditPage page.
@@ -14,12 +15,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'time-tracker-edit.html',
 })
 export class TimeTrackerEditPage {
+  public tracker
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
+  
+
+    this.tracker = this.navParams.get('tracker')
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TimeTrackerEditPage');
-  }
+  Atualizar(tarefa){
+    this.dbService.update('tarefas',tarefa).then( d => {
+      this.navCtrl.pop()});
+    }
+  
+
+  Deletar(tarefa){
+    this.dbService.revome('tarefas',tarefa).then( d => {
+      this.navCtrl.pop()
+    });
+    }
 
 }

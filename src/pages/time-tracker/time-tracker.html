@@ -24,6 +24,21 @@
 
 
 <ion-content>
+
+   <!--!> <br>
+    <h3>Determinate</h3>
+    <div class="progress">
+      <div class="determinate2" style="width: 80%"></div>
+      <div class="determinate" style="width: 70%"></div> 
+    </div>
+    
+    <br>
+    
+    <h3 class="dt-loading">dataTable Loading...</h3>
+    
+    <br> </-->
+
+    
   <ion-grid>
     <ion-row class="roww">
         <ion-item no-lines>
@@ -43,8 +58,8 @@
           </ion-item>
       </ion-col>
       <ion-col col-1 >
-        <button ion-button icon-start round clear no-padding >
-          <ion-icon name="clipboard"> </ion-icon>
+        <button ion-button icon-start round clear no-padding (click)="Nivel(3)">
+          <ion-icon color="verde" name="clipboard" (click)="Nivel(3)"> </ion-icon>
         </button>
       </ion-col>
     </ion-row>
@@ -60,16 +75,21 @@
     <ion-card-header  class="item">{{d.title}} </ion-card-header>
     <ion-list>
       <div *ngFor="let f of (trackers | async)">
-        <ion-row *ngIf="f.total == RetornaDia(d.title)" class="item"  >
-          <ion-col col-1 >
+        <ion-row *ngIf="f.total == RetornaDia(d.title)" class="item">
+        <ion-col col-1>
+          <ion-item class="item" no-padding>
+            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    
+          </ion-item>
+        </ion-col>
+          <ion-col col-1>
            <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>
               <ion-icon name="{{Icone(f)}}"> </ion-icon>
             </button>
           </ion-col>
-            <ion-col col-10>
+            <ion-col col-9>
               <ion-item  (click)="goToEdit(f)" (press)="Deletar(f)" >
                 <ion-label >{{f.title }} </ion-label>
-                <ion-note item-end><p>{{f.duracao}}</p></ion-note>
+                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>
               </ion-item>
             </ion-col>
             <ion-col col-1 >

@@ -29,7 +29,8 @@ export class TimeTrackerPage {
     'Hfim':'',
     'Mfim':'',
     'nivel': 0,
-    'duracao':'',
+    'duracao':0,
+    'check': false,
 
   }
 
@@ -41,9 +42,9 @@ export class TimeTrackerPage {
 
     this.trackers =  this.dbService.getAll('trackers','total')
 
-    this.dias = [{title: "hoje"},
-      {title:"ontem"},
-      {title: "amanha"}
+    this.dias = [{title: "Hoje"},
+      {title:"Ontem"},
+      {title: "Amanha"}
     ]
 
 
@@ -81,6 +82,9 @@ export class TimeTrackerPage {
     }
     if (n == 2){
       return 'primaryM'
+    }
+    if (n == 3){
+      return 'verde'
     }
   }
 
@@ -179,12 +183,12 @@ export class TimeTrackerPage {
 
   goToEdit(itens){
     this.navCtrl.push(TimeTrackerEditPage, 
-    {'tarefa' : itens})
+    {'tracker' : itens})
   }
 
   goToTotal(){
     this.navCtrl.push(TodosTrackersPage, 
-    {'tarefas' : this.trackers})
+    {'trackers' : this.trackers})
   }
 
 
@@ -193,11 +197,11 @@ export class TimeTrackerPage {
   
 
   Atualizar(tarefas){
-    this.dbService.update('tarefas',tarefas)
+    this.dbService.update('trackers',tarefas)
     }
 
   Deletar(tarefas){
-    this.dbService.revome('tarefas',tarefas)
+    this.dbService.revome('trackers',tarefas)
     }
 
   
@@ -207,24 +211,35 @@ export class TimeTrackerPage {
     }
 
   RetornaDia(dia){
-    if(dia=="hoje"){
+    if(dia=="Hoje"){
     return (this.hoje)}
-    if(dia=="amanha"){
+    if(dia=="Amanha"){
     return (this.amanha)}
-    if(dia=="ontem"){
+    if(dia=="Ontem"){
     return (this.ontem)}
     
     
   }
+
+  RetornaH(duracao){
+    if (duracao == 0){
+      return (" ")
+    }
+    else{
+    var inteiro = parseInt(duracao)
+    var min = Math.round((duracao - inteiro)*60*10)/10
+    return (inteiro+"h"+min)}
+  }
+
 
   Comecar(track){
     
     if (track.Hinicio != '' && track.Hfim == ''){
       track.Hfim = this.RetornaHora()
       track.Mfim = this.RetornaMin()
-      track.duracao = ((Number(track.Hfim) - Number(track.Hinicio)) +":"+ Math.round((Number(track.Mfim) - Number(track.Minicio))*10)/10)
-      if (track.duracao < 0){track.duracao = 24 - Number(track.inicio)}
-    }
+      track.duracao = ((Number(track.Hfim) + Number(track.Mfim)/60 - Number(track.Hinicio)) - Number(track.Minicio)/60)
+      if (track.duracao < 0){track.duracao = 24 - Number(track.inicio)- Number(track.Minicio)/60}
+    } 
     if (track.Hinicio == ''){
       track.Hinicio = this.RetornaHora()
       track.Minicio = this.RetornaMin()}
@@ -263,17 +278,32 @@ export class TimeTrackerPage {
 
   }
 
+  Nivel(Nivel){
+    this.tracker.nivel = Nivel
+
+  }
+
+  
+
   Opcoes(track){
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Opções',
       buttons: [
         {
           text: 'Copiar',
-          icon: 'copy',
+          
           handler: () => {
             this.tracker.title = track.title;
             this.tracker.nivel = track.nivel;
             this.Criacao(this.tracker);
+          }
+          
+        },
+        {
+          text: 'Deletar',
+          
+          handler: () => {
+            this.Deletar(track);
           }
           
         },{
