@@ -25,18 +25,7 @@
 
 <ion-content>
 
-   <!--!> <br>
-    <h3>Determinate</h3>
-    <div class="progress">
-      <div class="determinate2" style="width: 80%"></div>
-      <div class="determinate" style="width: 70%"></div> 
-    </div>
-    
-    <br>
-    
-    <h3 class="dt-loading">dataTable Loading...</h3>
-    
-    <br> </-->
+   
 
     
   <ion-grid>
@@ -102,6 +91,18 @@
       </div>  
       <ion-row style="max-height: 1em;"><ion-item  ></ion-item> </ion-row>
     </ion-list>
+
+    <br >
+    <div class="progress" *ngIf="d.title == 'Hoje'" (click)=teste(totalM)>
+      <div class="determinate1" style="width: 0%" id="teste6" ></div>
+      <div class="determinate2" style="width: 0%" id="teste5" ></div>
+      <div class="determinate3" style="width: 0%" id="teste4" ></div>
+      <div class="determinate4" style="width: 0%" id="teste3" ></div>
+      <div class="determinate5" style="width: 0%" id="teste2" ></div>
+      <div class="determinate6" style="width: 0%" id="teste1" ></div>
+    </div>
+    
+
   </ion-card>
  
 

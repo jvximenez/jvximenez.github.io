@@ -36,6 +36,8 @@ export class TimeTrackerPage {
   }
 
   public trackers
+  public totalM
+  
 
   public select;dias;hoje;ontem;amanha
 
@@ -50,13 +52,6 @@ export class TimeTrackerPage {
       {title: "Amanha"}
     ]
 
-
-    this.select =  [{title: "Ação"},
-    {title: "Comédia"},
-    {title: "Drama"},
-    {title: "Romance"},
-    {title: "Super-heroi"}]
-
     
    
 
@@ -64,10 +59,44 @@ export class TimeTrackerPage {
     this.amanha = this.Total3();
     this.ontem = this.Total2();
 
-    console.log(this.hoje, this.amanha, this.ontem, "afaf")
+    this.totalM = this.TotalHoras(this.hoje)
+    this.ngAfterViewInit()
+    
+    
 
   }
 
+  ngAfterViewInit(){
+    setTimeout(()=> {
+      this.teste(this.totalM)
+    },800)
+}
+
+
+  teste(array){
+    console.log(array,"OI",array[0]/24)
+    var a1 = (String(array[0]/0.24)+'%')
+    var a2 = (String((array[0]+array[1])/0.24)+'%')
+    var a3 = (String((array[0]+array[1]+array[2])/0.24)+'%')
+    var a4 = (String((array[0]+array[1]+array[2]+array[3])/0.24)+'%')
+    var a5 = (String((array[0]+array[1]+array[2]+array[3]+array[4])/0.24)+'%')
+    var a6 = (String((array[0]+array[1]+array[2]+array[3]+array[4]+array[5])/0.24)+'%')
+    console.log(a1,a2,a3,a4,a5,a6,'nfndkfskdm')
+    
+    document.getElementById("teste1").style.width = a1
+    document.getElementById("teste2").style.width = a2
+    document.getElementById("teste3").style.width = a3
+    document.getElementById("teste4").style.width = a4
+    document.getElementById("teste5").style.width = a5
+    document.getElementById("teste6").style.width = a6
+  }
+
+
+  TotalHoras(total){
+    var array = [0,0,0,0,0,0]
+    this.trackers.forEach(itens => {itens.forEach(item => {if (item.total == total && item.duracao > 0) {array[(Number(item.nivel)+2)] += item.duracao}})})
+    return array
+  }
     
 
   Cor(n){

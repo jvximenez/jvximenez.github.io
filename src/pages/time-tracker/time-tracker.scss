@@ -98,55 +98,55 @@ page-time-tracker {
 
     .progress {
         position: relative;
-        height: 4px;
+        height: 6px;
         display: block;
-        width: 100%;
+        width: 95%;
         background-color: #6d6d6dc5;
-        border-radius: 2px;
+        border-radius: 52px;
         background-clip: padding-box;
-        margin: 0.5rem 0 1rem 0;
+        margin: 1rem 1rem 1rem 1rem;
         overflow: hidden; }
-        .progress .determinate {
+        .progress .determinate1 {
           position: absolute;
           background-color: inherit;
           top: 0;
           bottom: 0;
-          background-color: #26a69a;
+          background-color: green;
           transition: width .3s linear; }
         .progress .determinate2 {
         position: absolute;
         background-color: inherit;
         top: 0;
         bottom: 0;
-        background-color: green;
+        background-color: #23509c;
         transition: width .3s linear; }
         .progress .determinate3 {
         position: absolute;
         background-color: inherit;
         top: 0;
         bottom: 0;
-        background-color: #a626a0;
+        background-color: #2f6acf;
         transition: width .3s linear; }
         .progress .determinate4 {
         position: absolute;
         background-color: inherit;
         top: 0;
         bottom: 0;
-        background-color: #a626a0;
+        background-color: grey;
         transition: width .3s linear; }
         .progress .determinate5 {
         position: absolute;
         background-color: inherit;
         top: 0;
         bottom: 0;
-        background-color: #a626a0;
+        background-color:  #dd3838;
         transition: width .3s linear; }
         .progress .determinate6 {
         position: absolute;
         background-color: inherit;
         top: 0;
-        bottom: 0;
-        background-color: #a626a0;
+        bottom: 0;  
+        background-color:  #9b2929;
         transition: width .3s linear; }
         
         

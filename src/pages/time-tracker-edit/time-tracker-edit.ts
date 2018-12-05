@@ -24,13 +24,13 @@ export class TimeTrackerEditPage {
   }
 
   Atualizar(tarefa){
-    this.dbService.update('tarefas',tarefa).then( d => {
+    this.dbService.update('trackers',tarefa).then( d => {
       this.navCtrl.pop()});
     }
   
 
   Deletar(tarefa){
-    this.dbService.revome('tarefas',tarefa).then( d => {
+    this.dbService.revome('trackers',tarefa).then( d => {
       this.navCtrl.pop()
     });
     }
