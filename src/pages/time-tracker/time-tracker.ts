@@ -43,7 +43,8 @@ export class TimeTrackerPage {
 
   constructor(public statusBar:StatusBar , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
-    this.trackers =  this.dbService.getAll('trackers','total')
+    
+    this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map( a => a.reverse())
     this.statusBar.backgroundColorByHexString('#ffffff');
 
 
@@ -266,13 +267,13 @@ export class TimeTrackerPage {
 
   Comecar(track){
     
-    if (track.Hinicio != '' && track.Hfim == ''){
+    if (track.Minicio != '' && track.Hfim == ''){
       track.Hfim = this.RetornaHora()
       track.Mfim = this.RetornaMin()
       track.duracao = ((Number(track.Hfim) + Number(track.Mfim)/60 - Number(track.Hinicio)) - Number(track.Minicio)/60)
       if (track.duracao < 0){track.duracao = 24 - Number(track.inicio)- Number(track.Minicio)/60}
     } 
-    if (track.Hinicio == ''){
+    if (track.Minicio == ''){
       track.Hinicio = this.RetornaHora()
       track.Minicio = this.RetornaMin()}
     this.dbService.update('trackers',track)
@@ -293,13 +294,13 @@ export class TimeTrackerPage {
   }
 
   Icone(track){
-    if(track.Hinicio != '' && track.Hfim !=''){
+    if(track.Minicio != '' && track.Mfim !=''){
       return('checkmark-circle-outline')
     }
-   if(track.Hinicio == ''){
+   if(track.Minicio == ''){
         return('play'); 
       }
-    if(track.Hinicio != '' && track.Hfim ==''){
+    if(track.Minicio != '' && track.Mfim ==''){
       return('pause')
     }
   }

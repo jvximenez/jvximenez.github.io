@@ -42,6 +42,13 @@ export class FirebaseServiceProvider {
     }));
   }
 
+  getAllEspecificoMsm(dado,parametro, quantidade){
+    return this.db.list(dado, ref => ref.orderByChild(parametro).limitToLast(quantidade)).snapshotChanges().pipe(map(data => {
+    return data.map(d => ({key: d.key, ...d.payload.val()}));
+    }));
+    }
+    
+
   
   save(dado,compras: any ){
     return this.db.list(dado)
