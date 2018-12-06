@@ -269,13 +269,16 @@ export class TimeTrackerPage {
     
     if (track.Minicio != '' && track.Hfim == ''){
       track.Hfim = this.RetornaHora()
-      track.Mfim = this.RetornaMin()
-      track.duracao = ((Number(track.Hfim) + Number(track.Mfim)/60 - Number(track.Hinicio)) - Number(track.Minicio)/60)
-      if (track.duracao < 0){track.duracao = 24 - Number(track.inicio)- Number(track.Minicio)/60}
+      track.Mfim = Math.round(this.RetornaMin()*100)/100
+      track.check = true
+      track.duracao = (Math.round((Number(track.Hfim) + Math.round((Number(track.Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
+
+    if (Number(track.duracao) <= 0)
+      {track.duracao = 24 - Number(track.Hinicio)- Number(track.Minicio)/60}
     } 
     if (track.Minicio == ''){
       track.Hinicio = this.RetornaHora()
-      track.Minicio = this.RetornaMin()}
+      track.Minicio = Math.round(this.RetornaMin()*100)/100}
     this.dbService.update('trackers',track)
   }
 
