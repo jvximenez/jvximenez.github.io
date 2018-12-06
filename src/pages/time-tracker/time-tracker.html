@@ -84,15 +84,14 @@
             <ion-col col-1 >
               <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>
                 <ion-icon name="more"></ion-icon>
-              
               </button>
             </ion-col>
          </ion-row>
       </div>  
-      <ion-row style="max-height: 1em;"><ion-item  ></ion-item> </ion-row>
     </ion-list>
 
-    <br >
+    
+    <h2 padding>  Progresso: {{totalM[0]}}</h2>
     <div class="progress" *ngIf="d.title == 'Hoje'" (click)=teste(totalM)>
       <div class="determinate1" style="width: 0%" id="teste6" ></div>
       <div class="determinate2" style="width: 0%" id="teste5" ></div>

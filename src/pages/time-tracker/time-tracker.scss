@@ -81,9 +81,7 @@ page-time-tracker {
         padding: 20px;
     }
 
-    .pad2{
-        
-    }
+   
 
 
 
@@ -100,7 +98,7 @@ page-time-tracker {
 
     .progress {
         position: relative;
-        height: 6px;
+        height: 8px;
         display: block;
         width: 95%;
         background-color: #6d6d6dc5;
@@ -135,7 +133,7 @@ page-time-tracker {
         background-color: inherit;
         top: 0;
         bottom: 0;
-        background-color: grey;
+        background-color: black;
         transition: width .3s linear; }
         .progress .determinate5 {
         position: absolute;
