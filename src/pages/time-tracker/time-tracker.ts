@@ -60,9 +60,7 @@ export class TimeTrackerPage {
     this.amanha = this.Total3();
     this.ontem = this.Total2();
 
-    this.totalM = this.TotalHoras(this.hoje)
-    this.totalM = Math.round(this.totalM * 100)/100
-    console.log(this.totalM,"ISDSIIA")
+    this.totalM = this.TotalHoras(this.hoje)  
     this.ngAfterViewInit()
     
     
@@ -72,10 +70,7 @@ export class TimeTrackerPage {
   ngAfterViewInit(){
     setTimeout(()=> {
       this.teste(this.totalM)
-    },800);
-    setTimeout(() =>{ 
-    this.totalM = this.TotalHoras(this.hoje),100}
-    )
+    },800)
 }
 
 
