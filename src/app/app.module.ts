@@ -34,6 +34,8 @@ import { RestaurantesEditPage } from '../pages/restaurantes-edit/restaurantes-ed
 import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 import { TimeTrackerEditPage } from '../pages/time-tracker-edit/time-tracker-edit';
 import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
+import { ConfiguracoesEditPage } from '../pages/configuracoes-edit/configuracoes-edit';
+import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
 
 
 @NgModule({
@@ -63,6 +65,8 @@ import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
     RestaurantesPage,
     TimeTrackerEditPage,
     TimeTrackerPage,
+    ConfiguracoesEditPage,
+    ConfiguracoesPage
     
   ],
   imports: [
@@ -109,6 +113,8 @@ import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
     RestaurantesPage,
     TimeTrackerEditPage,
     TimeTrackerPage,
+    ConfiguracoesEditPage,
+    ConfiguracoesPage
   ],
   providers: [
     StatusBar,
