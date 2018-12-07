@@ -4,6 +4,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
+import { ConfiguracoesPage } from '../configuracoes/configuracoes';
 
 /**
  * Generated class for the TimeTrackerPage page.
@@ -400,6 +401,11 @@ export class TimeTrackerPage {
       ]
     });
     actionSheet.present();
+  }
+
+
+  goToSettings(){
+    this.navCtrl.push(ConfiguracoesPage)
   }
   
 
