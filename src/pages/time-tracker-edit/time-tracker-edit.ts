@@ -26,7 +26,13 @@ export class TimeTrackerEditPage {
   Atualizar(tarefa){
     this.dbService.update('trackers',tarefa).then( d => {
       this.navCtrl.pop()});
-    }
+  }
+
+  Finalizar(tracker){
+    tracker.duracao = (Math.round((Number(tracker.Hfim) + Math.round((Number(tracker.Mfim)/60)*10000)/10000 - Number(tracker.Hinicio) - Math.round((Number(tracker.Minicio)/60)*10000)/10000)*10000)/10000)
+    this.Atualizar(tracker)
+
+  }
   
 
   Deletar(tarefa){

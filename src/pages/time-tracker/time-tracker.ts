@@ -41,12 +41,15 @@ export class TimeTrackerPage {
   
 
   public select;dias;hoje;ontem;amanha
+  public atalhos
+  public show = false
 
   constructor(public statusBar:StatusBar , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
     
     this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map( a => a.reverse())
     this.statusBar.backgroundColorByHexString('#ffffff');
+    this.atalhos = this.dbService.getAll('configuracoes/tarefas','ordem')
 
 
     this.dias = [{title: "Hoje"},
@@ -67,6 +70,23 @@ export class TimeTrackerPage {
     
 
   }
+
+  doRefresh(refresher) {
+    this.show = !this.show
+
+    setTimeout(() => {
+      refresher.complete();
+    }, 50);
+  }
+
+  atalho(atalho){
+    this.tracker.nivel = atalho.nivel
+    this.tracker.title = atalho.title
+    this.Criacao(this.tracker)
+
+
+  }
+
 
   ngAfterViewInit(){
     setTimeout(()=> {

@@ -62,6 +62,17 @@
     <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>
     <button class="btn2" ion-button outline  round small (click)="Ontem(tracker)">Ontem</button>
   </ion-row>
+  <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
+
+  <div *ngIf = "show == true">
+    <ion-grid no-padding>
+      <ion-row justify-content-center >
+        <ion-col col-3 *ngFor="let a of (atalhos | async)">
+          <button class="btn4" ion-button round small outline (click)=atalho(a)>{{a.title}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
   <ion-card no-padding *ngFor="let d of dias">
     <ion-card-header  class="item">{{d.title}} </ion-card-header>
