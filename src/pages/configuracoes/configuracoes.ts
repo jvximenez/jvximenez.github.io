@@ -63,7 +63,11 @@ export class ConfiguracoesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
-
+    this.atividades=this.dbService.getAll('configuracoes/atividades','ordem')
+    this.roles=this.dbService.getAll('configuracoes/roles','ordem')
+    this.estudos=this.dbService.getAll('configuracoes/estudos','ordem')
+    this.pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
+    this.viagens=this.dbService.getAll('configuracoes/viagens','ordem')
   }
 
 

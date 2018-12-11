@@ -16,13 +16,40 @@
 <ion-content>
   <ion-item-group>
       <ion-item-divider color="light" (click)="CriaNovo('remedios')" >Remédios</ion-item-divider>
-      <ion-item *ngFor="let f of (remedios | async)">{{f.title}}</ion-item>
+      <ion-item *ngFor="let f of (remedios | async)">
+      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)"></ion-checkbox>  
+      </ion-item>
   </ion-item-group>
 
   <ion-item-group>
-    <ion-item-divider color="light">A</ion-item-divider>
-    <ion-item>Angola</ion-item>
-    <ion-item>Argentina</ion-item>
+    <ion-item-divider color="light" (click)="CriaNovo('atividades')" >Atividades</ion-item-divider>
+    <ion-item *ngFor="let f of (atividades | async)">
+    <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)"></ion-checkbox>
+      </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light" (click)="CriaNovo('roles')" >Roles</ion-item-divider>
+    <ion-item *ngFor="let f of (atividades | async)">
+      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)"></ion-checkbox>
+      </ion-item>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider color="light" (click)="CriaNovo('estudos')" >Estudos</ion-item-divider>
+    <ion-item *ngFor="let f of (atividades | async)">
+      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)"></ion-checkbox>
+      </ion-item>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider color="light" (click)="CriaNovo('pessoas')" >Pessoas</ion-item-divider>
+    <ion-item *ngFor="let f of (atividades | async)">
+      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)"></ion-checkbox>
+      </ion-item>
   </ion-item-group>
   
 
