@@ -68,6 +68,32 @@ export class ConfiguracoesPage {
     this.estudos=this.dbService.getAll('configuracoes/estudos','ordem')
     this.pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
     this.viagens=this.dbService.getAll('configuracoes/viagens','ordem')
+    this.tarefas= this.dbService.getAll('configuracoes/tarefas','ordem')
+  }
+
+
+  Atualizar(tarefas,nome){
+    if (nome == 'remedios'){
+      this.dbService.update('configuracoes/remedios',tarefas)
+    }
+    if (nome == 'atividades'){
+      this.dbService.update('configuracoes/atividades',tarefas)
+    }
+    if (nome == 'roles'){
+      this.dbService.update('configuracoes/roles',tarefas)
+    }
+    if (nome == 'estudos'){
+      this.dbService.update('configuracoes/estudos',tarefas)
+    }
+    if (nome == 'pessoas'){
+      this.dbService.update('configuracoes/pessoas',tarefas)
+    }
+    if (nome == 'viagens'){
+      this.dbService.update('configuracoes/viagens',tarefas)
+    }
+    if (nome == 'tarefas'){
+      this.dbService.update('configuracoes/tarefas',tarefas)
+    }
   }
 
 
@@ -104,7 +130,7 @@ export class ConfiguracoesPage {
             }
             if (local == "roles") {
               this.role.title = data.title, this.role.ordem = data.ordem;
-              this.dbService.save('configuracoes/atividades', this.role);
+              this.dbService.save('configuracoes/roles', this.role);
             }
             if (local == "estudos") {
               this.estudo.title = data.title, this.estudo.ordem = data.ordem;
@@ -114,6 +140,46 @@ export class ConfiguracoesPage {
               this.pessoa.title = data.title, this.pessoa.ordem = data.ordem;
               this.dbService.save('configuracoes/pessoas', this.pessoa);
             }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+
+  CriaTarefa(){
+    const prompt = this.alertCtrl.create({
+      title: 'Nova Tarefa',
+      message: "Entre com o nome e ordem",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Nome',
+
+        },
+        {
+          name: 'nivel',
+          placeholder:"Nivel"
+        },
+        {
+          name: 'categoria',
+          placeholder:"Categoria"
+        },
+        {
+          name: 'ordem',
+          placeholder:"Ordem"
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'Adicionar',
+          handler: data => {
+            this.tarefa.title = data.title, this.tarefa.ordem = data.ordem;this.tarefa.nivel = data.nivel; this.tarefa.categoria = data.categoria;
+            this.dbService.save('configuracoes/tarefas', this.tarefa);
           }
         }
       ]
