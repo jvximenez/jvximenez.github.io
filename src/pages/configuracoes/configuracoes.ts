@@ -68,7 +68,7 @@ export class ConfiguracoesPage {
     this.estudos=this.dbService.getAll('configuracoes/estudos','ordem')
     this.pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
     this.viagens=this.dbService.getAll('configuracoes/viagens','ordem')
-    this.tarefas= this.dbService.getAll('configuracoes/tarefas','ordem')
+    this.tarefas= this.dbService.getAll('configuracoes/tarefas','nivel')
   }
 
 

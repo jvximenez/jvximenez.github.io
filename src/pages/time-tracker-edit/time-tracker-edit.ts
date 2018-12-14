@@ -24,6 +24,10 @@ export class TimeTrackerEditPage {
   }
 
   Atualizar(tarefa){
+    tarefa.Hfim = Number(tarefa.Hfim)
+    tarefa.Hinicio = Number(tarefa.Hinicio)
+    tarefa.Mfim = Number(tarefa.Mfim)
+    tarefa.Minicio = Number(tarefa.Minicio)
     this.dbService.update('trackers',tarefa).then( d => {
       this.navCtrl.pop()});
   }

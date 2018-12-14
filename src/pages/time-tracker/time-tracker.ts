@@ -43,13 +43,15 @@ export class TimeTrackerPage {
   public select;dias;hoje;ontem;amanha
   public atalhos
   public show = false
+  public Indicadores
 
   constructor(public statusBar:StatusBar , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
     
-    this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',5).map(d => d.reverse())
+    this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map(b => b.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['Hinicio']+b['Minicio']/60))- Number(String(a['Hinicio']+a['Minicio']/60))}))
     this.statusBar.backgroundColorByHexString('#ffffff');
-    this.atalhos = this.dbService.getAll('configuracoes/tarefas','ordem')
+    this.atalhos = this.dbService.getAll('configuracoes/tarefas','nivel')
+    this.Indicadores = this.Calcula(this.Total());
 
 
     this.dias = [{title: "Hoje"},
@@ -87,7 +89,40 @@ export class TimeTrackerPage {
 
   }
 
+  Calcula(dia){
+    console.log(dia,"entramos")
+    var array = [0,0,0,0,0,0,0,0,0]
+    var array2 = []
+    var b;
+     this.trackers.forEach(itens => itens.forEach(item => {
+       if(item.title.includes("Dormir") && item.total == dia)
+       {array[0] += item.duracao}; 
+       if(item.title.includes("Banho") && item.total == dia)
+       {array[1] += item.duracao};
+       if(item.title.includes("Ler") && item.total == dia)
+       {array[2] += item.duracao};
+       if(item.title.includes("Programar") && item.total == dia)
+       {array[3] += item.duracao};
+       if(item.title.includes("Frances") && item.total == dia)
+       {array[4] += item.duracao};
+       if(item.title.includes("Ingles") && item.total == dia)
+       {array[5] += item.duracao};
+       if(item.title.includes("Aula") && item.total == dia)
+       {array[6] += item.duracao};
+       if(item.title.includes("Relaxar") && item.total == dia)
+       {array[7] += item.duracao};
+       if(item.title.includes("Tempinho") && item.total == dia)
+       {array[8] += item.duracao};
+       if(item.title.includes("Dani") && item.total == dia)
+       {array[9] += item.duracao}}))
+      return array
+  }
 
+  Arredonda(val){
+    var b;
+    b = (Math.round(val*100)/100)
+    return b
+  }
   ngAfterViewInit(){
     setTimeout(()=> {
       this.teste(this.totalM)
@@ -96,14 +131,14 @@ export class TimeTrackerPage {
 
 
   teste(array){
-    console.log(array,"OI",array[0]/24)
+    
     var a1 = (String(array[0]/0.24)+'%')
     var a2 = (String((array[0]+array[1])/0.24)+'%')
     var a3 = (String((array[0]+array[1]+array[2])/0.24)+'%')
     var a4 = (String((array[0]+array[1]+array[2]+array[3])/0.24)+'%')
     var a5 = (String((array[0]+array[1]+array[2]+array[3]+array[4])/0.24)+'%')
     var a6 = (String((array[0]+array[1]+array[2]+array[3]+array[4]+array[5])/0.24)+'%')
-    console.log(a1,a2,a3,a4,a5,a6,'nfndkfskdm')
+    
     
     document.getElementById("teste1").style.width = a1
     document.getElementById("teste2").style.width = a2
@@ -116,7 +151,7 @@ export class TimeTrackerPage {
 
   TotalHoras(total){
     var array = [0,0,0,0,0,0]
-    this.trackers.forEach(itens => {itens.forEach(item => {if (item.total == total && item.duracao > 0) {console.log(item.duracao, "dura"), array[(Number(item.nivel)+2)] += Number(item.duracao)}})})
+    this.trackers.forEach(itens => {itens.forEach(item => {if (item.total == total && item.duracao > 0) {array[(Number(item.nivel)+2)] += Number(item.duracao)}})})
     return array
   }
     
@@ -415,7 +450,6 @@ export class TimeTrackerPage {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]

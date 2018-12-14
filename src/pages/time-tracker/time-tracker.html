@@ -68,7 +68,7 @@
     <ion-grid no-padding>
       <ion-row justify-content-center >
         <ion-col col-3 *ngFor="let a of (atalhos | async)">
-          <button class="btn4" ion-button round small outline (click)=atalho(a)>{{a.title}}</button>
+          <button class="btn4" ion-button round small outline color="{{Cor(a.nivel)}}" (click)=atalho(a)>{{a.title}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -77,8 +77,8 @@
   <ion-card no-padding *ngFor="let d of dias">
     <ion-card-header  class="item">{{d.title}} </ion-card-header>
     <ion-list>
-      <div *ngFor="let f of (trackers | async)">
-        <ion-row *ngIf="f.total == RetornaDia(d.title)" class="item">
+      <div *ngFor="let f of (trackers | async) ">
+        <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Hinicio == ""'class="item">
         <ion-col col-1>
           <ion-item class="item" no-padding>
             <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    
@@ -101,8 +101,35 @@
               </button>
             </ion-col>
          </ion-row>
-      </div>  
+      </div>
+         
+      <div *ngFor="let f of (trackers | async) ">
+      <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Hinicio != ""'class="item">
+        <ion-col col-1>
+          <ion-item class="item" no-padding>
+            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    
+          </ion-item>
+        </ion-col>
+          <ion-col col-1>
+           <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>
+              <ion-icon name="{{Icone(f)}}"> </ion-icon>
+            </button>
+          </ion-col>
+            <ion-col col-9>
+              <ion-item  (click)="goToEdit(f)" >
+                <ion-label >{{f.title }} KKK</ion-label>
+                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>
+              </ion-item>
+            </ion-col>
+            <ion-col col-1 >
+              <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>
+                <ion-icon name="more"></ion-icon>
+              </button>
+            </ion-col>
+         </ion-row>
+      </div>
     </ion-list>
+    
 
     
     <h2 padding>  Progresso:</h2>
@@ -114,6 +141,22 @@
       <div class="determinate5" style="width: 0%" id="teste2" ></div>
       <div class="determinate6" style="width: 0%" id="teste1" ></div>
     </div>
+    
+    <div *ngIf="d.title == 'Hoje'">
+      <h2 padding>Tarefas Cotidianas:
+          <br>Dormir    - {{Arredonda(Indicadores[0])}}
+          <br>Banho     - {{Arredonda(Indicadores[1])}}
+          <br>Ler       - {{Arredonda(Indicadores[2])}}
+          <br>Programar - {{Arredonda(Indicadores[3])}}
+          <br>Fraces    -  {{Arredonda(Indicadores[4])}}
+          <br>Ingles    -  {{Arredonda(Indicadores[5])}}
+          <br>Aulas     - {{Arredonda(Indicadores[6])}}
+          <br>Relaxar   - {{Arredonda(Indicadores[7])}}
+          <br>Tempinho  - {{Arredonda(Indicadores[8])}}
+          <br>Dani      - {{Arredonda(Indicadores[9])}}
+      </h2>
+    </div>
+   
     
 
   </ion-card>
