@@ -143,18 +143,27 @@
     </div>
     
     <div *ngIf="d.title == 'Hoje'">
-      <h2 padding>Tarefas Cotidianas:
-          <br>Dormir    - {{Arredonda(Indicadores[0])}}
-          <br>Banho     - {{Arredonda(Indicadores[1])}}
-          <br>Ler       - {{Arredonda(Indicadores[2])}}
-          <br>Programar - {{Arredonda(Indicadores[3])}}
-          <br>Fraces    -  {{Arredonda(Indicadores[4])}}
-          <br>Ingles    -  {{Arredonda(Indicadores[5])}}
-          <br>Aulas     - {{Arredonda(Indicadores[6])}}
-          <br>Relaxar   - {{Arredonda(Indicadores[7])}}
-          <br>Tempinho  - {{Arredonda(Indicadores[8])}}
-          <br>Dani      - {{Arredonda(Indicadores[9])}}
-      </h2>
+      <ion-row>
+        <ion-col col-5>
+          <h2 padding>Tarefas Cotidianas:
+            <br>Dormir    - {{Arredonda(Indicadores[0])}}
+            <br>Banho     - {{Arredonda(Indicadores[1])}}
+            <br>Ler       - {{Arredonda(Indicadores[2])}}
+            <br>Programar - {{Arredonda(Indicadores[3])}}
+            <br>Fraces    -  {{Arredonda(Indicadores[4])}}
+          </h2>
+        </ion-col>
+        <ion-col col-5>
+          <h2>
+            <br>
+            <br>Ingles    -  {{Arredonda(Indicadores[5])}}
+            <br>Aulas     - {{Arredonda(Indicadores[6])}}
+            <br>Relaxar   - {{Arredonda(Indicadores[7])}}
+            <br>Tempinho  - {{Arredonda(Indicadores[8])}}
+            <br>Dani      - {{Arredonda(Indicadores[9])}}
+          </h2>
+        </ion-col>
+      </ion-row>
     </div>
    
     
