@@ -47,7 +47,7 @@ export class TimeTrackerPage {
   constructor(public statusBar:StatusBar , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
     
-    this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map( a => a.reverse())
+    this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',5).map(d => d.reverse())
     this.statusBar.backgroundColorByHexString('#ffffff');
     this.atalhos = this.dbService.getAll('configuracoes/tarefas','ordem')
 
