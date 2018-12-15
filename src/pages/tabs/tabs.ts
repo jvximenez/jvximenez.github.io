@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AdicionarPage } from '../adicionar/adicionar';
 import { HojePage } from '../hoje/hoje';
 import { CardsPage } from '../cards/cards';
-import { TarefasPage } from '../tarefas/tarefas';
 import { NavParams } from 'ionic-angular';
 import { TimeTrackerPage } from '../time-tracker/time-tracker';
 

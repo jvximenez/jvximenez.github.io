@@ -67,7 +67,6 @@ export class TarefasPage {
     var dia = data.getDate();
     var mes = data.getMonth();
     var ano = data.getFullYear();
-    var hora = data.getHours();
 
     total = Number(ano*10000 + (mes+1)*100 + dia);
     return total

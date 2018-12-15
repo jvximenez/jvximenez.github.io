@@ -91,9 +91,7 @@ export class TimeTrackerPage {
 
   Calcula(dia){
     console.log(dia,"entramos")
-    var array = [0,0,0,0,0,0,0,0,0]
-    var array2 = []
-    var b;
+    var array = [0,0,0,0,0,0,0,0,0,0,0]
      this.trackers.forEach(itens => itens.forEach(item => {
        if(item.title.includes("Dormir") && item.total == dia)
        {array[0] += item.duracao}; 
@@ -114,7 +112,9 @@ export class TimeTrackerPage {
        if(item.title.includes("Tempinho") && item.total == dia)
        {array[8] += item.duracao};
        if(item.title.includes("Dani") && item.total == dia)
-       {array[9] += item.duracao}}))
+       {array[9] += item.duracao};
+       if(item.title.includes("Estudar") && item.total == dia)
+       {array[10] += item.duracao};}))
       return array
   }
 
@@ -207,7 +207,6 @@ export class TimeTrackerPage {
     var dia = data.getDate();
     var mes = data.getMonth();
     var ano = data.getFullYear();
-    var hora = data.getHours();
 
     total = Number(ano*10000 + (mes+1)*100 + dia);
     return total
