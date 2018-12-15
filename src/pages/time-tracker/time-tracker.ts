@@ -375,6 +375,22 @@ export class TimeTrackerPage {
 
   }
 
+  goToSettings(){
+    this.navCtrl.push(ConfiguracoesPage)
+  }
+
+  AlterarNome(track, nome){
+    track.title = nome;
+    this.dbService.update('trackers',track)
+
+  }
+
+  CriaNovo(track){
+    this.trackers.Hinicio = track.Hfim
+    this.trackers.Minicio = track.Mfim
+    this.Criacao(this.tracker);
+  }
+
   
 
   Opcoes(track){
@@ -447,6 +463,17 @@ export class TimeTrackerPage {
             this.AlteraNivel(track,"3")
           }
         },{
+          text: 'Relaxar',
+          handler: () => {
+            this.AlteraNivel(track,"-2");
+            this.AlterarNome(track, 'Relaxar');
+          }
+        },{
+          text: 'Criar Novo',
+          handler: () => {
+            this.CriaNovo(track)
+          }
+        },{
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
@@ -458,9 +485,7 @@ export class TimeTrackerPage {
   }
 
 
-  goToSettings(){
-    this.navCtrl.push(ConfiguracoesPage)
-  }
+ 
   
 
   
