@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
@@ -45,7 +45,7 @@ export class TimeTrackerPage {
   public show = false
   public Indicadores
 
-  constructor(public statusBar:StatusBar , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
+  constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
     
     this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map(b => b.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['Hinicio']+b['Minicio']/60))- Number(String(a['Hinicio']+a['Minicio']/60))}))
@@ -475,7 +475,8 @@ export class TimeTrackerPage {
         },{
           text: 'Criar Novo',
             handler: () => {
-            this.CriaNovo(track)
+            this.PromptCriarNovo(track)
+           
           }
         },{
           text: 'Cancelar',
@@ -488,10 +489,42 @@ export class TimeTrackerPage {
     actionSheet.present();
   }
 
+  PromptCriarNovo(track){
+    const prompt = this.alertCtrl.create({
+      title: 'Novo tracker',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Nome'
+        },{
+          name: 'nivel',
+          placeholder:'Nível'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            this.tracker.title = data.title, this.tracker.nivel = data.nivel;
+            this.CriaNovo(track)
+            
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
 
- 
-  
 
-  
+
+
+
+
 
 }

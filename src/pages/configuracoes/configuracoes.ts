@@ -20,32 +20,32 @@ export class ConfiguracoesPage {
     'nivel':'',
     'check':true,
     'categoria':'',
-    'ordem':'',
+    'ordem':Number(''),
   }
   public remedio = {
     'title':'',
     'check':true,
-    'ordem':'',
+    'ordem':Number(''),
   }
   public atividade = {
     'title':'',
     'check':true,
-    'ordem':'',
+    'ordem':Number(''),
   }
   public role = {
     'title':'',
     'check':true,
-    'ordem':'',
+    'ordem':Number(''),
   }
   public estudo = {
     'title':'',
     'check':true,
-    'ordem':'',
+    'ordem':Number(''),
   }
   public pessoa = {
     'title':'',
     'check':true,
-    'ordem':'',
+    'ordem':Number(''),
   }
   public viagem= {
     'pais':'',
@@ -56,7 +56,7 @@ export class ConfiguracoesPage {
     'check':true,
   }
   public dia = {
-    'title':'',
+    'title':Number(''),
   }
 
   public tarefas; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;
@@ -68,7 +68,9 @@ export class ConfiguracoesPage {
     this.estudos=this.dbService.getAll('configuracoes/estudos','ordem')
     this.pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
     this.viagens=this.dbService.getAll('configuracoes/viagens','ordem')
-    this.tarefas= this.dbService.getAll('configuracoes/tarefas','nivel')
+    this.tarefas= this.dbService.getAll('configuracoes/tarefas','ordem')
+
+    /** this.OrdemNumber() */
   }
 
 
@@ -137,7 +139,7 @@ export class ConfiguracoesPage {
               this.dbService.save('configuracoes/estudos', this.estudo);
             }
             if (local == "pessoas") {
-              this.pessoa.title = data.title, this.pessoa.ordem = data.ordem;
+              this.pessoa.title = data.title, this.pessoa.ordem = Number(data.ordem);
               this.dbService.save('configuracoes/pessoas', this.pessoa);
             }
           }
@@ -146,6 +148,15 @@ export class ConfiguracoesPage {
     });
     prompt.present();
   }
+
+  OrdemNumber(){
+  this.tarefas.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/tarefas',item) })})
+  this.remedios.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/remedios',item) })})
+  this.atividades.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/atividades',item) })})
+  this.roles.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/roles',item) })})
+  this.estudos.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/estudos',item) })})
+  this.pessoas.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/pessoas',item) })})}
+
 
 
   CriaTarefa(){
