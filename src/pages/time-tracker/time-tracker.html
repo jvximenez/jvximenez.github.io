@@ -78,7 +78,7 @@
     <ion-card-header  class="item">{{d.title}} </ion-card-header>
     <ion-list>
       <div *ngFor="let f of (trackers | async) ">
-        <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Hinicio == ""'class="item">
+        <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Hinicio == "" && f.Minicio == ""'class="item">
         <ion-col col-1>
           <ion-item class="item" no-padding>
             <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    
@@ -104,7 +104,7 @@
       </div>
          
       <div *ngFor="let f of (trackers | async) ">
-      <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Hinicio != ""'class="item">
+      <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Minicio != ""'class="item">
         <ion-col col-1>
           <ion-item class="item" no-padding>
             <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    

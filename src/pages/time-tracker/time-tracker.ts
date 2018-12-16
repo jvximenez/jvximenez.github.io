@@ -270,6 +270,7 @@ export class TimeTrackerPage {
   }
 
   goToEdit(itens){
+    this.ShowKey(itens)
     this.navCtrl.push(TimeTrackerEditPage, 
     {'tracker' : itens})
   }
@@ -385,9 +386,13 @@ export class TimeTrackerPage {
   }
 
   CriaNovo(track){
-    this.trackers.Hinicio = track.Hfim
-    this.trackers.Minicio = track.Mfim
+    this.tracker.Hinicio = track.Hfim
+    this.tracker.Minicio = track.Mfim
     this.Criacao(this.tracker);
+  }
+
+  ShowKey(track){
+    console.log(track.key)
   }
 
   
@@ -417,7 +422,7 @@ export class TimeTrackerPage {
           text: 'Limpar final',
           handler: () => {
             track.Hfim = '';
-            track.Mfim ='';
+            track.Mfim = '';
             this.dbService.update('trackers',track);
           }
         },{
@@ -469,7 +474,7 @@ export class TimeTrackerPage {
           }
         },{
           text: 'Criar Novo',
-          handler: () => {
+            handler: () => {
             this.CriaNovo(track)
           }
         },{
