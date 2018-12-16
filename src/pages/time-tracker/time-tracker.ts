@@ -26,8 +26,8 @@ export class TimeTrackerPage {
     'total':'',
     'parcial':'',
     'title':'',
-    'Hinicio':'',
-    'Minicio':'',
+    'Hinicio':Number(''),
+    'Minicio':Number(''),
     'Hfim':'',
     'Mfim':'',
     'nivel': 0,
@@ -196,7 +196,9 @@ export class TimeTrackerPage {
     this.tracker.total = String(this.Total());
     this.tracker.parcial =  String(this.Parcial());
     this.dbService.save('trackers',tarefa)
-    this.tracker.title = " "
+    this.tracker.title = ""
+    this.tracker.Hinicio = Number('')
+    this.tracker.Minicio = Number('')
 
 
   }
