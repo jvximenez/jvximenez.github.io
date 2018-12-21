@@ -364,8 +364,12 @@ export class TimeTrackerPage {
     if (track.Minicio == ''){
       track.Hinicio = this.RetornaHora()
       track.Minicio = Math.round(this.RetornaMin()*100)/100}
-    this.dbService.update('trackers',track)
+      this.dbService.update('trackers',track)
+      this.Indicadores = this.Calcula(this.Total());
+
   }
+
+  
 
   RetornaHora(){
     var data = new Date();
@@ -551,9 +555,24 @@ export class TimeTrackerPage {
   }
 
 
+  Atual(track){
+    if (track.Minicio != '' && track.Mfim == ''){
+      var Hfim = this.RetornaHora()
+      var Mfim = Math.round(this.RetornaMin()*100)/100
+      var dura = (Math.round((Number(Hfim) + Math.round((Number(Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
+      return (dura);
+    } 
+    if (track.Duracao != ''){
+      return(" ")
 
-
-
-
-
+    } 
+  }
 }
+
+
+
+
+
+
+
+

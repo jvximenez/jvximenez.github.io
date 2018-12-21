@@ -91,7 +91,7 @@
           </ion-col>
             <ion-col col-9>
               <ion-item  (click)="goToEdit(f)" >
-                <ion-label >{{f.title }} </ion-label>
+                <ion-label >{{f.title}}</ion-label>
                 <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>
               </ion-item>
             </ion-col>
@@ -117,7 +117,8 @@
           </ion-col>
             <ion-col col-9>
               <ion-item  (click)="goToEdit(f)" >
-                <ion-label >{{f.title }}</ion-label>
+                <ion-label >{{f.title}}</ion-label>
+                <p class="corEnd" item-end>{{RetornaH(Atual(f))}}e</p>
                 <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>
               </ion-item>
             </ion-col>
