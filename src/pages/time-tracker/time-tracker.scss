@@ -171,49 +171,49 @@ page-time-tracker {
         background-clip: padding-box;
         margin: 1rem 1rem 1rem 1rem;
         overflow: hidden; }
-        .progress .determinate1 {
-            position: absolute;
-            background-color: inherit;
-            top: 0;
-            bottom: 0;
-            background-color: green;
-            transition: width .3s linear; }
-        .progress .determinate2 {
+    .progress2 .determinate1 {
         position: absolute;
         background-color: inherit;
         top: 0;
         bottom: 0;
-        background-color: #23509c;
+        background-color: green;
         transition: width .3s linear; }
-        
-        .progress .determinate3 {
-        position: absolute;
-        background-color: inherit;
-        top: 0;
-        bottom: 0;
-        background-color: #2f6acf;
-        transition: width .3s linear; }
-        .progress .determinate4 {
-        position: absolute;
-        background-color: inherit;
-        top: 0;
-        bottom: 0;
-        background-color: black;
-        transition: width .3s linear; }
-        .progress .determinate5 {
-        position: absolute;
-        background-color: inherit;
-        top: 0;
-        bottom: 0;
-        background-color:  #dd3838;
-        transition: width .3s linear; }
-        .progress .determinate6 {
-        position: absolute;
-        background-color: inherit;
-        top: 0;
-        bottom: 0;  
-        background-color:  #9b2929;
-        transition: width .3s linear; }
+    .progress2 .determinate2 {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;
+    background-color: #23509c;
+    transition: width .3s linear; }
+    
+    .progress2 .determinate3 {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;
+    background-color: #2f6acf;
+    transition: width .3s linear; }
+    .progress2 .determinate4 {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    transition: width .3s linear; }
+    .progress2 .determinate5 {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;
+    background-color:  #dd3838;
+    transition: width .3s linear; }
+    .progress2 .determinate6 {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;  
+    background-color:  #9b2929;
+    transition: width .3s linear; }
             
         
         

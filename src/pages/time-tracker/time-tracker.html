@@ -132,7 +132,7 @@
     
 
     
-    <h2 padding>  Progresso:</h2>
+    <h2 padding *ngIf="d.title == 'Hoje' || d.title =='Ontem' " >Progresso:</h2>
     <div class="progress" *ngIf="d.title == 'Hoje'" (click)=teste(totalM)>
       <div class="determinate1" style="width: 0%" id="teste6" ></div>
       <div class="determinate2" style="width: 0%" id="teste5" ></div>
@@ -171,6 +171,32 @@
             <br>Relaxar   - {{RetornaH(Arredonda(Indicadores[7]))}}
             <br>Tempinho  - {{RetornaH(Arredonda(Indicadores[8]))}}
             <br>Dani      - {{RetornaH(Arredonda(Indicadores[9]))}}
+          </h3>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+    <div *ngIf="d.title == 'Ontem'">
+      <ion-row>
+        <ion-col col-7>
+          <h3 padding>Tarefas Cotidianas:
+            <br>Dormir    - {{RetornaH(Arredonda(IndicadoresO[0]))}}
+            <br>Banho     - {{RetornaH(Arredonda(IndicadoresO[1]))}}
+            <br>Ler       - {{RetornaH(Arredonda(IndicadoresO[2]))}}
+            <br>Programar - {{RetornaH(Arredonda(IndicadoresO[3]))}}
+            <br>Estudar    -  {{RetornaH(Arredonda(IndicadoresO[10]))}}
+            <br>Fraces    -  {{RetornaH(Arredonda(IndicadoresO[4]))}}
+          </h3>
+        </ion-col>
+        <ion-col col-4>
+          <h3>
+            <br>
+            <br>Ingles    -  {{RetornaH(Arredonda(IndicadoresO[5]))}}
+            <br>Aulas     - {{RetornaH(Arredonda(IndicadoresO[6]))}}
+            <br>Relaxar   - {{RetornaH(Arredonda(IndicadoresO[7]))}}
+            <br>Tempinho  - {{RetornaH(Arredonda(IndicadoresO[8]))}}
+            <br>Dani      - {{RetornaH(Arredonda(IndicadoresO[9]))}}
           </h3>
         </ion-col>
       </ion-row>

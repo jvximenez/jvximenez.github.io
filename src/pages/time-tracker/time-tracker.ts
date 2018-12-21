@@ -43,7 +43,7 @@ export class TimeTrackerPage {
   public select;dias;hoje;ontem;amanha
   public atalhos
   public show = false
-  public Indicadores
+  public Indicadores;IndicadoresO
 
   constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
@@ -52,6 +52,7 @@ export class TimeTrackerPage {
     this.statusBar.backgroundColorByHexString('#ffffff');
     this.atalhos = this.dbService.getAll('configuracoes/tarefas','nivel')
     this.Indicadores = this.Calcula(this.Total());
+    this.IndicadoresO=this.Calcula(this.Total()-1);
 
 
     this.dias = [{title: "Hoje"},
