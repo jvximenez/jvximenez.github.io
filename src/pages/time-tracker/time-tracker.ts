@@ -37,7 +37,7 @@ export class TimeTrackerPage {
   }
 
   public trackers
-  public totalM
+  public totalM; totalO
   
 
   public select;dias;hoje;ontem;amanha
@@ -66,7 +66,8 @@ export class TimeTrackerPage {
     this.amanha = this.Total3();
     this.ontem = this.Total2();
 
-    this.totalM = this.TotalHoras(this.hoje)  
+    this.totalM = this.TotalHoras(this.hoje)
+    this.totalO = this.TotalHoras(this.ontem)
     this.ngAfterViewInit()
     
     
@@ -125,7 +126,8 @@ export class TimeTrackerPage {
   }
   ngAfterViewInit(){
     setTimeout(()=> {
-      this.teste(this.totalM)
+      this.teste(this.totalM);
+      this.teste2(this.totalO)
     },800)
 }
 
@@ -146,6 +148,27 @@ export class TimeTrackerPage {
     document.getElementById("teste4").style.width = a4
     document.getElementById("teste5").style.width = a5
     document.getElementById("teste6").style.width = a6
+  }
+
+  teste2(array){
+    console.log("entrou", array)
+    
+    var a1 = (String(array[0]/0.24)+'%')
+    var a2 = (String((array[0]+array[1])/0.24)+'%')
+    var a3 = (String((array[0]+array[1]+array[2])/0.24)+'%')
+    var a4 = (String((array[0]+array[1]+array[2]+array[3])/0.24)+'%')
+    var a5 = (String((array[0]+array[1]+array[2]+array[3]+array[4])/0.24)+'%')
+    var a6 = (String((array[0]+array[1]+array[2]+array[3]+array[4]+array[5])/0.24)+'%')
+    
+    console.log("as", a1,a2,a3,a4,a5,a6)
+    
+    
+    document.getElementById("teste7").style.width = a1
+    document.getElementById("teste8").style.width = a2
+    document.getElementById("teste9").style.width = a3
+    document.getElementById("teste10").style.width = a4
+    document.getElementById("teste11").style.width = a5
+    document.getElementById("teste12").style.width = a6
   }
 
 
@@ -317,9 +340,12 @@ export class TimeTrackerPage {
       return (" ")
     }
     else{
+    var min2
     var inteiro = parseInt(duracao)
-    var min = Math.round((duracao - inteiro)*60*10)/10
-    return (inteiro+"h"+min)}
+    var min = Math.round((duracao - inteiro)*60)
+    min2 = String(min)
+    if (min < 10) {min2 = String("0"+min)}
+    return (inteiro+"h"+min2)}
   }
 
 

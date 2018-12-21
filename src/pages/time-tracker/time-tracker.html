@@ -141,31 +141,41 @@
       <div class="determinate5" style="width: 0%" id="teste2" ></div>
       <div class="determinate6" style="width: 0%" id="teste1" ></div>
     </div>
+
+    <div class="progress2" *ngIf="d.title == 'Ontem'" (click)=teste(totalM)>
+      <div class="determinate1" style="width: 0%" id="teste12" ></div>
+      <div class="determinate2" style="width: 0%" id="teste11" ></div>
+      <div class="determinate3" style="width: 0%" id="teste10" ></div>
+      <div class="determinate4" style="width: 0%" id="teste9" ></div>
+      <div class="determinate5" style="width: 0%" id="teste8" ></div>
+      <div class="determinate6" style="width: 0%" id="teste7" ></div>
+    </div>
     
     <div *ngIf="d.title == 'Hoje'">
       <ion-row>
         <ion-col col-7>
           <h3 padding>Tarefas Cotidianas:
-            <br>Dormir    - {{Arredonda(Indicadores[0])}}
-            <br>Banho     - {{Arredonda(Indicadores[1])}}
-            <br>Ler       - {{Arredonda(Indicadores[2])}}
-            <br>Programar - {{Arredonda(Indicadores[3])}}
-            <br>Estudar    -  {{Arredonda(Indicadores[10])}}
-            <br>Fraces    -  {{Arredonda(Indicadores[4])}}
+            <br>Dormir    - {{RetornaH(Arredonda(Indicadores[0]))}}
+            <br>Banho     - {{RetornaH(Arredonda(Indicadores[1]))}}
+            <br>Ler       - {{RetornaH(Arredonda(Indicadores[2]))}}
+            <br>Programar - {{RetornaH(Arredonda(Indicadores[3]))}}
+            <br>Estudar    -  {{RetornaH(Arredonda(Indicadores[10]))}}
+            <br>Fraces    -  {{RetornaH(Arredonda(Indicadores[4]))}}
           </h3>
         </ion-col>
         <ion-col col-4>
           <h3>
             <br>
-            <br>Ingles    -  {{Arredonda(Indicadores[5])}}
-            <br>Aulas     - {{Arredonda(Indicadores[6])}}
-            <br>Relaxar   - {{Arredonda(Indicadores[7])}}
-            <br>Tempinho  - {{Arredonda(Indicadores[8])}}
-            <br>Dani      - {{Arredonda(Indicadores[9])}}
+            <br>Ingles    -  {{RetornaH(Arredonda(Indicadores[5]))}}
+            <br>Aulas     - {{RetornaH(Arredonda(Indicadores[6]))}}
+            <br>Relaxar   - {{RetornaH(Arredonda(Indicadores[7]))}}
+            <br>Tempinho  - {{RetornaH(Arredonda(Indicadores[8]))}}
+            <br>Dani      - {{RetornaH(Arredonda(Indicadores[9]))}}
           </h3>
         </ion-col>
       </ion-row>
     </div>
+
    
     
 
