@@ -197,7 +197,6 @@ export class RestaurantesPage {
 
   Conta(atalho){
     var a = 0
-    
     this.restaurantesArray.forEach(itens => { if(itens[0] == atalho) {a+=1} })
     
     return (a)

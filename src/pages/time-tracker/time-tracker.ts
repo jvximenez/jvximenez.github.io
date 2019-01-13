@@ -548,6 +548,13 @@ export class TimeTrackerPage {
             this.CriaNovo(track)
             
           }
+        },{
+          text: 'Relaxar',
+          handler: data => {
+            this.tracker.title = "Relaxar", this.tracker.nivel = -2;
+            this.CriaNovo(track)
+            
+          }
         }
       ]
     });
@@ -566,6 +573,15 @@ export class TimeTrackerPage {
       return(" ")
 
     } 
+  }
+
+  AtualizaGraf(){
+    this.Indicadores = this.Calcula(this.Total());
+    this.IndicadoresO=this.Calcula(this.Total()-1);
+    this.totalM = this.TotalHoras(this.hoje)
+    this.totalO = this.TotalHoras(this.ontem)
+    this.ngAfterViewInit()
+
   }
 }
 
