@@ -10,7 +10,10 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Tarefas</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngFor="let f of (ShowTarefas | async) ">
+        <button ion-button icon-only color="{{CorIfTrue(f.check)}}" (click)="ChangeCheckTarefas(f)">
+          <ion-icon name="list-box"></ion-icon>
+        </button>
       <button ion-button icon-only (click)="atualiza()">
         <ion-icon name="sync"></ion-icon>
       </button>
@@ -73,6 +76,22 @@
       </ion-row>
     </ion-grid>
   </div>
+
+  <div *ngFor="let f of (ShowTarefas | async) ">
+    <ion-card *ngIf="f.check == true">Oi</ion-card>
+  </div>
+  
+        
+
+
+
+
+
+
+
+
+
+
 
   <ion-card no-padding *ngFor="let d of dias">
     <ion-card-header  class="item">{{d.title}} </ion-card-header>
@@ -202,10 +221,6 @@
         </ion-col>
       </ion-row>
     </div>
-
-   
-    
-
   </ion-card>
  
 

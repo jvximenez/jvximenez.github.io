@@ -41,7 +41,8 @@ export class CardsDoMesPage {
   public graficoCafeG;graficoCafeData;graficoCafeDado
   public graficoLancheMG;graficoLancheMData;graficoLancheMDado
 
-  public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData;graficoMedia
+  public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData;graficoMedia;  graficoMedia1;graficoMediaMedia
+  public graficoDataMedia
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     
@@ -63,6 +64,7 @@ export class CardsDoMesPage {
     this.graficoG = this.Media2('passos');
     this.graficoData = this.graficoG[0];
     this.graficoDado = this.graficoG[1];
+    this.graficoDataMedia = this.graficoG[2];
 
     this.graficoCafeG = this.Media2('cafe');
     this.graficoCafeData = this.graficoCafeG[0];
@@ -105,7 +107,9 @@ export class CardsDoMesPage {
     this.agradecimento = this.SeHouve('agradecimento')
 
 
-    this.graficoMedia = this.MediaAlimentacao()
+    this.graficoMedia1 = this.MediaAlimentacao()
+    this.graficoMedia = this.graficoMedia1[0]
+    this.graficoMediaMedia = this.graficoMedia1[1]
 
    
     
@@ -115,6 +119,16 @@ export class CardsDoMesPage {
     
 
     
+  }
+
+  Media3(dado){
+    console.log("dado3",dado.length)
+    var cont = 1
+    var sum = 0
+    var array = []
+    dado.forEach(A => {console.log("oiiiiii", A,"aqui o asssssss"), sum += Number(A), array.push((Number(A)/cont)),cont += 1})
+    console.log(array,"Media3")
+    return [array]
   }
 
   FormataParcial2(data){
@@ -145,13 +159,15 @@ export class CardsDoMesPage {
 
 
   Media2(dado){
+    var cont = 0
+    var sum = 0 
     let array = []
     let array2 = []
     let array3 = []
-    this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia']))})
-    console.log(array, array2)})
-    array3 = [array,array2]
-    console.log("3", array3)
+    let array4 = []
+    this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia'])), sum += Number(dia[dado]),cont += 1,(array4).push(sum/cont)})})
+    array3 = [array,array2,array4]
+    console.log("3sssssssssssss", array3)
     return array3
   }
 
@@ -171,12 +187,17 @@ export class CardsDoMesPage {
   MediaAlimentacao(){
     console.log("oi")
     var array = []
+    var cont = 0
+    var sum = 0
+    var arrayF
+    var array2 = []
     var MEDIA
-    this.dias2.forEach(itens => {itens.forEach (item => {MEDIA = (Number(item.cafe)*5 + 
-      Number(item.almoco)*5 + Number(item.jantar)*5 + Number(item.lancheM) + 
-      Number(item.lancheT) + Number(item.lancheN))/Number(18),array.push(MEDIA)})})
+    this.dias2.forEach(itens => {itens.forEach(item => {MEDIA = (Number(item.cafe)*1 + 
+      Number(item.almoco)*5 + Number(item.jantar)*8 + Number(item.lancheM)*0.3 + 
+      Number(item.lancheT)*0.3 + Number(item.lancheN)*1)/Number(15.6),array.push(MEDIA),cont+=1,sum+=MEDIA,array2.push(sum/cont)})})
     console.log(array,"array")
-    return array
+    arrayF = [array,array2]
+    return arrayF
   }
 
 
@@ -217,9 +238,14 @@ export class CardsDoMesPage {
           data: this.graficoData,
           backgroundColor:  '#2f6acf',
           borderWidth: 2
-      }]
+      },{
+      label: ['Média'],
+      data: this.graficoDataMedia,
+      type: 'line',
+      backgroundColor: 'rgba(255, 255, 255, .4)',
+      borderColor: '#2f6acf'}
     
-    };
+      ]}
   
     const options = {
       scales: {
@@ -287,11 +313,17 @@ export class CardsDoMesPage {
         backgroundColor: '#dae3f1',
         borderWidth: 2
       },{
-      label: ['Média'],
+      label: ['Parcial'],
       data: this.graficoMedia,
       type: 'line',
       backgroundColor: 'rgba(255, 255, 255, .4)',
       borderColor: '#2f6acf'
+    },{
+      label: ['Média'],
+      data: this.graficoMediaMedia,
+      type: 'line',
+      backgroundColor: 'rgba(230, 230, 255, .4)',
+      borderColor: '#808080'
     }]
     
     };

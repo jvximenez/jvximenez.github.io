@@ -67,6 +67,13 @@
         <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
       </ion-item>
   </ion-item-group>
+  <ion-item-group>
+      <ion-item-divider color="light" (click)="CriaNovo('shows')" >Show</ion-item-divider>
+      <ion-item *ngFor="let f of (shows | async)">
+        <ion-label> {{f.ordem}} - {{f.title}} - Nível:{{f.nivel}} </ion-label>
+          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
+        </ion-item>
+    </ion-item-group>
 
   
 

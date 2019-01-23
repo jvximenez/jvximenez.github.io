@@ -26,6 +26,7 @@ export class TarefasPage {
     'parcial':'',
     'title':'',
     'check': false,
+    
   }
 
   public tarefas;hoje;ontem;amanha

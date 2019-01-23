@@ -58,8 +58,13 @@ export class ConfiguracoesPage {
   public dia = {
     'title':Number(''),
   }
+  public show ={
+    'title':'',
+    'check':true,
+    'ordem':Number('')
+  }
 
-  public tarefas; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;
+  public tarefas; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
@@ -69,6 +74,8 @@ export class ConfiguracoesPage {
     this.pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
     this.viagens=this.dbService.getAll('configuracoes/viagens','ordem')
     this.tarefas= this.dbService.getAll('configuracoes/tarefas','ordem')
+    this.shows= this.dbService.getAll('configuracoes/shows','ordem')
+    
 
     /** this.OrdemNumber() */
   }
@@ -95,6 +102,9 @@ export class ConfiguracoesPage {
     }
     if (nome == 'tarefas'){
       this.dbService.update('configuracoes/tarefas',tarefas)
+    }
+    if (nome == 'shows'){
+      this.dbService.update('configuracoes/shows',tarefas)
     }
   }
 
@@ -141,6 +151,10 @@ export class ConfiguracoesPage {
             if (local == "pessoas") {
               this.pessoa.title = data.title, this.pessoa.ordem = Number(data.ordem);
               this.dbService.save('configuracoes/pessoas', this.pessoa);
+            }
+            if (local == "shows") {
+              this.show.title = data.title, this.show.ordem = Number(data.ordem);
+              this.dbService.save('configuracoes/shows', this.show);
             }
           }
         }

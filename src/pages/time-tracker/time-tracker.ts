@@ -5,6 +5,7 @@ import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ConfiguracoesPage } from '../configuracoes/configuracoes';
+import { t } from '@angular/core/src/render3';
 
 /**
  * Generated class for the TimeTrackerPage page.
@@ -36,6 +37,19 @@ export class TimeTrackerPage {
 
   }
 
+  tarefa = {
+    'dia':'',
+    'mes':'',
+    'ano':'',
+    'total':'',
+    'parcial':'',
+    'title':'',
+    'limite':'',
+    'nivel': 0,
+    'detalhes':'',
+    'check': false,
+  }
+
   public trackers
   public totalM; totalO
   
@@ -45,14 +59,22 @@ export class TimeTrackerPage {
   public show = false
   public Indicadores;IndicadoresO
 
+  public ShowTarefas;ShowBo
+
+  
+
   constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
-    
+    this.ShowTarefas = this.dbService.getAll('configuracoes/shows','nivel')
+   
+
     this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map(b => b.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['Hinicio']+b['Minicio']/60))- Number(String(a['Hinicio']+a['Minicio']/60))}))
     this.statusBar.backgroundColorByHexString('#ffffff');
     this.atalhos = this.dbService.getAll('configuracoes/tarefas','nivel')
     this.Indicadores = this.Calcula(this.Total());
     this.IndicadoresO=this.Calcula(this.Total()-1);
+
+   
 
 
     this.dias = [{title: "Hoje"},
@@ -70,9 +92,31 @@ export class TimeTrackerPage {
     this.totalM = this.TotalHoras(this.hoje)
     this.totalO = this.TotalHoras(this.ontem)
     this.ngAfterViewInit()
+
+    
+    
+   
+    
+   
+
     
     
 
+  }
+
+
+  CorIfTrue(dado){
+    if (dado ==  true){
+      return "primary"
+    }
+    if (dado !=  true){
+      return ""
+    }
+  }
+
+  ChangeCheckTarefas(tarefa){
+    tarefa.check = !tarefa.check
+    this.dbService.update('configuracoes/shows',tarefa)
   }
 
   doRefresh(refresher) {
@@ -92,7 +136,6 @@ export class TimeTrackerPage {
   }
 
   Calcula(dia){
-    console.log(dia,"entramos")
     var array = [0,0,0,0,0,0,0,0,0,0,0]
      this.trackers.forEach(itens => itens.forEach(item => {
        if(item.title.includes("Dormir") && item.total == dia)
@@ -152,7 +195,7 @@ export class TimeTrackerPage {
   }
 
   teste2(array){
-    console.log("entrou", array)
+    
     
     var a1 = (String(array[0]/0.24)+'%')
     var a2 = (String((array[0]+array[1])/0.24)+'%')
@@ -161,7 +204,7 @@ export class TimeTrackerPage {
     var a5 = (String((array[0]+array[1]+array[2]+array[3]+array[4])/0.24)+'%')
     var a6 = (String((array[0]+array[1]+array[2]+array[3]+array[4]+array[5])/0.24)+'%')
     
-    console.log("as", a1,a2,a3,a4,a5,a6)
+    
     
     
     document.getElementById("teste7").style.width = a1
@@ -296,7 +339,6 @@ export class TimeTrackerPage {
   }
 
   goToEdit(itens){
-    this.ShowKey(itens)
     this.navCtrl.push(TimeTrackerEditPage, 
     {'tracker' : itens})
   }
@@ -424,9 +466,7 @@ export class TimeTrackerPage {
     this.Criacao(this.tracker);
   }
 
-  ShowKey(track){
-    console.log(track.key)
-  }
+  
 
   
 
@@ -542,18 +582,18 @@ export class TimeTrackerPage {
           }
         },
         {
-          text: 'Salvar',
-          handler: data => {
-            this.tracker.title = data.title, this.tracker.nivel = data.nivel;
-            this.CriaNovo(track)
-            
-          }
-        },{
           text: 'Relaxar',
           handler: data => {
             this.tracker.title = "Relaxar", this.tracker.nivel = -2;
             this.CriaNovo(track)
             
+          }
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            this.tracker.title = data.title, this.tracker.nivel = data.nivel;
+            this.CriaNovo(track)
           }
         }
       ]
