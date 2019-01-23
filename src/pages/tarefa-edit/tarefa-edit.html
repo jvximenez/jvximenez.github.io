@@ -56,13 +56,49 @@
 
         <ion-row class="roww">
           <ion-item>
-            <ion-label class="nome" >Tarefa: </ion-label>
+            <ion-label class="nome" >Nome: </ion-label>
             <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.title"></ion-input>
           </ion-item>
         </ion-row>
 
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Detalhes: </ion-label>
+            <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.detalhes"></ion-input>
+          </ion-item>
+        </ion-row>
 
-        <ion-row justify-content-center>
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Nível: </ion-label>
+            <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.nivel"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        
+
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Check: </ion-label>
+            <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.check"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Final: </ion-label>
+            <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.finalT"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="roww">
+          <ion-item>
+            <ion-label class="nome" >Limite: </ion-label>
+            <ion-input text-right type="text" clearInput="true" value="" [(ngModel)]="tarefa.limite"></ion-input>
+          </ion-item>
+        </ion-row>
+
+          <ion-row justify-content-center>
             <button class="btn3" round ion-button outline color="danger" (click)="Deletar(tarefa)">Deletar</button>
             <button class="btn3" round ion-button outline (click)="Atualizar(tarefa)">Atualizar</button>
           </ion-row>

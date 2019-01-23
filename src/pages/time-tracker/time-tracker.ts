@@ -5,7 +5,7 @@ import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ConfiguracoesPage } from '../configuracoes/configuracoes';
-import { t } from '@angular/core/src/render3';
+import { TarefaEditPage } from '../tarefa-edit/tarefa-edit';
 
 /**
  * Generated class for the TimeTrackerPage page.
@@ -48,6 +48,10 @@ export class TimeTrackerPage {
     'nivel': 0,
     'detalhes':'',
     'check': false,
+    'finalT':'',
+  }
+  input ={
+    'title':''
   }
 
   public trackers
@@ -60,6 +64,7 @@ export class TimeTrackerPage {
   public Indicadores;IndicadoresO
 
   public ShowTarefas;ShowBo
+  public tarefas
 
   
 
@@ -73,6 +78,8 @@ export class TimeTrackerPage {
     this.atalhos = this.dbService.getAll('configuracoes/tarefas','nivel')
     this.Indicadores = this.Calcula(this.Total());
     this.IndicadoresO=this.Calcula(this.Total()-1);
+
+    this.tarefas = this.dbService.getAllEspecificoMsm('tarefas','total',10).map(b => b.reverse())
 
    
 
@@ -129,7 +136,7 @@ export class TimeTrackerPage {
 
   atalho(atalho){
     this.tracker.nivel = atalho.nivel
-    this.tracker.title = atalho.title
+    this.input.title = atalho.title
     this.Criacao(this.tracker)
 
 
@@ -257,16 +264,30 @@ export class TimeTrackerPage {
 
   Criacao(tarefa){
     var array = this.Data();
+    this.tracker.title = this.input.title
     this.tracker.dia = String(array[0]);
     this.tracker.mes = String(array[1]);
     this.tracker.ano = String(array[2]);
     this.tracker.total = String(this.Total());
     this.tracker.parcial =  String(this.Parcial());
     this.dbService.save('trackers',tarefa)
-    this.tracker.title = ""
+    this.input.title = ""
     this.tracker.Hinicio = Number('')
     this.tracker.Minicio = Number('')
 
+  }
+
+  CriacaoTarefa(tarefa){
+    var array = this.Data();
+    this.tarefa.title = this.input.title
+    this.tarefa.dia = String(array[0]);
+    this.tarefa.mes = String(array[1]);
+    this.tarefa.ano = String(array[2]);
+    this.tarefa.total = String(this.Total());
+    this.tarefa.parcial =  String(this.Parcial());
+    this.dbService.save('tarefas',tarefa)
+    this.input.title = ""
+    
 
   }
 
@@ -343,6 +364,11 @@ export class TimeTrackerPage {
     {'tracker' : itens})
   }
 
+  goToEditT(itens){
+    this.navCtrl.push(TarefaEditPage, 
+    {'tarefa' : itens})
+  }
+
   goToTotal(){
     this.navCtrl.push(TodosTrackersPage, 
     {'trackers' : this.trackers})
@@ -357,10 +383,17 @@ export class TimeTrackerPage {
     this.dbService.update('trackers',tarefas)
     }
 
+  AtualizarT(tarefas){
+    this.dbService.update('tarefas',tarefas)
+    }
+
   Deletar(tarefas){
     this.dbService.revome('trackers',tarefas)
     }
 
+  DeletarT(tarefas){
+    this.dbService.revome('tarefas',tarefas)
+    }
   
 
   atualiza(){
@@ -478,7 +511,7 @@ export class TimeTrackerPage {
           text: 'Copiar',
           
           handler: () => {
-            this.tracker.title = track.title;
+            this.input.title = track.title;
             this.tracker.nivel = track.nivel;
             this.Criacao(this.tracker);
           }
@@ -562,6 +595,40 @@ export class TimeTrackerPage {
     actionSheet.present();
   }
 
+
+  OpcoesT(track){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Opções',
+      buttons: [
+        {
+          text: 'Criar Tracker',
+          
+          handler: () => {
+            this.input.title = track.title;
+            this.tracker.nivel = track.nivel;
+
+            this.Criacao(this.tracker);
+          }
+          
+        },
+        {
+          text: 'Deletar',
+          
+          handler: () => {
+            this.DeletarT(track);
+          }
+          
+        },{
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
   PromptCriarNovo(track){
     const prompt = this.alertCtrl.create({
       title: 'Novo tracker',
@@ -584,7 +651,7 @@ export class TimeTrackerPage {
         {
           text: 'Relaxar',
           handler: data => {
-            this.tracker.title = "Relaxar", this.tracker.nivel = -2;
+            this.input.title = "Relaxar", this.tracker.nivel = -2;
             this.CriaNovo(track)
             
           }
@@ -592,7 +659,7 @@ export class TimeTrackerPage {
         {
           text: 'Salvar',
           handler: data => {
-            this.tracker.title = data.title, this.tracker.nivel = data.nivel;
+            this.input.title = data.title, this.tracker.nivel = data.nivel;
             this.CriaNovo(track)
           }
         }

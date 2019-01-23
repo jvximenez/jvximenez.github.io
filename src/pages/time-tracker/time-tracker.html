@@ -38,7 +38,7 @@
     <ion-row class="roww">
         <ion-item no-lines>
           <ion-label class="nome" >Tracker: </ion-label>
-          <ion-input text-right type="text"  value="" [(ngModel)]="tracker.title" (keyup.enter)="Criacao(tracker)"></ion-input>
+          <ion-input text-right type="text"  value="" [(ngModel)]="input.title" (keyup.enter)="Criacao(tracker)"></ion-input>
         </ion-item>
      
     </ion-row>
@@ -65,6 +65,13 @@
     <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>
     <button class="btn2" ion-button outline  round small (click)="Ontem(tracker)">Ontem</button>
   </ion-row>
+
+  <div *ngFor="let f of (ShowTarefas | async) ">
+    <ion-row justify-content-center *ngIf="f.check == true">
+        <button class="btn3" ion-button  clear round small  (click)="CriacaoTarefa(tarefa)">Adicionar</button>
+    </ion-row>
+  </div>
+
   <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
 
   <div *ngIf = "show == true">
@@ -78,7 +85,31 @@
   </div>
 
   <div *ngFor="let f of (ShowTarefas | async) ">
-    <ion-card *ngIf="f.check == true">Oi</ion-card>
+    <ion-card no-padding *ngIf="f.check == true">
+      <ion-card-header class="item">Tarefas</ion-card-header>
+      <ion-list>
+        <div *ngFor ="let f of (tarefas | async)">
+          <ion-row class="item">
+            <ion-col col-1>
+              <ion-item class ="item" no-padding>
+                <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-10>
+              <ion-item  (click)="goToEditT(f)" >
+                <ion-label >{{f.title}}</ion-label>
+                <ion-note item-end><p>{{f.duracao}}</p></ion-note>
+              </ion-item>
+            </ion-col>
+            <ion-col col-1 no-padding >
+              <button ion-button icon-start full round clear color="dark" (click)="OpcoesT(f)" no-padding>
+                <ion-icon name="more"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-list>
+    </ion-card>
   </div>
   
         
