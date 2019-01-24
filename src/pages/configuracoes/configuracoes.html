@@ -14,28 +14,19 @@
 
 
 <ion-content>
-  <ion-item-group>
-      <ion-item-divider color="light" (click)="CriaNovo('remedios')" >Remédios</ion-item-divider>
-      <ion-row>
-        <ion-col col-11>
-          <ion-item *ngFor="let f of (remedios | async)">
-            <ion-label (click)="GoToEdit(f)"> {{f.ordem}} - {{f.title}} </ion-label>
-            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'remedios')"></ion-checkbox>
-          </ion-item>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f,'remedios')" no-padding>
-            <ion-icon name="more"></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
-  </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" (click)="CriaNovo('Remedio')" >Atividades</ion-item-divider>
+      <ion-item *ngFor="let f of (remedios | async)">
+      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'remedios')" (press)="Opcoes(f,'atividades')" ></ion-checkbox>
+        </ion-item>
+    </ion-item-group>
 
   <ion-item-group>
     <ion-item-divider color="light" (click)="CriaNovo('atividades')" >Atividades</ion-item-divider>
     <ion-item *ngFor="let f of (atividades | async)">
     <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
-        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'atividades')"></ion-checkbox>
+        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'atividades')" (press)="Opcoes(f,'atividades')" ></ion-checkbox>
       </ion-item>
   </ion-item-group>
 
@@ -43,34 +34,37 @@
     <ion-item-divider color="light" (click)="CriaNovo('roles')" >Roles</ion-item-divider>
     <ion-item *ngFor="let f of (roles | async)">
       <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
-        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'roles')"></ion-checkbox>
+        <ion-checkbox (press)="Opcoes(f,'roles')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'roles')"></ion-checkbox>
       </ion-item>
   </ion-item-group>
+
   <ion-item-group>
     <ion-item-divider color="light" (click)="CriaNovo('estudos')" >Estudos</ion-item-divider>
     <ion-item *ngFor="let f of (estudos | async)">
       <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
-        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'estudos')"></ion-checkbox>
+        <ion-checkbox (press)="Opcoes(f,'roles')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'estudos')"></ion-checkbox>
       </ion-item>
   </ion-item-group>
+
   <ion-item-group>
     <ion-item-divider color="light" (click)="CriaNovo('pessoas')" >Pessoas</ion-item-divider>
     <ion-item *ngFor="let f of (pessoas | async)">
       <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
-        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'pessoas')"></ion-checkbox>
+        <ion-checkbox (press)="Opcoes(f,'pessoas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'pessoas')"></ion-checkbox>
       </ion-item>
   </ion-item-group>
+
   <ion-item-group>
     <ion-item-divider color="light" (click)="CriaTarefa()" >Tarefas</ion-item-divider>
     <ion-item *ngFor="let f of (tarefas | async)">
       <ion-label> {{f.ordem}} - {{f.title}} - Nível:{{f.nivel}} </ion-label>
-        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
+        <ion-checkbox  (press)="Opcoes(f,'tarefas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
       </ion-item>
   </ion-item-group>
   <ion-item-group>
       <ion-item-divider color="light" (click)="CriaNovo('shows')" >Show</ion-item-divider>
       <ion-item *ngFor="let f of (shows | async)">
-        <ion-label> {{f.ordem}} - {{f.title}} - Nível:{{f.nivel}} </ion-label>
+        <ion-label> {{f.ordem}} - {{f.title}}</ion-label>
           <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
         </ion-item>
     </ion-item-group>
