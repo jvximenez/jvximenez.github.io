@@ -15,7 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ConfiguracoesEditPage {
 
+  public edits
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.edits = this.navParams.get('edicao')
   }
 
   ionViewDidLoad() {

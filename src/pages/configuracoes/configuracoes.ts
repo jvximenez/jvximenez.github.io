@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { ConfiguracoesEditPage } from '../configuracoes-edit/configuracoes-edit';
 
 /**
  * Generated class for the ConfiguracoesPage page.
@@ -66,7 +67,7 @@ export class ConfiguracoesPage {
 
   public tarefas; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
     this.atividades=this.dbService.getAll('configuracoes/atividades','ordem')
     this.roles=this.dbService.getAll('configuracoes/roles','ordem')
@@ -210,6 +211,42 @@ export class ConfiguracoesPage {
       ]
     });
     prompt.present();
+  }
+
+
+  GoToEdit(edicao){
+    this.navCtrl.push(ConfiguracoesEditPage, 
+      {'edicao' : edicao})
+  }
+
+
+
+  Opcoes(track,local){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Opções',
+      buttons: [
+
+        {
+          text: 'Deletar',
+          
+          handler: () => {
+            this.Deletar(track,local);
+          }
+          
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  Deletar(track,local){
+    this.dbService.revome('configuracoes/'+local,track)
   }
 
 

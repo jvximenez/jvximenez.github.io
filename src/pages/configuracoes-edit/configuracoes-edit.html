@@ -7,12 +7,26 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>configuracoesEdit</ion-title>
+    <ion-title>Edição de Configuração</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row class="roww">
+        <ion-item>
+          <ion-label class="nome" >Nome: </ion-label>
+          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="edit.title"></ion-input>
+        </ion-item>
+      </ion-row>
 
+    <ion-row class="roww">
+      <ion-item>
+        <ion-label class="nome" >Check: </ion-label>
+        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.mes"></ion-input>
+      </ion-item>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -17,14 +17,14 @@
   <ion-item-group>
       <ion-item-divider color="light" (click)="CriaNovo('remedios')" >Remédios</ion-item-divider>
       <ion-row>
-        <ion-col col-10>
+        <ion-col col-11>
           <ion-item *ngFor="let f of (remedios | async)">
-            <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+            <ion-label (click)="GoToEdit(f)"> {{f.ordem}} - {{f.title}} </ion-label>
             <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'remedios')"></ion-checkbox>
           </ion-item>
         </ion-col>
         <ion-col col-1>
-          <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>
+          <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f,'remedios')" no-padding>
             <ion-icon name="more"></ion-icon>
           </button>
         </ion-col>
