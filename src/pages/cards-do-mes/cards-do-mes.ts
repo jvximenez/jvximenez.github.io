@@ -53,10 +53,12 @@ export class CardsDoMesPage {
     this.gastos = this.navParams.get('gastos');
     this.verdade = true;
     if(this.mes != "total"){
-      this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse());
+      console.log("dif")
+      this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['dia']- Number(String(a['dia']))))}))
     }
     if(this.mes == "total"){
-      this.dias = this.dbService.getAll('diario','parcial').map(a => a.reverse());
+      console.log("ig")
+      this.dias = this.dbService.getAll('diario','parcial').map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['total']- Number(String(a['total']))))}))
     }
    
     this.dias2 = this.dias.map(a => a.reverse());

@@ -35,7 +35,7 @@ export class AdicionarPage {
   role: any = []  
   estudos: any = []
 
-  public rows;
+  public rows;DataO
   
 
   controle = { 
@@ -91,7 +91,10 @@ export class AdicionarPage {
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, private statusBar: StatusBar) {
+    this.DataO = new Date().toISOString();
+    
     this.statusBar.backgroundColorByHexString('#ffffff');
+
     this.rows = 5;
     
     this.remedios = [
@@ -204,12 +207,7 @@ export class AdicionarPage {
   }
 
   Criacao(controle){
-    var array = this.Data();
-    this.controle.dia = String(array[0]);
-    this.controle.mes = String(array[1]);
-    this.controle.ano = String(array[2]);
-    this.controle.total = String(this.Total());
-    this.controle.parcial =  String(this.Parcial());
+    this.MudandoData(this.DataO)
     this.dbService.save('diario',controle)
 
 
@@ -247,20 +245,33 @@ export class AdicionarPage {
 
   }
 
-  Ontem(controle){
-    var array = this.Data();
-    this.controle.dia = String(array[0]-1);
-    this.controle.mes = String(array[1]);
-    this.controle.ano = String(array[2]);
-    this.controle.total = String(this.Total2());
-    this.controle.parcial =  String(this.Parcial());
-    this.dbService.save('diario',controle)
+  Ontem(){
+    var date = new Date
+    date.setDate(date.getDate() - 1)
+    this.DataO = date.toISOString()
+    this.Criacao(this.controle)
 
     
   }
 
   atualiza(){
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  Mostra(){
+    
+    this.MudandoData(this.DataO)
+  }
+
+  MudandoData(valor){
+    
+    var fields = valor.split('-')
+    var dia = fields[2].split('T')
+    this.controle.dia = dia[0]
+    this.controle.ano =  fields[0]
+    this.controle.mes =  String(Number(fields[1]))
+    this.controle.total =  String(Number(Number(this.controle.ano)*10000 + Number(this.controle.mes)*100 + Number(dia[0])));
+    this.controle.parcial = String(Number(Number(this.controle.ano)*100 + Number(this.controle.mes)));
   }
 
   

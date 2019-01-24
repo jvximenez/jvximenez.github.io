@@ -357,6 +357,11 @@
       </ion-item>
     </ion-row>
 
+    <ion-item>
+      <ion-label class="nome" no-padding (click)="Mostra()">Data</ion-label>
+      <ion-datetime  (click)="Mostra()" displayFormat="DD/MM/YYYY" [(ngModel)]="DataO"></ion-datetime>
+    </ion-item>
+
     <ion-row justify-content-center>
       <button class="btn3" ion-button round small outline (click)="Ontem(controle)">Ontem</button>
       <button class="btn3" ion-button round small (click)="Criacao(controle)">Adicionar</button>
