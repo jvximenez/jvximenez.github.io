@@ -54,7 +54,7 @@
     <ion-row  class="roww">
       <ion-item>
         <ion-label class="nome">Série: </ion-label>
-          <ion-select class="input" [(ngModel)]="serie.title" interface="popover" multiple =  True>
+          <ion-select class="input" [(ngModel)]="serie.title" interface="popover">
             <ion-option *ngFor="let ser of Serie">{{ser}}</ion-option>
           </ion-select>
       </ion-item>
