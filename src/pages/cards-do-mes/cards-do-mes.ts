@@ -27,6 +27,9 @@ export class CardsDoMesPage {
   @ViewChild('barCanvas2') barCanvas2;
   bar2Chart: any;
 
+  @ViewChild('barCanvas3') barCanvas3;
+  bar3Chart: any;
+
   public mes: any
   public dias: any
   public dias2: any
@@ -43,6 +46,8 @@ export class CardsDoMesPage {
 
   public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData;graficoMedia;  graficoMedia1;graficoMediaMedia
   public graficoDataMedia
+
+  public grafPeso;grafPesoMedia;grafPesoG
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     
@@ -67,6 +72,13 @@ export class CardsDoMesPage {
     this.graficoData = this.graficoG[0];
     this.graficoDado = this.graficoG[1];
     this.graficoDataMedia = this.graficoG[2];
+
+    this.grafPesoG = this.Media2('peso')
+    console.log(this.grafPesoG,"pesooooooooooooo")
+    this.grafPeso = this.grafPesoG[0]
+    this.grafPesoMedia = this.grafPesoG[2]
+
+
 
     this.graficoCafeG = this.Media2('cafe');
     this.graficoCafeData = this.graficoCafeG[0];
@@ -224,6 +236,7 @@ export class CardsDoMesPage {
     setTimeout(()=> {
       this.barChart = this.getBarChart();
       this.bar2Chart = this.getBarChart2();
+      this.bar3Chart = this.getBarChart3();
       
     },250)
 
@@ -378,6 +391,54 @@ export class CardsDoMesPage {
     }
 
 
+    getBarChart3(){
+      const data = {
+        labels: this.graficoDado,
+        datasets: [{
+          label: ['Peso'],
+          data: this.grafPeso,
+          backgroundColor:  '#2f6acf',
+          borderWidth: 2
+      },{
+      label: ['Média'],
+      data: this.grafPesoMedia,
+      type: 'line',
+      backgroundColor: 'rgba(255, 255, 255, .4)',
+      borderColor: '#2f6acf'}
+    
+      ]}
+  
+    const options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:false,
+            autoSkip: false,
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            autoSkip: false,
+          }
+  
+        }]
+      }
+    }
+    
+  
+    return this.getChart3(this.barCanvas3.nativeElement, 'bar', data, options);
+
+
+    
+  }
+  
+    getChart3(context, charType, data, options){
+      return new chartJs(context, {
+        data,
+        options,
+        type: charType
+      })
+    }
 
 
 
