@@ -42,13 +42,13 @@ export class SeriesPage {
   this.series = this.dbService.getAll('series','total').map(a => a.reverse())
 
   this.Serie = this.SeriesA()
-  console.log(this.Serie , "oia")
+  
   }
 
   SeriesA(){
     var array = []
     var B = false
-    this.series.forEach(element => {element.forEach( elem => {console.log(elem.title,"CERTINHOHEIN  ",elem.ep);B = false; array.forEach(A => {if (A == elem.title) { B = true};console.log(A,elem.title,B)}); if (B == false) {array.push(elem.title)}})
+    this.series.forEach(element => {element.forEach( elem => {B = false; array.forEach(A => {if (A == elem.title) { B = true}}); if (B == false) {array.push(elem.title)}})
     
   })
   return (array)
@@ -66,7 +66,6 @@ export class SeriesPage {
 
   Criacao(serie){
     this.serie.title = String(this.serie.title)
-    console.log(this.serie.title,"serie aquiiii")
     var array = this.Data();
     this.serie.dia = String(array[0]);
     this.serie.mes = String(array[1]);
