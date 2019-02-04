@@ -155,7 +155,7 @@ export class ConfiguracoesPage {
             }
             if (local == "shows") {
               this.show.title = data.title, this.show.ordem = Number(data.ordem);
-              this.dbService.save('configuracoes/shows', this.show);
+              this.dbService.save('configuracoes/shows2', this.show);
             }
           }
         }
