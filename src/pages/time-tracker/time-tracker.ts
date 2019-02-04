@@ -66,6 +66,10 @@ export class TimeTrackerPage {
   public ShowTarefas;ShowBo
   public tarefas
 
+
+  public testao
+  public hora
+
   
 
   constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
@@ -81,7 +85,7 @@ export class TimeTrackerPage {
 
     this.tarefas = this.dbService.getAllEspecificoMsm('tarefas','total',10).map(b => b.reverse())
 
-   
+   this.testao = Number(0.4)
 
 
     this.dias = [{title: "Hoje"},
@@ -100,6 +104,8 @@ export class TimeTrackerPage {
     this.totalO = this.TotalHoras(this.ontem)
     this.ngAfterViewInit()
 
+    this.hora = this.GetHora()
+
     
     
    
@@ -108,6 +114,16 @@ export class TimeTrackerPage {
 
     
     
+
+  }
+
+  GetHora(){
+    var a = new Date
+    var b
+    b = a.getHours() + a.getMinutes()/60
+    b = b/24
+    console.log(b)
+    return (b)
 
   }
 
@@ -191,6 +207,8 @@ export class TimeTrackerPage {
     var a4 = (String((array[0]+array[1]+array[2]+array[3])/0.24)+'%')
     var a5 = (String((array[0]+array[1]+array[2]+array[3]+array[4])/0.24)+'%')
     var a6 = (String((array[0]+array[1]+array[2]+array[3]+array[4]+array[5])/0.24)+'%')
+    var a7 = String((this.GetHora())*100+'%')
+    console.log (a7)
     
     
     document.getElementById("teste1").style.width = a1
@@ -199,6 +217,7 @@ export class TimeTrackerPage {
     document.getElementById("teste4").style.width = a4
     document.getElementById("teste5").style.width = a5
     document.getElementById("teste6").style.width = a6
+    document.getElementById("testeH").style.width = a7
   }
 
   teste2(array){

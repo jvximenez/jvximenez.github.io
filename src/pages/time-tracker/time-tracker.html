@@ -185,12 +185,14 @@
     
     <h2 padding *ngIf="d.title == 'Hoje' || d.title =='Ontem' " (click)="AtualizaGraf()" >Progresso:</h2>
     <div class="progress" *ngIf="d.title == 'Hoje'" (click)=teste(totalM)>
+        <div class="determinate7" style="width: 0%" id="testeH" ></div>
       <div class="determinate1" style="width: 0%" id="teste6" ></div>
       <div class="determinate2" style="width: 0%" id="teste5" ></div>
       <div class="determinate3" style="width: 0%" id="teste4" ></div>
       <div class="determinate4" style="width: 0%" id="teste3" ></div>
-      <div class="determinate5" style="width: 0%" id="teste2" ></div>
+      <div class="determinate5" style="width: testao" id="teste2" ></div>
       <div class="determinate6" style="width: 0%" id="teste1" ></div>
+      
     </div>
 
     <div class="progress2" *ngIf="d.title == 'Ontem'" (click)=teste(totalM)>
