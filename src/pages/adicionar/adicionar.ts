@@ -85,6 +85,8 @@ export class AdicionarPage {
     
 
   }
+
+  public Remedios;Roles;Estudos;Pessoas;Atividades;Dentes
   
 
   
@@ -96,6 +98,15 @@ export class AdicionarPage {
     this.statusBar.backgroundColorByHexString('#ffffff');
 
     this.rows = 5;
+
+    this.Remedios=this.dbService.getAll('configuracoes/remedios','ordem')
+    this.Atividades=this.dbService.getAll('configuracoes/atividades','ordem')
+    this.Roles=this.dbService.getAll('configuracoes/roles','ordem')
+    this.Estudos=this.dbService.getAll('configuracoes/estudos','ordem')
+    this.Pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
+    this.Dentes=this.dbService.getAll('configuracoes/dentes','ordem')
+    
+
     
     this.remedios = [
       {title: "Homeopatia - manhã"},

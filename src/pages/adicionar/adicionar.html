@@ -27,7 +27,7 @@
       <ion-item>
         <ion-label class="nome">Remedios: </ion-label>
           <ion-select class="input" [(ngModel)]="controle.remedios" interface="popover" multiple =  True>
-            <ion-option *ngFor="let rem of remedios">{{rem.title}}</ion-option>
+            <ion-option *ngFor="let rem of (Remedios | async) ">{{rem.title}}</ion-option>
           </ion-select>
       </ion-item>
     </ion-row>
@@ -36,7 +36,7 @@
       <ion-item>
         <ion-label class="nome" >Dentes: </ion-label>
         <ion-select  text-righ [(ngModel)]="controle.dentes" interface="popover" multiple =  True>
-          <ion-option text-righ *ngFor="let den of dentes">{{den.title}}</ion-option>
+          <ion-option text-righ *ngFor="let den of (Dentes | async)">{{den.title}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-row>
@@ -45,7 +45,7 @@
       <ion-item>
         <ion-label class="nome" >Atividades: </ion-label>
         <ion-select text-righ [(ngModel)]="controle.atividades" interface="popover" multiple =  True>
-          <ion-option text-righ *ngFor="let ativ of atividades">{{ativ.title}}</ion-option>
+          <ion-option text-righ *ngFor="let ativ of (Atividades | async)">{{ativ.title}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-row>
@@ -320,7 +320,7 @@
       <ion-item no-lines>
         <ion-label class="nome" >Role: </ion-label>
           <ion-select class="input" [(ngModel)]="controle.role" interface="popover" multiple =  True>
-            <ion-option *ngFor="let rol of role">{{rol.title}}</ion-option>
+            <ion-option *ngFor="let rol of (Roles | async)">{{rol.title}}</ion-option>
           </ion-select>
       </ion-item>
     </ion-row>
@@ -329,7 +329,7 @@
       <ion-item no-lines>
           <ion-label class="nome" >Estudos: </ion-label>
             <ion-select class="input" [(ngModel)]="controle.estudos" interface="popover" multiple =  True>
-              <ion-option *ngFor="let est of estudos">{{est.title}}</ion-option>
+              <ion-option *ngFor="let est of (Estudos | async)">{{est.title}}</ion-option>
             </ion-select>
         </ion-item>
     </ion-row>
@@ -338,7 +338,7 @@
       <ion-item> 
           <ion-label class="nome" >Pessoas: </ion-label>
             <ion-select class="input" [(ngModel)]="controle.pessoas" interface="popover" multiple =  True>
-              <ion-option *ngFor="let pes of pessoas">{{pes.title}}</ion-option>
+              <ion-option *ngFor="let pes of (Pessoas | async)">{{pes.title}}</ion-option>
             </ion-select>
         </ion-item>
     </ion-row>

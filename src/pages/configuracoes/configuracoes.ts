@@ -28,6 +28,11 @@ export class ConfiguracoesPage {
     'check':true,
     'ordem':Number(''),
   }
+  public dente = {
+    'title':'',
+    'check':true,
+    'ordem':Number(''),
+  }
   public atividade = {
     'title':'',
     'check':true,
@@ -65,10 +70,11 @@ export class ConfiguracoesPage {
     'ordem':Number('')
   }
 
-  public tarefas; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
+  public tarefas;dentes; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
+    this.dentes=this.dbService.getAll('configuracoes/dentes','ordem')
     this.atividades=this.dbService.getAll('configuracoes/atividades','ordem')
     this.roles=this.dbService.getAll('configuracoes/roles','ordem')
     this.estudos=this.dbService.getAll('configuracoes/estudos','ordem')
@@ -85,6 +91,9 @@ export class ConfiguracoesPage {
   Atualizar(tarefas,nome){
     if (nome == 'remedios'){
       this.dbService.update('configuracoes/remedios',tarefas)
+    }
+    if (nome == 'dentes'){
+      this.dbService.update('configuracoes/dentes',tarefas)
     }
     if (nome == 'atividades'){
       this.dbService.update('configuracoes/atividades',tarefas)
@@ -136,6 +145,10 @@ export class ConfiguracoesPage {
               this.remedio.title = data.title, this.remedio.ordem = data.ordem;
               this.dbService.save('configuracoes/remedios', this.remedio);
             }
+            if (local == "dentes"){
+              this.dente.title = data.title, this.dente.ordem = data.ordem;
+              this.dbService.save('configuracoes/dentes', this.dente);
+            }
             
             if (local == "atividades") {
               this.atividade.title = data.title, this.atividade.ordem = data.ordem;
@@ -170,7 +183,8 @@ export class ConfiguracoesPage {
   this.atividades.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/atividades',item) })})
   this.roles.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/roles',item) })})
   this.estudos.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/estudos',item) })})
-  this.pessoas.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/pessoas',item) })})}
+  this.pessoas.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/pessoas',item) })})
+  this.dentes.forEach(element => { element.forEach(item => {item.ordem = Number(item.ordem); this.dbService.update('configuracoes/dentes',item) })})}
 
 
 
@@ -246,7 +260,8 @@ export class ConfiguracoesPage {
   }
 
   Deletar(track,local){
-    this.dbService.revome('configuracoes/'+local,track)
+    console.log(track.key,local,String('configuracoes/'+local))
+    this.dbService.revome(String('configuracoes/'+local),track)
   }
 
 
