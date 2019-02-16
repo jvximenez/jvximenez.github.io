@@ -36,6 +36,8 @@ import { TimeTrackerEditPage } from '../pages/time-tracker-edit/time-tracker-edi
 import { TimeTrackerPage } from '../pages/time-tracker/time-tracker';
 import { ConfiguracoesEditPage } from '../pages/configuracoes-edit/configuracoes-edit';
 import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
+import { TodosTrackersPage } from '../pages/todos-trackers/todos-trackers';
+import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-especifico';
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
     TimeTrackerEditPage,
     TimeTrackerPage,
     ConfiguracoesEditPage,
-    ConfiguracoesPage
+    ConfiguracoesPage,
+    TodosTrackersPage,
+    TrackerEspecificoPage
     
   ],
   imports: [
@@ -114,7 +118,9 @@ import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
     TimeTrackerEditPage,
     TimeTrackerPage,
     ConfiguracoesEditPage,
-    ConfiguracoesPage
+    ConfiguracoesPage,
+    TodosTrackersPage,
+    TrackerEspecificoPage,
   ],
   providers: [
     StatusBar,

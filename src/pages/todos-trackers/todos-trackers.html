@@ -14,5 +14,19 @@
 
 
 <ion-content>
+  <ion-card *ngFor="let dias of Dias" (click)="GoToEspecifico(dias)">
+    <ion-card-header >
+      {{dias[0]}} - 
+    </ion-card-header>
 
+    <div class="progress2" >
+    <div class="determinate1"     [style.width]="dias[6]*100+dias[5]*100+dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'" ></div>
+        <div class="determinate2" [style.width]="dias[5]*100+dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'"  ></div>
+        <div class="determinate3" [style.width]="dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'"  ></div>
+        <div class="determinate4" [style.width]="dias[3]*100+dias[2]*100+dias[1]*100 +'%'" ></div>
+        <div class="determinate5" [style.width]="dias[2]*100+dias[1]*100 +'%'" ></div>
+        <div class="determinate6" [style.width]="dias[1]*100+'%'"  ></div>
+      </div>
+
+  </ion-card>
 </ion-content>

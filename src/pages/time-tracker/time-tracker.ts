@@ -389,8 +389,7 @@ export class TimeTrackerPage {
   }
 
   goToTotal(){
-    this.navCtrl.push(TodosTrackersPage, 
-    {'trackers' : this.trackers})
+    this.navCtrl.push(TodosTrackersPage)
   }
 
 
