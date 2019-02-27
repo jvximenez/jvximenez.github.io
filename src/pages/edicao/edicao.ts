@@ -69,6 +69,7 @@ export class EdicaoPage {
     'parcial':'',
   }
 
+  public Remedios;Roles;Estudos;Pessoas;Atividades;Dentes
 
   
 
@@ -76,6 +77,16 @@ export class EdicaoPage {
     this.controle = this.navParams.get('single')
     
     this.rows = 5;
+
+    this.rows = 5;
+
+    this.Remedios=this.dbService.getAll('configuracoes/remedios','ordem')
+    this.Atividades=this.dbService.getAll('configuracoes/atividades','ordem')
+    this.Roles=this.dbService.getAll('configuracoes/roles','ordem')
+    this.Estudos=this.dbService.getAll('configuracoes/estudos','ordem')
+    this.Pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
+    this.Dentes=this.dbService.getAll('configuracoes/dentes','ordem')
+    
     
     this.remedios = [
       {title: "Homeopatia - manhã"},
