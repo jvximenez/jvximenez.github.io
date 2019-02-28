@@ -45,9 +45,9 @@ export class CardsDoMesPage {
   public graficoLancheMG;graficoLancheMData;graficoLancheMDado
 
   public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData;graficoMedia;  graficoMedia1;graficoMediaMedia
-  public graficoDataMedia
+  public graficoDataMedia; graficoDataMedia7
 
-  public grafPeso;grafPesoMedia;grafPesoG
+  public grafPeso;grafPesoMedia;grafPesoG;graficoDataMedia7F;graficoPassosMin
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     
@@ -72,6 +72,10 @@ export class CardsDoMesPage {
     this.graficoData = this.graficoG[0];
     this.graficoDado = this.graficoG[1];
     this.graficoDataMedia = this.graficoG[2];
+    this.graficoDataMedia7= this.graficoG[3];
+    this.graficoDataMedia7F = this.graficoG[4]
+    this.graficoPassosMin = this.graficoG[5]
+    
 
     this.grafPesoG = this.Media2('peso')
     console.log(this.grafPesoG,"pesooooooooooooo")
@@ -179,9 +183,16 @@ export class CardsDoMesPage {
     let array2 = []
     let array3 = []
     let array4 = []
-    this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia'])), sum += Number(dia[dado]),cont += 1,(array4).push(sum/cont)})})
-    array3 = [array,array2,array4]
-    console.log("3sssssssssssss", array3)
+    let array5 = []
+    let array6 = []
+    let array7 = []
+
+    let v1 = 0; let v2=0; let v3=0; let v4=0; let v5=0; let v6=0; let v7=0; let Med
+
+    this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia'])), sum += Number(dia[dado]),cont += 1,(array4).push(sum/cont),
+    (v7 = v6, v6=v5,v5=v4,v4=v3,v3=v2,v2=v1),v1 = dia[dado],Med = ((Number(v1))+(Number(v2))+(Number(v3))+(Number(v4))+(Number(v5))+(Number(v6))+(Number(v7)))/7, array5.push(Med);if(cont % 7 == 0){array6.push(Med,Med,Med,Med,Med,Med,Med)}array7.push(8000)})})
+    array3 = [array,array2,array4,array5,array6,array7]
+    console.log("3sssssssssssss",dado, array3)
     return array3
   }
 
@@ -197,6 +208,7 @@ export class CardsDoMesPage {
     array.push(final)})
     return array;
   }
+
 
   MediaAlimentacao(){
     console.log("oi")
@@ -258,8 +270,25 @@ export class CardsDoMesPage {
       data: this.graficoDataMedia,
       type: 'line',
       backgroundColor: 'rgba(255, 255, 255, .4)',
-      borderColor: '#2f6acf'}
-    
+      borderColor: '#2f6acf'
+    },{
+      label: ['Ponderado 7'],
+      data: this.graficoDataMedia7,
+      type: 'line',
+      backgroundColor: 'rgba(255, 255, 255, .4)',
+      borderColor: '#2f6acf'},
+      {
+        label: ['Semanas'],
+        data: this.graficoDataMedia7F,
+        type: 'line',
+        backgroundColor: 'rgba(255, 255, 255, .4)',
+        borderColor: '#2f6acf'},
+      {
+        label: ['Minimo'],
+        data: this.graficoPassosMin,
+        type: 'line',
+        backgroundColor: 'rgba(255, 255, 255, .4)',
+        borderColor: '#FF0000'} 
       ]}
   
     const options = {
