@@ -38,6 +38,7 @@ import { ConfiguracoesEditPage } from '../pages/configuracoes-edit/configuracoes
 import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
 import { TodosTrackersPage } from '../pages/todos-trackers/todos-trackers';
 import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-especifico';
+import { AnalisePage } from '../pages/analise/analise';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-espec
     ConfiguracoesEditPage,
     ConfiguracoesPage,
     TodosTrackersPage,
-    TrackerEspecificoPage
+    TrackerEspecificoPage,
+    AnalisePage,
     
   ],
   imports: [
@@ -121,6 +123,7 @@ import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-espec
     ConfiguracoesPage,
     TodosTrackersPage,
     TrackerEspecificoPage,
+    AnalisePage,
   ],
   providers: [
     StatusBar,

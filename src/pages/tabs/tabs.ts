@@ -3,6 +3,7 @@ import { AdicionarPage } from '../adicionar/adicionar';
 import { HojePage } from '../hoje/hoje';
 import { CardsPage } from '../cards/cards';
 import { NavParams } from 'ionic-angular';
+import { AnalisePage } from '../analise/analise';
 import { TimeTrackerPage } from '../time-tracker/time-tracker';
 
 
@@ -17,6 +18,8 @@ export class TabsPage {
   tab2Root = HojePage;
   tab3Root = CardsPage;
   tab4Root = TimeTrackerPage;
+  tab5Root = AnalisePage;
+  
 
   constructor( navParams: NavParams) {
     this.myIndex = 0;
