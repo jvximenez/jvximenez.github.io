@@ -1,10 +1,23 @@
 page-analise {
 
 
-    .dia{
+    .cabecalho{
+        font-size: 11px;
+        justify-content: center;
+        text-align: center;
+        transform: rotate(-45deg); 
+        word-wrap: none;
+    }
+
+    .dados{
         font-size: 15px;
         justify-content: center;
         text-align: center; 
+    }
+
+    .inner{
+        width: 150%;
+        height: 100%;
     }
 
    

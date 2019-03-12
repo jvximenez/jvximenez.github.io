@@ -22,8 +22,8 @@ export class AnalisePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
   
     this.Dados = this.dbService.getAll('diario','parcial').map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['total']- Number(String(a['total']))))}))
-    this.itens = [{title:"dia"},{title:"ler"},{title:"Agradecer"},
-    {title:"Meditar"},{title:"Correr"},{title:"Agradecer"}
+    this.itens = [{title:"Leitura"},{title:"Corrida"},{title:"8000"},{title:"Agradecer"},
+    {title:"Meditar"},{title:"Peso"},{title:"Passos"}
     ]
       
     
@@ -35,15 +35,43 @@ export class AnalisePage {
     console.log('ionViewDidLoad AnalisePage');
   }
 
-  icon(leitura){
-    if (leitura == true){
+  icon(dado){
+    if (dado == true){
       return("checkmark-circle")
     }
     else {return("close-circle")}
   }
 
-  iconColor(leitura){
-    if (leitura == true){
+  iconColor(dado){
+    if (dado == true){
+      return("primary")
+    }
+    else {return("dark")}
+  }
+
+  contem(dado,parametro){
+    if(dado.includes(parametro) == true){
+      return("checkmark-circle")
+    }
+    else {return("close-circle")}
+  }
+
+  contemCor(dado,parametro){
+    if(dado.includes(parametro) == true){
+      return("primary")
+    }
+    else {return("dark")}
+  }
+
+  contador(dado,parametro){
+    if(Number(dado) > parametro){
+      return("checkmark-circle")
+    }
+    else {return("close-circle")}
+  }
+
+  contadorCor(dado,parametro){
+    if(Number(dado) > parametro){
       return("primary")
     }
     else {return("dark")}

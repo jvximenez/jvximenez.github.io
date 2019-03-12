@@ -14,23 +14,68 @@
 
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-2 *ngFor="let item of itens" justify-content-center> 
-        <h2 class="dia" justify-content-center>{{item.title}} </h2>
-      </ion-col>
-    </ion-row>
+  <ion-scroll scrollX="true" scrollY="true" style="width:150%; height: 100%">
+    <div class="inner">
+      <ion-row>
+        <ion-col col-1>
+          <h2 class="dados" justify-content-center>Dia</h2>
+        </ion-col>
+        <ion-col col-1 *ngFor="let item of itens" justify-content-center> 
+          <h2 class="cabecalho" justify-content-center>{{item.title}} </h2>
+        </ion-col>
+      </ion-row>
 
-    <ion-row *ngFor="let dado of (Dados | async)">
-      <ion-col no-padding col-1 justify-content-center>
-        <h2 class="dia">{{dado.dia}}/{{dado.mes}}</h2>
-      </ion-col>
-      <ion-col no-padding col-1 justify-content-center>
-        <h2 class="dia" justify-content-center>
-          <ion-icon  color="{{iconColor(dado.leitura)}}" name="{{icon(dado.leitura)}}"></ion-icon>
-        </h2>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      <ion-row *ngFor="let dado of (Dados | async)">
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados">{{dado.dia}}/{{dado.mes}}</h2>
+        </ion-col>
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center>
+            <ion-icon  color="{{iconColor(dado.leitura)}}" name="{{icon(dado.leitura)}}"></ion-icon>
+          </h2>
+        </ion-col>
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center>
+            <ion-icon  color="{{contemCor(dado.atividades,'Corrida')}}" name="{{contem(dado.atividades,'Corrida')}}"></ion-icon>
+          </h2>
+        </ion-col>
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center>
+            <ion-icon  color="{{contadorCor(dado.passos,'8000')}}" name="{{contador(dado.passos,'8000')}}"></ion-icon>
+          </h2>
+        </ion-col>
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center>
+            <ion-icon  color="{{iconColor(dado.agradecimento)}}" name="{{icon(dado.agradecimento)}}"></ion-icon>
+          </h2>
+        </ion-col>
+
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center>
+            <ion-icon  color="{{iconColor(dado.meditacao)}}" name="{{icon(dado.meditacao)}}"></ion-icon>
+          </h2>
+        </ion-col>
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center> {{dado.peso}}
+          </h2>
+        </ion-col>
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center> {{dado.passos}}
+          </h2>
+        </ion-col>
+
+        
+
+
+      </ion-row>
+    </div>
+  </ion-scroll>
+    
 
 </ion-content>
