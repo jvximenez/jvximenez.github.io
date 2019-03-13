@@ -47,7 +47,8 @@ export class CardsDoMesPage {
   public graficoAlmocoData;graficoLancheTData;graficoJantarData;graficoLancheNData;graficoMedia;  graficoMedia1;graficoMediaMedia
   public graficoDataMedia; graficoDataMedia7
 
-  public grafPeso;grafPesoMedia;grafPesoG;graficoDataMedia7F;graficoPassosMin
+  public grafPeso;grafPesoMedia;grafPesoG;graficoDataMedia7F;graficoPassosMin; graficoPesoMedia7;graficoPesoMin;graficoPesoMedia7F
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     
@@ -81,6 +82,9 @@ export class CardsDoMesPage {
     console.log(this.grafPesoG,"pesooooooooooooo")
     this.grafPeso = this.grafPesoG[0]
     this.grafPesoMedia = this.grafPesoG[2]
+  
+    this.graficoPesoMedia7F = this.grafPesoG[4]
+    
 
 
 
@@ -431,6 +435,12 @@ export class CardsDoMesPage {
       },{
       label: ['Média'],
       data: this.grafPesoMedia,
+      type: 'line',
+      backgroundColor: 'rgba(255, 255, 255, .4)',
+      borderColor: '#2f6acf'},
+    {
+      label: ['Semana'],
+      data: this.graficoPesoMedia7F,
       type: 'line',
       backgroundColor: 'rgba(255, 255, 255, .4)',
       borderColor: '#2f6acf'}
