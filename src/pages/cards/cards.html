@@ -20,11 +20,12 @@
 
 </ion-header>
 
-
 <ion-content>
-  <ion-card *ngFor="let itens of meses" (click)="goToMes(itens)">
-  <ion-card-header>{{RetornaData(itens)}}</ion-card-header>
-  </ion-card>
+  <ion-list>
+    <div *ngFor="let itens of meses" (click)="goToMes(itens)">
+      <button ion-item>{{RetornaData(itens)}}</button>
+    </div>
+  </ion-list>
   
  
 </ion-content>

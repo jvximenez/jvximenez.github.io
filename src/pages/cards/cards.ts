@@ -74,6 +74,7 @@ export class CardsPage {
     }
 
     if (teste1 < 100) {
+      
 
       while (comeco <= total){
 
@@ -96,7 +97,20 @@ export class CardsPage {
     data = String(data)
     var datinha = data.substr(0,4);
     var datinha2 = data.substr(4,2);
-    var final = [datinha2,datinha].join('/')  
+    if ( datinha2 == 1) { datinha2 = "Janeiro"}
+    if ( datinha2 == 2) { datinha2 = "Fevereiro"}
+    if ( datinha2 == 3) { datinha2 = "Março"}
+    if ( datinha2 == 4) { datinha2 = "Abril"}
+    if ( datinha2 == 5) { datinha2 = "Maio"}
+    if ( datinha2 == 6) { datinha2 = "Junho"}
+    if ( datinha2 == 7) { datinha2 = "Julho"}
+    if ( datinha2 == 8) { datinha2 = "Agosto"}
+    if ( datinha2 == 9) { datinha2 = "Setembro"}
+    if ( datinha2 == 10) { datinha2 = "Outubro"}
+    if ( datinha2 == 11) { datinha2 = "Novembro"}
+    if ( datinha2 == 12) { datinha2 = "Dezembro"}
+
+    var final = [datinha,datinha2].join(' - ')  
     return final
   }
 
