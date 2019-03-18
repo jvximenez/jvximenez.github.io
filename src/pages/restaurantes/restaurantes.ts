@@ -40,11 +40,14 @@ export class RestaurantesPage {
 
   }
 
+  public Pessoas
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider,public alertCtrl: AlertController ) {
     this.restaurantes = this.dbService.getAll('restaurantes','total').map(a=>a.reverse())
     this.tipos = this.Tipos();
     this.atalhos = this.Atalhos();
     this.restaurantesArray = this.ArrayTotal();
+    this.Pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
     
 
     

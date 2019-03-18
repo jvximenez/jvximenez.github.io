@@ -90,11 +90,14 @@
       </ion-row>
 
       <ion-row>
-        <ion-item>
-          <ion-label class="nome" no-padding >Companhia: </ion-label>
-          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="restaurante.cia"></ion-textarea>
-        </ion-item>
-      </ion-row>
+          <ion-item> 
+              <ion-label class="nome" >Companhia: </ion-label>
+                <ion-select class="input" [(ngModel)]="restaurante.cia" interface="popover" multiple =  True>
+                  <ion-option *ngFor="let pes of (Pessoas | async)">{{pes.title}}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-row>
+  
 
       <ion-row>
         <ion-col col-4 no-paddig>
