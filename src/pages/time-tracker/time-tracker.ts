@@ -6,6 +6,8 @@ import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ConfiguracoesPage } from '../configuracoes/configuracoes';
 import { TarefaEditPage } from '../tarefa-edit/tarefa-edit';
+import { isNumber } from 'ionic-angular/umd/util/util';
+import { stringify } from '@angular/compiler/src/util';
 
 /**
  * Generated class for the TimeTrackerPage page.
@@ -748,11 +750,13 @@ export class TimeTrackerPage {
       inputs: [
         {
           name: 'hora1',
-          placeholder: track.Hinicio
+          placeholder: track.Hinicio,
+          type: 'number',
         },
         {
           name: 'hora2',
-          placeholder: track.Hfim
+          placeholder: track.Hfim,
+          type: 'number',
         }
       ],
       buttons: [
@@ -760,14 +764,24 @@ export class TimeTrackerPage {
           text: 'Cancel',
           handler: data => {
             console.log('Cancel clicked');
+
           }
         },
         {
           text: 'Save',
           handler: data => {
-            track.Hinicio = data.hora1;
-            track.Hfim = data.hora2;
-            this.dbService.update('trackers', track)
+            track.Hinicio = data.hora1.split('.')[0];
+            track.Hfim = data.hora2.split('.')[0];
+            track.Minicio = data.hora1.split('.')[1];
+            track.Mfim = data.hora2.split('.')[1];
+
+            if (track.Mfim > 0){
+            var dura = (Math.round((Number(track.Hfim) + Math.round((Number(track.Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
+            track.duracao = dura;
+            track.check = true
+          }
+            
+            this.dbService.update('trackers',track)
           }
         }
       ]
