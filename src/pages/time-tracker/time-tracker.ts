@@ -550,6 +550,9 @@ export class TimeTrackerPage {
             this.dbService.update('trackers',track);
           }
         },{
+          text:"Alterar Horários",
+          handler:() => {this.AlteraHora(track)}
+        },{
           text: 'Limpar tudo',
           handler: () => {
             track.Hfim = '';
@@ -561,34 +564,9 @@ export class TimeTrackerPage {
             
           }
         },{
-          text: 'Nível 2',
+          text: 'Alterar Nível',
           handler: () => {
-            this.AlteraNivel(track,"2")
-          }
-        },{
-          text: 'Nível 1',
-          handler: () => {
-            this.AlteraNivel(track,"1")
-          }
-        },{
-          text: 'Nível 0',
-          handler: () => {
-             this.AlteraNivel(track,"0")
-          }
-        },{
-          text: 'Nível -1',
-          handler: () => {
-            this.AlteraNivel(track,"-1")
-          }
-        },{
-          text: 'Nível -2',
-          handler: () => {
-            this.AlteraNivel(track,"-2")
-          }
-        },{
-          text: 'Necessario',
-          handler: () => {
-            this.AlteraNivel(track,"3")
+            this.AlteraNivelradio(track);
           }
         },{
           text: 'Relaxar',
@@ -708,7 +686,97 @@ export class TimeTrackerPage {
     this.ngAfterViewInit()
 
   }
+
+
+  AlteraNivelradio(track){
+    let prompt = this.alertCtrl.create({
+      title: 'Alterando Nível',
+      message: 'Selecione a opção',
+      inputs : [
+      {
+          type:'radio',
+          label:'Nível 2',
+          value:'2'
+      },
+      {
+        type:'radio',
+        label:'Nível 1',
+        value:'1'
+    },
+      {
+        type:'radio',
+        label:'Nível 0',
+        value:'0'
+      },  
+      {
+        type:'radio',
+        label:'Nível -1',
+        value:'-1'
+    },
+    {
+      type:'radio',
+      label:'Nível -2',
+      value:'-2'
+    },
+    {
+      type:'radio',
+      label:'Necessario',
+      value:'3'
+    }],
+      buttons : [
+      {
+          text: "Cancel",
+          handler: data => {
+          console.log("cancel clicked");
+          }
+      },
+      {
+          text: "Salvar",
+          handler: data => {
+            track.nivel = data
+          this.dbService.update('trackers',track)
+          }
+      }]});
+      prompt.present();
+  }
+
+
+  AlteraHora(track){
+    const prompt = this.alertCtrl.create({
+      title: 'Hora',
+      message: "Entre com a hora",
+      inputs: [
+        {
+          name: 'hora1',
+          placeholder: track.Hinicio
+        },
+        {
+          name: 'hora2',
+          placeholder: track.Hfim
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            track.Hinicio = data.hora1;
+            track.Hfim = data.hora2;
+            this.dbService.update('trackers', track)
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
 }
+   
 
 
 
