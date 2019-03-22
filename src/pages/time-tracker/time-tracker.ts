@@ -6,8 +6,6 @@ import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ConfiguracoesPage } from '../configuracoes/configuracoes';
 import { TarefaEditPage } from '../tarefa-edit/tarefa-edit';
-import { isNumber } from 'ionic-angular/umd/util/util';
-import { stringify } from '@angular/compiler/src/util';
 
 /**
  * Generated class for the TimeTrackerPage page.
