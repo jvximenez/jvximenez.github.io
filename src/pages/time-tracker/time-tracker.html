@@ -13,7 +13,7 @@
     <ion-buttons end *ngFor="let f of (ShowTarefas | async) ">
         <button ion-button icon-only color="{{CorIfTrue(f.check)}}" (click)="ChangeCheckTarefas(f)">
           <ion-icon name="list-box"></ion-icon>
-          <ion-badge id="notifications-badge" color="danger">{{contador[0]}}</ion-badge>
+          <ion-badge *ngIf="contador[0] > 0" id="notifications-badge" color="danger">{{contador[0]}}</ion-badge>
         </button>
       <button ion-button icon-only (click)="atualiza()">
         <ion-icon name="sync"></ion-icon>
