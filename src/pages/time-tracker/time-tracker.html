@@ -13,6 +13,7 @@
     <ion-buttons end *ngFor="let f of (ShowTarefas | async) ">
         <button ion-button icon-only color="{{CorIfTrue(f.check)}}" (click)="ChangeCheckTarefas(f)">
           <ion-icon name="list-box"></ion-icon>
+          <ion-badge id="notifications-badge" color="danger"></ion-badge>
         </button>
       <button ion-button icon-only (click)="atualiza()">
         <ion-icon name="sync"></ion-icon>
@@ -64,7 +65,7 @@
 
   <div *ngFor="let f of (ShowTarefas | async) ">
     <ion-row justify-content-center *ngIf="f.check == true">
-        <button class="btn3" ion-button  clear round small  (click)="CriacaoTarefa(tarefa)">Adicionar</button>
+        <button class="btn3" ion-button  clear round small  (click)="CriacaoTarefa(tarefa)">Tarefa</button>
     </ion-row>
   </div>
 

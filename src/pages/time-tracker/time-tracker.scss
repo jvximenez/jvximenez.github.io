@@ -97,6 +97,25 @@ page-time-tracker {
         
     }
 
+
+    #notification-button {            
+        position: relative;
+        width: 10px;
+        top:1px;
+        right: 1px;
+        overflow: visible!important;
+    }
+
+
+    #notifications-badge {
+        background-color: 'danger';
+        font-size: 10px;
+        position: absolute;
+        top: -4px;
+        right: -6px;
+        border-radius: 100%;
+    }
+
    
 
 
