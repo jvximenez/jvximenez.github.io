@@ -70,9 +70,14 @@ export class TimeTrackerPage {
   public testao
   public hora
 
+  public VerM
+  public contador
+
   
 
   constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
+    this.VerM = false
+    
 
     this.ShowTarefas = this.dbService.getAll('configuracoes/shows','nivel')
    
@@ -105,6 +110,8 @@ export class TimeTrackerPage {
     this.ngAfterViewInit()
 
     this.hora = this.GetHora()
+
+    this.contador=this.ContaPendentes()
 
     
     
@@ -399,18 +406,24 @@ export class TimeTrackerPage {
 
   Atualizar(tarefas){
     this.dbService.update('trackers',tarefas)
+    this.contador = this.ContaPendentes()
+    this.AtualizaGraf()
     }
 
   AtualizarT(tarefas){
     this.dbService.update('tarefas',tarefas)
+    this.contador = this.ContaPendentes()
     }
 
   Deletar(tarefas){
     this.dbService.revome('trackers',tarefas)
+    this.contador = this.ContaPendentes()
+    this.AtualizaGraf()
     }
 
   DeletarT(tarefas){
     this.dbService.revome('tarefas',tarefas)
+    this.contador = this.ContaPendentes()
     }
   
 
@@ -517,9 +530,61 @@ export class TimeTrackerPage {
     this.Criacao(this.tracker);
   }
 
+
+
+  VerMais(item){
+    if (item == false){
+      this.VerM = true
+      this.tarefas = this.dbService.getAllEspecificoMsm('tarefas','total',1000).map(b => b.reverse())
+      
+    }
+    else{
+      this.VerM = false
+      this.tarefas = this.dbService.getAllEspecificoMsm('tarefas','total',10).map(b => b.reverse())
+    }
+
+    
+  }
+
+  ValorVerMais(item){
+    if (item == false){
+      return ("Ver mais")
+    }
+    if (item == true){
+      return ("Ver menos")
+    }
+
+  }
+
+
+  ContaPendentes(){
+    var contador = [0]
+    this.tarefas.forEach(itens => itens.forEach(item => {if(item.check == false){contador[0]+=1}}))
+    return contador
+
+  }
+
   
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Opcoes(track){
     const actionSheet = this.actionSheetCtrl.create({
@@ -679,11 +744,15 @@ export class TimeTrackerPage {
   }
 
   AtualizaGraf(){
-    this.Indicadores = this.Calcula(this.Total());
-    this.IndicadoresO=this.Calcula(this.Total()-1);
-    this.totalM = this.TotalHoras(this.hoje)
-    this.totalO = this.TotalHoras(this.ontem)
-    this.ngAfterViewInit()
+    setTimeout(() => {
+      this.Indicadores = this.Calcula(this.Total());
+      this.IndicadoresO=this.Calcula(this.Total()-1);
+      this.totalM = this.TotalHoras(this.hoje)
+      this.totalO = this.TotalHoras(this.ontem)
+      this.ngAfterViewInit()
+      
+    }, 50);
+    
 
   }
 
@@ -735,6 +804,7 @@ export class TimeTrackerPage {
           handler: data => {
             track.nivel = data
           this.dbService.update('trackers',track)
+          this.AtualizaGraf()
           }
       }]});
       prompt.present();
@@ -780,6 +850,7 @@ export class TimeTrackerPage {
           }
             
             this.dbService.update('trackers',track)
+            this.AtualizaGraf()
           }
         }
       ]
