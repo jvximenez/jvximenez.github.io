@@ -82,10 +82,7 @@ export class AnalisePage {
   var myDate = new Date();
   myDate.setFullYear(Number(ano));
   myDate.setMonth(Number(mes)-1);
-  myDate.setDate(Number(dia));
-  if(myDate.getDay() == 6){console.log(dia, mes, ano, myDate.getDay(),"AQUIIIIIIIIIII")}
-  
-
+  myDate.setDate(Number(dia));  
   if(myDate.getDay() == 6){return true}
   else{return false}
   }

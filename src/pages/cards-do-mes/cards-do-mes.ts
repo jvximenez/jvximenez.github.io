@@ -59,11 +59,11 @@ export class CardsDoMesPage {
     this.gastos = this.navParams.get('gastos');
     this.verdade = true;
     if(this.mes != "total"){
-      console.log("dif")
+      
       this.dias = this.dbService.getAllEspecifico('diario','parcial',String(this.mes)).map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['dia']- Number(String(a['dia']))))}))
     }
     if(this.mes == "total"){
-      console.log("ig")
+     
       this.dias = this.dbService.getAll('diario','parcial').map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['total']- Number(String(a['total']))))}))
     }
    
@@ -79,7 +79,7 @@ export class CardsDoMesPage {
     
 
     this.grafPesoG = this.Media2('peso')
-    console.log(this.grafPesoG,"pesooooooooooooo")
+    
     this.grafPeso = this.grafPesoG[0]
     this.grafPesoMedia = this.grafPesoG[2]
   
@@ -91,7 +91,7 @@ export class CardsDoMesPage {
     this.graficoCafeG = this.Media2('cafe');
     this.graficoCafeData = this.graficoCafeG[0];
     this.graficoCafeDado = this.graficoCafeG[1];
-    console.log(this.cafe)
+  
 
     this.graficoLancheMG = this.Media2('lancheM');
     this.graficoLancheMData = this.graficoLancheMG[0];
@@ -144,12 +144,12 @@ export class CardsDoMesPage {
   }
 
   Media3(dado){
-    console.log("dado3",dado.length)
+    
     var cont = 1
     var sum = 0
     var array = []
-    dado.forEach(A => {console.log("oiiiiii", A,"aqui o asssssss"), sum += Number(A), array.push((Number(A)/cont)),cont += 1})
-    console.log(array,"Media3")
+    dado.forEach(A => {sum += Number(A), array.push((Number(A)/cont)),cont += 1})
+   
     return [array]
   }
 
@@ -196,7 +196,7 @@ export class CardsDoMesPage {
     this.dias2.forEach(element => {element.forEach(dia => {(array).push(Number(dia[dado])), (array2).push(Number(dia['dia'])), sum += Number(dia[dado]),cont += 1,(array4).push(sum/cont),
     (v7 = v6, v6=v5,v5=v4,v4=v3,v3=v2,v2=v1),v1 = dia[dado],Med = ((Number(v1))+(Number(v2))+(Number(v3))+(Number(v4))+(Number(v5))+(Number(v6))+(Number(v7)))/7, array5.push(Med);if(cont % 7 == 0){array6.push(Med,Med,Med,Med,Med,Med,Med)}array7.push(8000)})})
     array3 = [array,array2,array4,array5,array6,array7]
-    console.log("3sssssssssssss",dado, array3)
+    
     return array3
   }
 
@@ -215,7 +215,7 @@ export class CardsDoMesPage {
 
 
   MediaAlimentacao(){
-    console.log("oi")
+    
     var array = []
     var cont = 0
     var sum = 0
@@ -225,7 +225,7 @@ export class CardsDoMesPage {
     this.dias2.forEach(itens => {itens.forEach(item => {MEDIA = (Number(item.cafe)*1 + 
       Number(item.almoco)*5 + Number(item.jantar)*8 + Number(item.lancheM)*0.3 + 
       Number(item.lancheT)*0.3 + Number(item.lancheN)*1)/Number(15.6),array.push(MEDIA),cont+=1,sum+=MEDIA,array2.push(sum/cont)})})
-    console.log(array,"array")
+    
     arrayF = [array,array2]
     return arrayF
   }
@@ -254,11 +254,11 @@ export class CardsDoMesPage {
       this.bar2Chart = this.getBarChart2();
       this.bar3Chart = this.getBarChart3();
       
-    },250)
+    },800)
 
     setTimeout(()=> {
       
-    },100)
+    },200)
 }
 
     getBarChart(){
