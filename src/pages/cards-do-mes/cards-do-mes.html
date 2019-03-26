@@ -235,7 +235,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12 col-xl-6  *ngFor="let h of (dias  | async )">
-          <ion-card  (click)="GoEdicao(h)">
+          <ion-card class="card" (click)="GoEdicao(h)">
           <ion-card-header>{{h.dia}}/{{h.mes}}/{{h.ano}}</ion-card-header>
           <ion-grid no-padding>
             <ion-row>

@@ -143,7 +143,7 @@
 <!----------------------------------------------------------------HOJE E ONTEM---------------------------------------------------------------------------------------------->
 <ion-grid>
 <ion-row>
-<ion-col col-12 col-xl-6 no-padding *ngFor="let d of dias">   
+<ion-col col-12 col-xl-6  *ngFor="let d of dias">   
 <ion-card >
     <ion-card-header  class="item">{{d.title}} </ion-card-header>
     <ion-list>
@@ -202,8 +202,8 @@
     </ion-list>
     
 
-    
-    <h2 padding *ngIf="d.title == 'Hoje' || d.title =='Ontem' " (click)="AtualizaGraf()" >Progresso:</h2>
+    <div id="container">
+    <h2 padding  *ngIf="d.title == 'Hoje' || d.title =='Ontem' " (click)="AtualizaGraf()" >Progresso:</h2>
     <div class="progress" *ngIf="d.title == 'Hoje'" (click)=teste(totalM)>
         <div class="determinate7" style="width: 0%" id="testeH" ></div>
       <div class="determinate1" style="width: 0%" id="teste6" ></div>
@@ -224,8 +224,8 @@
       <div class="determinate6" style="width: 0%" id="teste7" ></div>
     </div>
     
-    <div *ngIf="d.title == 'Hoje'">
-      <ion-row>
+    <div class="alinharB" *ngIf="d.title == 'Hoje'">
+      <ion-row> 
         <ion-col col-7>
           <h3 padding>Tarefas Cotidianas:
             <br>Dormir    - {{RetornaH(Arredonda(Indicadores[0]))}}
@@ -273,6 +273,7 @@
           </h3>
         </ion-col>
       </ion-row>
+    </div>
     </div>
   </ion-card>
  </ion-col>
