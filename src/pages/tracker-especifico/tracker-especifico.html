@@ -13,7 +13,44 @@
 </ion-header>
 
 
+
 <ion-content>
+  <!--ADICAO-->
+<ion-content>
+    <ion-grid>
+      <ion-row class="roww">
+          <ion-item no-lines>
+            <ion-label class="nome" >Tracker: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="input.title" (keyup.enter)="Criacao(tracker)"></ion-input>
+          </ion-item>
+       
+      </ion-row>
+  
+      <ion-row class="roww">
+        <ion-col col-11>
+          <ion-item no-lines>
+              <ion-range  min="-2" max="2"  snaps color="{{Cor(tracker.nivel)}}" [(ngModel)]="tracker.nivel">
+                <ion-icon range-left color="{{Cor(tracker.nivel)}}"  small name="close-circle"></ion-icon>
+                <ion-icon range-right  color="{{Cor(tracker.nivel)}}"  small name="checkmark-circle"></ion-icon>
+              </ion-range>
+            </ion-item>
+        </ion-col>
+        <ion-col col-1 >
+          <button ion-button icon-start round clear no-padding (click)="Nivel(3)">
+            <ion-icon color="verde" name="clipboard" (click)="Nivel(3)"> </ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+  <!--bOTOES ADICAO-------------------------------------------------------------------------------------------------------------------------------------->
+  
+    <ion-row justify-content-center >
+      <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>
+    </ion-row>
+
+  <!--Card -------------------------------------------------------------------------------------------------------------------------------------->
+
   <ion-card>
     <ion-card-header>
       {{total[0]}}

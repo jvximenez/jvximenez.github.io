@@ -14,19 +14,45 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let dias of Dias" (click)="GoToEspecifico(dias)">
+  <ion-card *ngFor="let dias of Dias" >
+    <div (click)="GoToEspecifico(dias)">
     <ion-card-header >
-      {{dias[0]}} - 
+      {{TotalToData(dias[0])}}
     </ion-card-header>
 
     <div class="progress2" >
     <div class="determinate1"     [style.width]="dias[6]*100+dias[5]*100+dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'" ></div>
-        <div class="determinate2" [style.width]="dias[5]*100+dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'"  ></div>
-        <div class="determinate3" [style.width]="dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'"  ></div>
-        <div class="determinate4" [style.width]="dias[3]*100+dias[2]*100+dias[1]*100 +'%'" ></div>
-        <div class="determinate5" [style.width]="dias[2]*100+dias[1]*100 +'%'" ></div>
-        <div class="determinate6" [style.width]="dias[1]*100+'%'"  ></div>
-      </div>
+      <div class="determinate2" [style.width]="dias[5]*100+dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'"  ></div>
+      <div class="determinate3" [style.width]="dias[4]*100+dias[3]*100+dias[2]*100+dias[1]*100 +'%'"  ></div>
+      <div class="determinate4" [style.width]="dias[3]*100+dias[2]*100+dias[1]*100 +'%'" ></div>
+      <div class="determinate5" [style.width]="dias[2]*100+dias[1]*100 +'%'" ></div>
+      <div class="determinate6" [style.width]="dias[1]*100+'%'"  ></div>
+    </div>
+    </div>
+
+    <button ion-button clear col-3 small id="VM" (click)="VerMais()">{{VerMaisOuMenos()}}</button>
+
+    <ion-row no-padding *ngIf="ShowResumo == true">
+      <ion-col col-6 no-padding>
+        <h3>Tarefas Cotidianas:
+          <br>Dormir    - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Dormir')))}}
+          <br>Banho     - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Banho')))}}
+          <br>Ler       - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Ler')))}}
+          <br>Programar - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Programar')))}}
+          <br>Estudar    - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Estudar')))}}
+          <br>Frances    -  {{RetornaH(Arredonda(ChecaValor3(dias[0],'Frances')))}}
+        </h3>
+      </ion-col>
+      <ion-col col-6 no-padding>
+        <h3>
+          <br>Ingles    - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Ingles')))}}
+          <br>Aulas     - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Aula')))}}
+          <br>Relaxar   - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Relaxar')))}}
+          <br>Tempinho  - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Tempinho')))}}
+          <br>Dani      - {{RetornaH(Arredonda(ChecaValor3(dias[0],'Dani')))}}
+        </h3>
+      </ion-col>
+    </ion-row>
 
   </ion-card>
 </ion-content>
