@@ -363,24 +363,28 @@ export class TimeTrackerPage {
 
   Ontem(tarefa){
     var array = this.Data();
+    this.tracker.title = this.input.title
     this.tracker.dia = String(array[0]-1);
     this.tracker.mes = String(array[1]);
     this.tracker.ano = String(array[2]);
     this.tracker.total = String(this.Total2());
     this.tracker.parcial =  String(this.Parcial());
     this.dbService.save('trackers',tarefa)
+    this.input.title = ""
 
     
   }
 
   Amanha(tarefa){
     var array = this.Data();
+    this.tracker.title = this.input.title
     this.tracker.dia = String(array[0]+1);
     this.tracker.mes = String(array[1]);
     this.tracker.ano = String(array[2]);
     this.tracker.total = String(this.Total3());
     this.tracker.parcial =  String(this.Parcial());
     this.dbService.save('trackers',tarefa)
+    this.input.title = ""
 
     
   }
