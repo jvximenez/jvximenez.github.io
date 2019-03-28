@@ -75,8 +75,8 @@
   <div *ngIf = "show == true">
     <ion-grid no-padding>
       <ion-row justify-content-center>
-        <ion-col col-3 *ngFor="let a of (atalhos | async)" justify-content-center>
-          <button class="btn4" ion-button round small color="{{Cor(a.nivel)}}" (click)=atalho(a)>{{a.title}}</button>
+        <ion-col col-3 col-xl-1 *ngFor="let a of (atalhos | async)" justify-content-center>
+          <button class="btn4" type="submit" ion-button round small color="{{Cor(a.nivel)}}" (click)=atalho(a)>{{a.title}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -90,22 +90,23 @@
         <div *ngFor ="let f of (tarefas | async)">
           <div *ngIf = "f.check == false">
             <ion-row class="item">
-              <ion-col col-1>
-                <ion-item class ="item" no-padding>
-                  <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>
-                </ion-item>
-              </ion-col>
-              <ion-col col-10>
-                <ion-item  (click)="goToEditT(f)" >
-                  <ion-label >{{f.title}}</ion-label>
-                  <ion-note item-end><p>{{f.duracao}}</p></ion-note>
-                </ion-item>
-              </ion-col>
-              <ion-col col-1 no-padding >
-                <button ion-button icon-start full round clear color="dark" (click)="OpcoesT(f)" no-padding>
-                  <ion-icon name="more"></ion-icon>
-                </button>
-              </ion-col>
+                  <ion-col col-1>
+                    <ion-item class ="item" no-padding>
+                      <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-10>
+                    <ion-item  (click)="goToEditT(f)" >
+                      <ion-label >{{f.title}}</ion-label>
+                      <ion-note item-end><p>{{f.duracao}}</p></ion-note>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-1 no-padding >
+                    <button ion-button icon-start full round clear color="dark" (click)="OpcoesT(f)" no-padding>
+                      <ion-icon name="more"></ion-icon>
+                    </button>
+                  </ion-col>
+              
             </ion-row>
           </div>
         </div>

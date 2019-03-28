@@ -89,12 +89,17 @@ page-time-tracker {
     }
 
     .btn4 {
-        display:block;
         height: 30px;
         width: 80px;
         border: 1.0px solid;
         font-size: 8px;
-        
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        line-break: auto;
+        white-space: normal;
+        padding: 1% 2%;
+
     }
 
     .corEnd{
@@ -121,6 +126,11 @@ page-time-tracker {
         top: -4px;
         right: -6px;
         border-radius: 100%;
+    }
+
+    .colFULL{
+        width: 100%;
+        height: 100%;
     }
 
    
