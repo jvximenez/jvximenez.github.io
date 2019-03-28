@@ -22,9 +22,20 @@
 
 <ion-content>
   <ion-list>
-    <div *ngFor="let itens of meses" (click)="goToMes(itens)">
-      <button ion-item>{{RetornaData(itens)}}</button>
-    </div>
+    <ion-card *ngFor="let itens of meses" (click)="goToMes(itens)">
+      <button ion-item >{{RetornaData(itens)}}</button>
+      <ion-row justify-content-center>
+        <ion-col justify-content-center col-3 col-xl-1>
+            <P>Passos<p>
+            <ion-badge> {{Arredonda(RetornaMedia(itens,'passos',"Numero"),0)}} </ion-badge>
+        </ion-col>
+        <ion-col col-3 col-xl-1>
+            <P>Peso<p>
+            <ion-badge> {{Arredonda(RetornaMedia(itens,'peso',"Numero"),2)}} </ion-badge>
+        </ion-col>
+      </ion-row>
+      
+    </ion-card>
   </ion-list>
   
  

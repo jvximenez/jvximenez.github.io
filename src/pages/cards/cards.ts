@@ -22,6 +22,7 @@ export class CardsPage {
   public controle: any
   public heightt: any
   public gastos: any
+  controleArray = []
 
   public compras;ComprasArray
 
@@ -31,12 +32,39 @@ export class CardsPage {
     this.controle = this.dbService.getAll('diario','total')
     this.heightt = "500px"
 
+    this.controleArray = this.CriaArray()
+
     this.compras = this.dbService.getAll('compras','total')
     this.ComprasArray = this.arrayCompras(this.compras);
    
   }
 
-  
+  CriaArray(){
+    var array = []
+    this.controle.forEach(element => { array.push(element)
+      
+    });
+    return array
+  }
+
+  RetornaMedia(Parcial,parametro,tipo){
+    var valor = 0
+    var contador = 0
+    
+    if (tipo == "Numero")
+      this.controleArray.forEach(itens => {itens.forEach(item =>{if (item['parcial'] == Parcial){contador += 1;
+       valor += Number(item[parametro])
+       }})})
+       valor = valor/contador
+      
+      return(valor)
+  }
+
+  Arredonda(val,casas){
+    var b;
+    b = (Math.round(val*10**casas)/(10**casas))
+    return b
+  }
 
   Sinal(termo){
     if (termo == true) { return "✔"};
