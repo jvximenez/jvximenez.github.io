@@ -33,7 +33,7 @@
 
 
         <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
-          <P class="centralizado"  justify-content-center>Passos<p>
+          <P class="centralizado"  justify-content-center>Peso<p>
           <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'peso',"Numero"),2)}}  </ion-badge>
         </ion-col>
 
@@ -69,18 +69,40 @@
 
         <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
             <P class="centralizado"  justify-content-center>Leitura<p>
-            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'leitura',"TorF"),2)*100}}%  </ion-badge>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'leitura',"TorF"),0)}}%  </ion-badge>
           </ion-col>
 
           <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
             <P class="centralizado"  justify-content-center>Refrigerante<p>
-            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'refrigerante',"TorF"),2)*100}}%  </ion-badge>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'refrigerante',"TorFNumber"),0)}}%
+            </ion-badge>
           </ion-col>
 
           <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
             <P class="centralizado"  justify-content-center>Alcool<p>
-            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'alcool',"TorF"),2)*100}}%  </ion-badge>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'alcool',"TorFNumber"),0) }}%  </ion-badge>
           </ion-col>
+
+          <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Corrida<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'alcool',"TorFNumber"),0) }}%  </ion-badge>
+          </ion-col>
+
+          <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Agradecer<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'agradecimento',"TorF"),0xx) }}%  </ion-badge>
+          </ion-col>
+
+          <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Aulas<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'tempoA',"Numero"),2) }}  </ion-badge>
+          </ion-col>
+
+          <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Estudo<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'tempoE',"Numero"),2) }}  </ion-badge>
+          </ion-col>
+
 
         
       </ion-row>

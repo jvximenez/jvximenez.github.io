@@ -73,7 +73,18 @@ export class CardsPage {
       }
         
         }})})
-        valor = valor/contador
+        valor = valor*100/contador
+      
+      return(valor)}
+
+      
+    if (tipo == "TorFNumber"){
+      this.controleArray.forEach(itens => {itens.forEach(item =>{if (item['parcial'] == Parcial){contador += 1; if(item[parametro] >0){
+        valor += 1
+      }
+        
+        }})})
+        valor = valor*100/contador
       
       return(valor)}
   }
