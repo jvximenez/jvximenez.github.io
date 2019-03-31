@@ -51,13 +51,31 @@ export class CardsPage {
     var valor = 0
     var contador = 0
     
-    if (tipo == "Numero")
+    if (tipo == "Numero"){
       this.controleArray.forEach(itens => {itens.forEach(item =>{if (item['parcial'] == Parcial){contador += 1;
-       valor += Number(item[parametro])
+       valor += Number(item[parametro]) 
        }})})
        valor = valor/contador
       
-      return(valor)
+      return(valor)}
+
+    if (tipo == "Numero0"){
+    this.controleArray.forEach(itens => {itens.forEach(item =>{if (item['parcial'] == Parcial && item[parametro] !='0'){contador += 1;
+      valor += Number(item[parametro])
+      }})})
+      valor = valor/contador
+    
+    return(valor)}
+
+    if (tipo == "TorF"){
+      this.controleArray.forEach(itens => {itens.forEach(item =>{if (item['parcial'] == Parcial){contador += 1; if(item[parametro] == true){
+        valor += 1
+      }
+        
+        }})})
+        valor = valor/contador
+      
+      return(valor)}
   }
 
   Arredonda(val,casas){

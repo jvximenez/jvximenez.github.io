@@ -8,11 +8,21 @@ page-cards {
 
     }
 
+    p{
+        font-family: 'Open sans';
+        font-size: 10px;
+    }
+
     .nome{
         width: 30%;
         color: grey;
         font-size: 13px;
 
+    }
+    .centralizado{
+        width: 100%;
+        justify-content: center;
+        text-align: center;
     }
 
     .nome2{

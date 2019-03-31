@@ -822,12 +822,12 @@ export class TimeTrackerPage {
       inputs: [
         {
           name: 'hora1',
-          placeholder: track.Hinicio,
+          placeholder: (track.Hinicio+"."+track.Minicio),
           type: 'number',
         },
         {
           name: 'hora2',
-          placeholder: track.Hfim,
+          placeholder: (track.Hfim+','+track.Mfim),
           type: 'number',
         }
       ],
@@ -842,13 +842,17 @@ export class TimeTrackerPage {
         {
           text: 'Save',
           handler: data => {
-            track.Hinicio = data.hora1.split('.')[0];
-            track.Hfim = data.hora2.split('.')[0];
-            track.Minicio = data.hora1.split('.')[1];
-            track.Mfim = data.hora2.split('.')[1];
+            if (data.hora1 > 0){
+              track.Hinicio = data.hora1.split('.')[0];
+              track.Minicio = data.hora1.split('.')[1];
+            }
+            if (data.hora2 > 0){
+              track.Hfim = data.hora2.split('.')[0];
+              track.Mfim = data.hora2.split('.')[1];
+            }
 
             if (track.Mfim > 0){
-            var dura = (Math.round((Number(track.Hfim) + Math.round((Number(track.Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
+            var dura = String(Math.round((Number(track.Hfim) + Math.round((Number(track.Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
             track.duracao = dura;
             track.check = true
           }

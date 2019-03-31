@@ -21,22 +21,73 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-card *ngFor="let itens of meses" (click)="goToMes(itens)">
+  <ion-row>
+    <ion-col col-12 col-xl-6 *ngFor="let itens of meses" (click)="goToMes(itens)"> 
+    <ion-card >
       <button ion-item >{{RetornaData(itens)}}</button>
       <ion-row justify-content-center>
-        <ion-col justify-content-center col-3 col-xl-1>
-            <P>Passos<p>
-            <ion-badge> {{Arredonda(RetornaMedia(itens,'passos',"Numero"),0)}} </ion-badge>
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-1>
+            <P class="centralizado"  justify-content-center>Passos<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'passos',"Numero"),0)}} </ion-badge>
         </ion-col>
-        <ion-col col-3 col-xl-1>
-            <P>Peso<p>
-            <ion-badge> {{Arredonda(RetornaMedia(itens,'peso',"Numero"),2)}} </ion-badge>
+
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Passos<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'peso',"Numero"),2)}}  </ion-badge>
         </ion-col>
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Tempinho<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'tempinho',"Numero0"),1)}}  </ion-badge>
+        </ion-col>
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Quantidade<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'tempinhoQ',"Numero"),1)}}  </ion-badge>
+        </ion-col>
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Uhu<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'UHU',"Numero"),2)}}  </ion-badge>
+        </ion-col>
+        
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Cafe<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'cafe',"Numero"),2)}}  </ion-badge>
+        </ion-col>
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Almoço<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'almoco',"Numero"),2)}}  </ion-badge>
+        </ion-col>
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+          <P class="centralizado"  justify-content-center>Jantar<p>
+          <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'jantar',"Numero"),2)}}  </ion-badge>
+        </ion-col>
+
+        <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Leitura<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'leitura',"TorF"),2)*100}}%  </ion-badge>
+          </ion-col>
+
+          <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Refrigerante<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'refrigerante',"TorF"),2)*100}}%  </ion-badge>
+          </ion-col>
+
+          <ion-col class="centralizado" justify-content-center col-3 col-xl-2>
+            <P class="centralizado"  justify-content-center>Alcool<p>
+            <ion-badge justify-content-center> {{Arredonda(RetornaMedia(itens,'alcool',"TorF"),2)*100}}%  </ion-badge>
+          </ion-col>
+
+        
       </ion-row>
       
     </ion-card>
-  </ion-list>
+    </ion-col>
+  </ion-row>
   
  
 </ion-content>
