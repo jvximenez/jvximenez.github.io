@@ -100,13 +100,13 @@ export class TodosTrackersPage {
     myDate.setFullYear(Number(ano));
     myDate.setMonth(Number(mes)-1);
     myDate.setDate(Number(dia)); 
-    if(myDate.getDay() == 0){semana = 'Segunda'}
-    if(myDate.getDay() == 1){semana = 'Terça'}
-    if(myDate.getDay() == 2){semana = 'Quarta'}
-    if(myDate.getDay() == 3){semana = 'Quinta'}
-    if(myDate.getDay() == 4){semana = 'Sexta'}
-    if(myDate.getDay() == 5){semana = 'Sábado'}
-    if(myDate.getDay() == 6){semana = 'Domingo'}
+    if(myDate.getDay() == 1){semana = 'Segunda'}
+    if(myDate.getDay() == 2){semana = 'Terça'}
+    if(myDate.getDay() == 3){semana = 'Quarta'}
+    if(myDate.getDay() == 4){semana = 'Quinta'}
+    if(myDate.getDay() == 5){semana = 'Sexta'}
+    if(myDate.getDay() == 6){semana = 'Sábado'}
+    if(myDate.getDay() == 0){semana = 'Domingo'}
 
     final = (dia+'/'+mes+'/'+ano+" - "+semana)
     return (final)
