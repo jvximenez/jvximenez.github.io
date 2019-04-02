@@ -25,6 +25,7 @@ export class CardsPage {
   controleArray = []
 
   public compras;ComprasArray
+  public ArrayCompleto; totais
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.meses = this.Today();
@@ -36,7 +37,34 @@ export class CardsPage {
 
     this.compras = this.dbService.getAll('compras','total')
     this.ComprasArray = this.arrayCompras(this.compras);
+    this.ArrayCompleto = this.CriaArrayCompleto
+
+    this.totais =[
+      {title:"itens",parametro:"passos",tipo:'Numero',arredonda:'0',nome:'Passos',extra:''},
+      {title:"itens",parametro:"peso",tipo:'Numero',arredonda:'2',nome:'Peso',extra:'kg'},
+      {title:"itens",parametro:"tempinho",tipo:'Numero0',arredonda:'1',nome:'Tempo',extra:'m'},
+      {title:"itens",parametro:"tempinhoQ",tipo:'Numero',arredonda:'1',nome:'Quant',extra:''},
+
+      {title:"itens",parametro:"UHU",tipo:'Numero',arredonda:'1',nome:'Uhu',extra:''},
+      {title:"itens",parametro:"cafe",tipo:'Numero',arredonda:'2',nome:'Cafe',extra:''},
+      {title:"itens",parametro:"almoco",tipo:'Numero',arredonda:'2',nome:'Almoco',extra:''},
+      {title:"itens",parametro:"jantar",tipo:'Numero',arredonda:'2',nome:'Jantar',extra:''},
+      {title:"itens",parametro:"leitura",tipo:'TorF',arredonda:'0',nome:'Ler',extra:'%'},
+
+      {title:"itens",parametro:"refrigerante",tipo:'TorFNumber',arredonda:'0',nome:'Refri',extra:'%'},
+      {title:"itens",parametro:"alcool",tipo:'TorFNumber',arredonda:'0',nome:'Alcool',extra:'%'},
+      {title:"itens",parametro:"alcool",tipo:'TorFNumber',arredonda:'0',nome:'Correr',extra:'%'},
+      {title:"itens",parametro:"agradecimento",tipo:'TorF',arredonda:'0',nome:'Agrad.',extra:'%'},
+      {title:"itens",parametro:"tempoA",tipo:'Numero',arredonda:'2',nome:'Aula',extra:'h'},
+      {title:"itens",parametro:"tempoE",tipo:'Numero',arredonda:'2',nome:'Estudo',extra:'h'},
+    ]
    
+  }
+
+  CriaArrayCompleto(){
+    var array = []
+    this.controle.forEach(itens => itens.forEach(item => {array.push(item)   
+    }))
   }
 
   CriaArray(){
@@ -61,7 +89,7 @@ export class CardsPage {
 
     if (tipo == "Numero0"){
     this.controleArray.forEach(itens => {itens.forEach(item =>{if (item['parcial'] == Parcial && item[parametro] !='0'){contador += 1;
-      valor += Number(item[parametro])
+      valor += Number(item[parametro]/item['tempinhoQ'])
       }})})
       valor = valor/contador
     
@@ -84,6 +112,49 @@ export class CardsPage {
       }
         
         }})})
+        valor = valor*100/contador
+      
+      return(valor)}
+  }
+
+
+  RetornaMediaTotal(Parcial,parametro,tipo){
+    var valor = 0
+    var contador = 0
+    
+    if (tipo == "Numero"){
+      this.controleArray.forEach(itens => {itens.forEach(item =>{contador += 1;
+       valor += Number(item[parametro]) 
+       })})
+       valor = valor/contador
+      
+      return(valor)}
+
+    if (tipo == "Numero0"){
+    this.controleArray.forEach(itens => {itens.forEach(item =>{if (item[parametro] !='0'){contador += 1;
+      valor += Number(item[parametro])
+      }})})
+      valor = valor/contador
+    
+    return(valor)}
+
+    if (tipo == "TorF"){
+      this.controleArray.forEach(itens => {itens.forEach(item =>{contador += 1; if(item[parametro] == true){
+        valor += 1
+      }
+        
+        })})
+        valor = valor*100/contador
+      
+      return(valor)}
+
+      
+    if (tipo == "TorFNumber"){
+      this.controleArray.forEach(itens => {itens.forEach(item =>{contador += 1; if(item[parametro] >0){
+        valor += 1
+      }
+        
+        })})
         valor = valor*100/contador
       
       return(valor)}
