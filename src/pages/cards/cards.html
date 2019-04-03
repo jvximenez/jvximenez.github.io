@@ -28,9 +28,11 @@
           <button ion-item >{{RetornaData(itens)}}</button>
           <ion-row justify-content-center>
               <ion-col class="centralizado" justify-content-center col-2 col-xl-2 *ngFor="let total of totais">
-                <P class="centralizado"  justify-content-center>{{total.nome}}<p>
-                <ion-badge class="centralizado"  justify-content-center> {{Arredonda(RetornaMedia(itens,total.parametro,total.tipo),total.arredonda) }}{{total.extra}}  </ion-badge>
-            </ion-col>
+                <p class="centralizado"  justify-content-center>{{total.nome}}</p>
+                <ion-badge class="centralizado"  justify-content-center> {{Arredonda(RetornaMedia(itens,total.parametro,total.tipo),total.arredonda) }}{{total.extra}} 
+                <ion-icon  name="{{VerificaMelhor(itens,total.parametro,total.tipo,'maior')}}"></ion-icon>
+                </ion-badge>
+              </ion-col>
           </ion-row>
         </ion-card>
       </ion-col>

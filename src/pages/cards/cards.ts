@@ -40,23 +40,23 @@ export class CardsPage {
     this.ArrayCompleto = this.CriaArrayCompleto
 
     this.totais =[
-      {title:"itens",parametro:"passos",tipo:'Numero',arredonda:'0',nome:'Passos',extra:''},
-      {title:"itens",parametro:"peso",tipo:'Numero',arredonda:'2',nome:'Peso',extra:'kg'},
-      {title:"itens",parametro:"tempinho",tipo:'Numero0',arredonda:'1',nome:'Tempo',extra:'m'},
+      {title:"itens",parametro:"passos",tipo:'Numero',arredonda:'0',nome:'Passos',extra:'',quero:"maior"},
+      {title:"itens",parametro:"peso",tipo:'Numero',arredonda:'1',nome:'Peso',extra:'kg'},
+      {title:"itens",parametro:"tempinho",tipo:'Numero0',arredonda:'1',nome:'Tempo',extra:'m',quero:"maior"},
       {title:"itens",parametro:"tempinhoQ",tipo:'Numero',arredonda:'1',nome:'Quant',extra:''},
 
-      {title:"itens",parametro:"UHU",tipo:'Numero',arredonda:'1',nome:'Uhu',extra:''},
+      {title:"itens",parametro:"UHU",tipo:'Numero',arredonda:'1',nome:'Uhu',extra:'',quero:"maior"},
       {title:"itens",parametro:"cafe",tipo:'Numero',arredonda:'2',nome:'Cafe',extra:''},
       {title:"itens",parametro:"almoco",tipo:'Numero',arredonda:'2',nome:'Almoco',extra:''},
       {title:"itens",parametro:"jantar",tipo:'Numero',arredonda:'2',nome:'Jantar',extra:''},
-      {title:"itens",parametro:"leitura",tipo:'TorF',arredonda:'0',nome:'Ler',extra:'%'},
+      {title:"itens",parametro:"leitura",tipo:'TorF',arredonda:'0',nome:'Ler',extra:'%',quero:"maior"},
 
       {title:"itens",parametro:"refrigerante",tipo:'TorFNumber',arredonda:'0',nome:'Refri',extra:'%'},
       {title:"itens",parametro:"alcool",tipo:'TorFNumber',arredonda:'0',nome:'Alcool',extra:'%'},
       {title:"itens",parametro:"alcool",tipo:'TorFNumber',arredonda:'0',nome:'Correr',extra:'%'},
-      {title:"itens",parametro:"agradecimento",tipo:'TorF',arredonda:'0',nome:'Agrad.',extra:'%'},
-      {title:"itens",parametro:"tempoA",tipo:'Numero',arredonda:'2',nome:'Aula',extra:'h'},
-      {title:"itens",parametro:"tempoE",tipo:'Numero',arredonda:'2',nome:'Estudo',extra:'h'},
+      {title:"itens",parametro:"agradecimento",tipo:'TorF',arredonda:'0',nome:'Agrad.',extra:'%',quero:"maior"},
+      {title:"itens",parametro:"tempoA",tipo:'Numero',arredonda:'2',nome:'Aula',extra:'h',quero:"maior"},
+      {title:"itens",parametro:"tempoE",tipo:'Numero',arredonda:'2',nome:'Estudo',extra:'h',quero:"maior"},
     ]
    
   }
@@ -158,6 +158,25 @@ export class CardsPage {
         valor = valor*100/contador
       
       return(valor)}
+  }
+
+  VerificaMelhor(title,parametro,tipo,condicao){
+    var mes = this.RetornaMedia(title,parametro,tipo)
+    var total = this.RetornaMediaTotal(title,parametro,tipo)
+    var resultado =  total - mes
+    if (resultado < 0){
+      if (condicao == 'maior'){
+        return ('arrow-round-up')
+      }
+      else {return ("arrow-round-down")}
+    }
+    if (resultado > 0){
+      if (condicao == 'menor'){
+        return ('arrow-round-up')
+      }
+      else {return ("arrow-round-down")}
+    }
+
   }
 
   Arredonda(val,casas){

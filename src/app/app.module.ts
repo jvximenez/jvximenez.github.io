@@ -10,7 +10,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AdicionarPage } from '../pages/adicionar/adicionar';
 import { CardsPage } from '../pages/cards/cards';
 import { Graficos1Page } from '../pages/graficos1/graficos1';
-import { HojePage } from '../pages/hoje/hoje';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -48,7 +47,6 @@ import { AnalisePage } from '../pages/analise/analise';
     AdicionarPage,
     CardsPage,
     Graficos1Page,
-    HojePage,
     CardsDoMesPage,
     EdicaoPage,
     FilmesPage,
@@ -99,7 +97,6 @@ import { AnalisePage } from '../pages/analise/analise';
     AdicionarPage,
     CardsPage,
     Graficos1Page,
-    HojePage,
     CardsDoMesPage,
     EdicaoPage,
     FilmesPage,
