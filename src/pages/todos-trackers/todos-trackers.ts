@@ -27,14 +27,32 @@ export class TodosTrackersPage {
 
   public trackers2
   public arrayOb
+  public trackerArray
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.trackers = this.dbService.getAll('trackers','total').map(a => a.reverse())
     this.trackers2 = this.trackers
     this.arrayOb = this.CriaArrayObjetos()
     this.Dias = this.GetArrayDias()
+    this.trackerArray = this.CreateArray()
+
     
   
+
+  }
+
+  CreateArray(){
+    var array = []
+    this.trackers.forEach(element => {element.forEach(element => {array.push(element)})})
+    return array
+  }
+
+  Media(nivel){
+    var soma = 0
+    var denominador = this.Dias.length
+    console.log(denominador,"denominador")
+    this.trackerArray.foreach(item => {if (item['nivel']==nivel){soma += Number(item['duracao'])}})
+    return (soma/denominador)
 
   }
 
