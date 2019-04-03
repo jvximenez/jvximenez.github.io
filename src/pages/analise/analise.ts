@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { EdicaoPage } from '../edicao/edicao';
 
 /**
  * Generated class for the AnalisePage page.
@@ -34,6 +35,11 @@ export class AnalisePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnalisePage');
   }
+
+  GoEdicao(single){
+    this.navCtrl.push(EdicaoPage, 
+      {'single' : single});
+    }
 
   icon(dado){
     if (dado == true){
