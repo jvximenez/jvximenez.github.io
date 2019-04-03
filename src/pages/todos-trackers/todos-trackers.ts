@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Item } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TrackerEspecificoPage } from '../tracker-especifico/tracker-especifico';
 
@@ -28,6 +28,8 @@ export class TodosTrackersPage {
   public trackers2
   public arrayOb
   public trackerArray
+  medias
+  pontuacao = []
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.trackers = this.dbService.getAll('trackers','total').map(a => a.reverse())
@@ -35,6 +37,17 @@ export class TodosTrackersPage {
     this.arrayOb = this.CriaArrayObjetos()
     this.Dias = this.GetArrayDias()
     this.trackerArray = this.CreateArray()
+    this.medias=[
+      {title:'-2'},
+      {title:'-1'},
+      {title:'0'},
+      {title:'1'},
+      {title:'2'},
+      {title:'3'},
+
+    ]
+    this.pontuacao = this.pontuaT()
+    console.log(this.pontuacao)
 
     
   
@@ -43,17 +56,41 @@ export class TodosTrackersPage {
 
   CreateArray(){
     var array = []
-    this.trackers.forEach(element => {element.forEach(element => {array.push(element)})})
+    this.trackers.forEach(element => {element.forEach(item => {array.push(item)})})
     return array
   }
 
   Media(nivel){
     var soma = 0
     var denominador = this.Dias.length
-    console.log(denominador,"denominador")
-    this.trackerArray.foreach(item => {if (item['nivel']==nivel){soma += Number(item['duracao'])}})
+    this.trackerArray.forEach(item => {if (item['nivel']==nivel){soma += Number(item['duracao'])}})
     return (soma/denominador)
 
+  }
+
+  Pontua(total){
+    var valores = [0.5,1,2,3,4,3]
+    var horas = [0,0,0,0,0,0]
+    this.trackerArray.forEach(item => {if (item['total'] == total ){horas[(Number(item['nivel'])+2)] += Number(item['duracao'])}})
+    var i = 0
+    var final = 0
+    while (i < 6){
+      final += horas[i]*valores[i]
+      i+=1
+    }
+    return(final)
+  }
+
+  pontuaT(){
+    var array = []
+    this.Dias.forEach(itens =>{console.log(itens), array.push(this.Pontua(itens[0]))})
+    return array
+  }
+
+  Arredonda2(val,casas){
+    var b;
+    b = (Math.round(val*10**casas)/(10**casas))
+    return b
   }
 
   GetArrayDias(){
