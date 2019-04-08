@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Item } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,  } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TrackerEspecificoPage } from '../tracker-especifico/tracker-especifico';
 

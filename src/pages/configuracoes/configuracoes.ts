@@ -70,6 +70,8 @@ export class ConfiguracoesPage {
     'ordem':Number('')
   }
 
+  parametros
+
   public tarefas;dentes; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
@@ -82,6 +84,23 @@ export class ConfiguracoesPage {
     this.viagens=this.dbService.getAll('configuracoes/viagens','ordem')
     this.tarefas= this.dbService.getAll('configuracoes/tarefas','ordem')
     this.shows= this.dbService.getAll('configuracoes/shows','ordem')
+
+    this.parametros = [{title: 'atalho'},
+    {title: 'categoria'},
+    {title: 'configuracoes'},
+    {title: 'diario'},
+    {title: 'filmes'},
+    {title: 'livros'},
+    {title: 'pagamento'},
+    {title: 'previsao'},
+    {title: 'restaurantes'},
+    {title: 'series'},
+    {title: 'tarefas'},
+    {title: 'trackers'},
+    {title: 'vinhos'},
+    {title: 'visual'},
+    {title: 'restaurantes'},
+    ]
     
 
     /** this.OrdemNumber() */
@@ -262,6 +281,29 @@ export class ConfiguracoesPage {
   Deletar(track,local){
     console.log(track.key,local,String('configuracoes/'+local))
     this.dbService.revome(String('configuracoes/'+local),track)
+  }
+
+
+  CriaBackup(){
+    var obs
+    var backup = []
+    
+    this.parametros.forEach(nome => {
+      obs = this.dbService.getAll(nome.title,'total');
+      obs.forEach(element => {backup.push(element)})
+      
+    })
+
+    var array = [this.parametros,this.parametros]
+
+    
+    setTimeout(() =>{
+      this.dbService.save('backup',backup)
+      console.log('enviei',this.parametros)
+  }, 10000);
+  
+    
+
   }
 
 

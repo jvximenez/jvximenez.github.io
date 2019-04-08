@@ -77,6 +77,16 @@
         </ion-item>
     </ion-item-group>
 
+    <ion-item-group>
+      <ion-item-divider color="light" (click)="CriaBackup()" >Backup</ion-item-divider>
+      <ion-item *ngFor="let f of (backup | async)">
+        <ion-label>Teste</ion-label>
+          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
+        </ion-item>
+    </ion-item-group>
+
+  
+
   
 
 </ion-content>
