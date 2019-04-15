@@ -72,6 +72,7 @@ import { AnalisePage } from '../pages/analise/analise';
     TrackerEspecificoPage,
     AnalisePage,
     
+    
   ],
   imports: [
     BrowserModule,
