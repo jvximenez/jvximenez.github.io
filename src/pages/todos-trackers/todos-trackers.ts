@@ -135,11 +135,7 @@ export class TodosTrackersPage {
 
   }
 
-  GoToEspecifico(total){
-      this.navCtrl.push(TrackerEspecificoPage, 
-      {'trackers' : this.trackers,
-    'total': total})
-    }
+ 
 
   TotalToData(total){
     var dia;
@@ -196,9 +192,10 @@ export class TodosTrackersPage {
     }
 
   CriaArrayObjetos(){
+    
     var array = []
     this.trackers2.forEach(element => {array.push(element)})
-    
+    console.log('aqui objetos',array)
     return array
   }
 
@@ -221,6 +218,12 @@ export class TodosTrackersPage {
     if (min < 10) {min2 = String("0"+min)}
     return (inteiro+"h"+min2)}
   }
+
+  GoToEspecifico(total){
+    this.navCtrl.push(TrackerEspecificoPage, 
+      {'trackers' : this.trackers,
+    'total': total})
+    }
 
 
   
