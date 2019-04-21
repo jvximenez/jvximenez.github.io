@@ -531,6 +531,8 @@ export class TimeTrackerPage {
   CriaNovo(track){
     this.tracker.Hinicio = track.Hfim
     this.tracker.Minicio = track.Mfim
+    this.tracker.total = track.total
+    this.tracker.dia = track.dia
     this.Criacao(this.tracker);
   }
 
