@@ -69,7 +69,7 @@ export class TodosTrackersPage {
   }
 
   Pontua(total){
-    var valores = [0.5,1,2,3,4,3]
+    var valores = [0.5,1,2,4,6,4]
     var horas = [0,0,0,0,0,0]
     this.trackerArray.forEach(item => {if (item['total'] == total ){horas[(Number(item['nivel'])+2)] += Number(item['duracao'])}})
     var i = 0
