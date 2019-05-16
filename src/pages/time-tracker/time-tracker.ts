@@ -533,7 +533,20 @@ export class TimeTrackerPage {
     this.tracker.Minicio = track.Mfim
     this.tracker.total = track.total
     this.tracker.dia = track.dia
-    this.Criacao(this.tracker);
+    this.Criacao2(this.tracker);
+  }
+
+  Criacao2(tarefa){
+    var array = this.Data();
+    this.tracker.title = this.input.title
+    this.tracker.mes = String(array[1]);
+    this.tracker.ano = String(array[2]);
+    this.tracker.parcial =  String(this.Parcial());
+    this.dbService.save('trackers',tarefa)
+    this.input.title = ""
+    this.tracker.Hinicio = Number('')
+    this.tracker.Minicio = Number('')
+
   }
 
 
