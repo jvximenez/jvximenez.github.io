@@ -71,7 +71,7 @@ export class TimeTrackerPage {
   public hora
 
   public VerM
-  public contador
+  public contador;trackerArray
 
   
 
@@ -89,14 +89,12 @@ export class TimeTrackerPage {
     this.IndicadoresO=this.Calcula(this.Total()-1);
 
     this.tarefas = this.dbService.getAllEspecificoMsm('tarefas','total',10).map(b => b.reverse())
+    this.trackerArray = this.CreateArray()
 
    this.testao = Number(0.4)
 
 
-    this.dias = [{title: "Hoje"},
-      {title:"Ontem"},
-      {title: "Amanha"}
-    ]
+    
 
     
    
@@ -104,6 +102,11 @@ export class TimeTrackerPage {
     this.hoje =  this.Total();
     this.amanha = this.Total3();
     this.ontem = this.Total2();
+
+    this.dias = [{title: "Hoje",val:this.hoje},
+      {title:"Ontem",val:this.ontem},
+      {title: "Amanha",val:this.amanha}
+    ]
 
     this.totalM = this.TotalHoras(this.hoje)
     this.totalO = this.TotalHoras(this.ontem)
@@ -581,6 +584,32 @@ export class TimeTrackerPage {
     this.tarefas.forEach(itens => itens.forEach(item => {if(item.check == false){contador[0]+=1}}))
     return contador
 
+  }
+
+
+  Pontua(total){
+    var valores = [0.5,1,2,4,6,4]
+    var horas = [0,0,0,0,0,0]
+    this.trackerArray.forEach(item => {if (item['total'] == total ){horas[(Number(item['nivel'])+2)] += Number(item['duracao'])}})
+    var i = 0
+    var final = 0
+    while (i < 6){
+      final += horas[i]*valores[i]
+      i+=1
+    }
+    return(final)
+  }
+
+  CreateArray(){
+    var array = []
+    this.trackers.forEach(element => {element.forEach(item => {array.push(item)})})
+    return array
+  }
+
+  Arredonda2(val,casas){
+    var b;
+    b = (Math.round(val*10**casas)/(10**casas))
+    return b
   }
 
   

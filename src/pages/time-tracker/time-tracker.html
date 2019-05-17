@@ -146,7 +146,9 @@
 <ion-row>
 <ion-col col-12 col-xl-6  *ngFor="let d of dias">   
 <ion-card >
-    <ion-card-header  class="item">{{d.title}} </ion-card-header>
+    <ion-card-header  class="item">{{d.title}}: 
+      <ion-badge> {{Arredonda(Pontua(d.val),2)}} </ion-badge>
+    </ion-card-header>
     <ion-list>
       <div *ngFor="let f of (trackers | async) ">
         <ion-row *ngIf='f.total == RetornaDia(d.title) && f.Hinicio == "" && f.Minicio == ""'class="item">
