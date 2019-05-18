@@ -30,6 +30,7 @@ export class TodosTrackersPage {
   public trackerArray
   medias
   pontuacao = []
+  valores
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
     this.trackers = this.dbService.getAll('trackers','total').map(a => a.reverse())
@@ -48,10 +49,27 @@ export class TodosTrackersPage {
     ]
     this.pontuacao = this.pontuaT()
     console.log(this.pontuacao)
+    this.valores = [0.5,1,2,4,6,4]
 
     
   
 
+  }
+
+  MediaFinal(){
+    var soma = 0
+    this.medias.forEach(element => {soma += Number(this.Media(element.title))*this.valores[Number(element.title)+2]
+      
+    });
+    return this.Arredonda(soma)
+  }
+
+  MediaContado(){
+    var soma = 0
+    this.medias.forEach(element => {soma += Number(this.Media(element.title))
+      
+    });
+    return this.Arredonda(soma)
   }
 
   CreateArray(){
@@ -69,7 +87,7 @@ export class TodosTrackersPage {
   }
 
   Pontua(total){
-    var valores = [0.5,1,2,4,6,4]
+    var valores = this.valores
     var horas = [0,0,0,0,0,0]
     this.trackerArray.forEach(item => {if (item['total'] == total ){horas[(Number(item['nivel'])+2)] += Number(item['duracao'])}})
     var i = 0

@@ -16,7 +16,8 @@
 <ion-content>
 
   <ion-card>
-    <ion-card-header>Média:</ion-card-header>
+    <ion-card-header>Média:
+        <ion-badge> {{MediaFinal()}} </ion-badge> - {{MediaContado()}}h</ion-card-header>
     <ion-row>
       <ion-col *ngFor="let media of medias" col-2>
           <p>Val:{{media.title}} - {{Arredonda2(Media(media.title),2)}}h</p>
@@ -29,8 +30,8 @@
   <ion-card *ngFor="let dias of Dias" >
     <div (click)="GoToEspecifico(dias)">
     <ion-card-header >
-      {{TotalToData(dias[0])}} -
-      <ion-badge> {{Arredonda(Pontua(dias[0]),2)}} </ion-badge>
+        <ion-badge> {{Arredonda(Pontua(dias[0]),2)}} </ion-badge> - 
+      {{TotalToData(dias[0])}}
     </ion-card-header>
 
     <div class="progress2" >
