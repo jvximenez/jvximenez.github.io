@@ -38,6 +38,7 @@ import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
 import { TodosTrackersPage } from '../pages/todos-trackers/todos-trackers';
 import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-especifico';
 import { AnalisePage } from '../pages/analise/analise';
+import { NotasPage } from '../pages/notas/notas';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { AnalisePage } from '../pages/analise/analise';
     TodosTrackersPage,
     TrackerEspecificoPage,
     AnalisePage,
+    NotasPage,
     
     
   ],
@@ -122,6 +124,8 @@ import { AnalisePage } from '../pages/analise/analise';
     TodosTrackersPage,
     TrackerEspecificoPage,
     AnalisePage,
+    NotasPage,
+
   ],
   providers: [
     StatusBar,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,  } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { TrackerEspecificoPage } from '../tracker-especifico/tracker-especifico';
+import { NotasPage } from '../notas/notas';
 
 /**
  * Generated class for the TodosTrackersPage page.
@@ -54,6 +55,14 @@ export class TodosTrackersPage {
     
   
 
+  }
+
+  GoToNotas(){
+    this.navCtrl.push(NotasPage,{
+      'Dias': this.Dias,
+      'TrackerArray': this.trackerArray,
+      'ArrayOb': this.arrayOb
+    })
   }
 
   MediaFinal(){
