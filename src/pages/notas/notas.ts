@@ -28,6 +28,7 @@ export class NotasPage {
     this.ArrayTrackers = navParams.get('TrackerArray')
     this.ArrayOb = navParams.get('ArrayOb')
     this.valores = this.valores = [0.5,1,2,4,6,4]
+    this.NotasArray = this.CriaArrayNotas();
   }
 
 
@@ -46,9 +47,43 @@ export class NotasPage {
 
   CriaArrayNotas(){
     let array = [];
-    this.DiasArray.forEach(element => {
+    this.DiasArray.forEach(element => {array.push(this.Pontua(element[0]))})
+    console.log(array)
+    return array
       
-    });
+    
+  }
+
+  TotalToData(total){
+    var dia;
+    var mes;
+    var ano;
+    var semana
+    var final;
+    ano = total.substr(0,4);
+    mes = total.substr(4,2);
+    dia = total.substr(6,2);
+
+    var myDate = new Date();
+    myDate.setFullYear(Number(ano));
+    myDate.setMonth(Number(mes)-1);
+    myDate.setDate(Number(dia)); 
+    if(myDate.getDay() == 1){semana = 'Segunda'}
+    if(myDate.getDay() == 2){semana = 'Terça'}
+    if(myDate.getDay() == 3){semana = 'Quarta'}
+    if(myDate.getDay() == 4){semana = 'Quinta'}
+    if(myDate.getDay() == 5){semana = 'Sexta'}
+    if(myDate.getDay() == 6){semana = 'Sábado'}
+    if(myDate.getDay() == 0){semana = 'Domingo'}
+
+    final = (dia+'/'+mes+'/'+ano+" - "+semana)
+    return (final)
+  }
+
+  Arredonda(val){
+    var b;
+    b = (Math.round(val*100)/100)
+    return b
   }
 
   
