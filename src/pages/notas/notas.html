@@ -14,6 +14,12 @@
 
 
 <ion-content padding>
+  <ion-card>
+    <div>
+      <canvas #barCanvas3 height="100vh" width="150vh" ></canvas>
+    </div>
+  </ion-card>
+  
   <ion-list>
     <ion-item *ngFor="let dias of DiasArray">
       <p>{{TotalToData(dias[0])}} - {{Arredonda(Pontua(dias[0]),2)}}</p>

@@ -747,7 +747,12 @@ export class TimeTrackerPage {
           placeholder: 'Nome'
         },{
           name: 'nivel',
-          placeholder:'Nível'
+          placeholder:'Nível',
+          type:'number'
+        }, {
+          name: 'hora2',
+          placeholder: ('Final'),
+          type: 'number',
         }
       ],
       buttons: [
@@ -768,6 +773,16 @@ export class TimeTrackerPage {
         {
           text: 'Salvar',
           handler: data => {
+            if (data.hora2 > 0){
+              this.tracker.Hfim = data.hora2.split('.')[0];
+              this.tracker.Mfim = data.hora2.split('.')[1];
+            }
+
+            if (track.Mfim > 0){
+            var dura = String(Math.round((Number(this.tracker.Hfim) + Math.round((Number(this.tracker.Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
+            this.tracker.duracao = Number(dura);
+            this.tracker.check = true
+          }
             this.input.title = data.title, this.tracker.nivel = data.nivel;
             this.CriaNovo(track)
           }
