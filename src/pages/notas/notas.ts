@@ -27,6 +27,7 @@ export class NotasPage {
   ArrayOb;
   valores;
   DiasDiasArray
+  NotasMedia
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public dbService: FirebaseServiceProvider) {
     this.DiasArray = navParams.get('Dias')
@@ -141,7 +142,13 @@ export class NotasPage {
           data: this.NotasArray,
           backgroundColor:  '#2f6acf',
           borderWidth: 1
-      }]};
+      },{
+        label: ['Semanas'],
+        data: this.NotasMedia,
+        type: 'line',
+        backgroundColor: 'rgba(255, 255, 255, .4)',
+        borderColor: '#2f6acf'},
+        ]};
     const options = {
       scales: {
         yAxes: [{
