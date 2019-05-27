@@ -549,6 +549,8 @@ export class TimeTrackerPage {
     this.input.title = ""
     this.tracker.Hinicio = Number('')
     this.tracker.Minicio = Number('')
+    this.tracker.Mfim = ('')
+    this.tracker.Hfim = ('')
 
   }
 
