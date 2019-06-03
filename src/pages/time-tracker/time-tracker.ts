@@ -30,8 +30,8 @@ export class TimeTrackerPage {
     'title':'',
     'Hinicio':Number(''),
     'Minicio':Number(''),
-    'Hfim':'',
-    'Mfim':'',
+    'Hfim':0,
+    'Mfim':0,
     'nivel': 0,
     'duracao':0,
     'check': false,
@@ -75,7 +75,7 @@ export class TimeTrackerPage {
   public contador;trackerArray
 
   public trackersRef
-  public trackersList
+  public trackersList = [{'pontosH':0,'pontos0':0}]
 
   public pontos = 0;
 
@@ -129,26 +129,39 @@ export class TimeTrackerPage {
     this.trackersRef.on('value', trackersList => {
       
       let trackers = [];
-      var pontos = 0
+      var pontosH = 0
+      var pontosO = 0
       var valores = [0.5,1,2,4,6,4]
-      var horas = [0,0,0,0,0,0]
+      var horasH = [0,0,0,0,0,0]
+      var horasO = [0,0,0,0,0,0]
       trackersList.forEach( tracker => {
         
         var obj
         obj = tracker.val()
         obj.key = tracker.key
 
-        if (obj['total'] == this.hoje ){horas[(Number(obj['nivel'])+2)] += Number(obj['duracao'])}
+        if (obj['total'] == this.hoje ){horasH[(Number(obj['nivel'])+2)] += Number(obj['duracao'])}
         let i = 0
-        var final = 0
+        var finalH = 0
           while (i < 6){
-            final += horas[i]*valores[i]
+            finalH += horasH[i]*valores[i]
             i+=1
-            pontos = this.Arredonda(final)
+            pontosH = this.Arredonda(finalH)
+        
+        }
+
+        if (obj['total'] == this.ontem ){horasO[(Number(obj['nivel'])+2)] += Number(obj['duracao'])}
+         i = 0
+        var finalO = 0
+          while (i < 6){
+            finalO += horasO[i]*valores[i]
+            i+=1
+            pontosO = this.Arredonda(finalO)
         
         }
         
-        obj.pontos = pontos
+        obj.pontosH = pontosH
+        obj.pontosO = pontosO
         
         trackers.push(obj);
         
@@ -587,6 +600,9 @@ export class TimeTrackerPage {
     this.tracker.Minicio = track.Mfim
     this.tracker.total = track.total
     this.tracker.dia = track.dia
+    if(this.tracker.Mfim == 0){
+      this.tracker.duracao = 0
+    }
     this.Criacao2(this.tracker);
   }
 
@@ -600,8 +616,9 @@ export class TimeTrackerPage {
     this.input.title = ""
     this.tracker.Hinicio = Number('')
     this.tracker.Minicio = Number('')
-    this.tracker.Mfim = ('')
-    this.tracker.Hfim = ('')
+    this.tracker.Mfim = 0
+    this.tracker.Hfim = 0
+    this.tracker.duracao = 0
 
   }
 

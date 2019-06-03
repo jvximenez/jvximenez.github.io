@@ -147,7 +147,8 @@
 <ion-col col-12 col-xl-6  *ngFor="let d of dias">   
 <ion-card >
     <ion-card-header  class="item">{{d.title}}: 
-      <ion-badge  (click)="AtualizaPontua(d.val)"> {{pontos}} </ion-badge>
+      <ion-badge *ngIf='d.title=="Hoje"' (click)="AtualizaPontua(d.val)"> {{trackersList[0]['pontosH']}} </ion-badge>
+      <ion-badge *ngIf='d.title=="Ontem"' (click)="AtualizaPontua(d.val)"> {{trackersList[0]['pontosO']}} </ion-badge>
     </ion-card-header>
     <ion-list>
       <div *ngFor="let f of (trackers | async) ">
