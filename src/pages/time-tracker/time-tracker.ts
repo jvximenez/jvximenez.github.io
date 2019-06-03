@@ -77,6 +77,8 @@ export class TimeTrackerPage {
   public trackersRef
   public trackersList
 
+  public pontos = 0;
+
   
 
   constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
@@ -127,7 +129,7 @@ export class TimeTrackerPage {
     this.trackersRef.on('value', trackersList => {
       
       let trackers = [];
-      let pontos = 0
+      var pontos = 0
       var valores = [0.5,1,2,4,6,4]
       var horas = [0,0,0,0,0,0]
       trackersList.forEach( tracker => {
@@ -136,15 +138,15 @@ export class TimeTrackerPage {
         obj = tracker.val()
         obj.key = tracker.key
 
-        if (obj['total'] == this.hoje ){horas[(Number(obj['nivel'])+2)] += Number(obj['duracao'])
+        if (obj['total'] == this.hoje ){horas[(Number(obj['nivel'])+2)] += Number(obj['duracao'])}
         let i = 0
-        var final
+        var final = 0
           while (i < 6){
             final += horas[i]*valores[i]
             i+=1
-            pontos += final
+            pontos = this.Arredonda(final)
         
-        }}
+        }
         
         obj.pontos = pontos
         
@@ -156,8 +158,9 @@ export class TimeTrackerPage {
       trackers = trackers.reverse()
 
       this.trackersList = trackers;
-      console.log(this.trackersList)
+      console.log(this.trackersList, this.trackersList[0]['pontos'])
     });
+
 
 
     
@@ -247,11 +250,13 @@ export class TimeTrackerPage {
     b = (Math.round(val*100)/100)
     return b
   }
+
   ngAfterViewInit(){
     setTimeout(()=> {
       this.teste(this.totalM);
-      this.teste2(this.totalO)
-    },800)
+      this.teste2(this.totalO);
+      this.pontos = this.trackersList[0]['pontos']
+    },1500)
 }
 
 
