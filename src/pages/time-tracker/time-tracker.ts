@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import  firebase  from 'firebase';
 import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
 import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -73,10 +74,16 @@ export class TimeTrackerPage {
   public VerM
   public contador;trackerArray
 
+  public trackersRef
+  public trackersList
+
   
 
   constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
     this.VerM = false
+
+    this.trackersRef = firebase.database().ref('/trackers').limitToLast(100).orderByChild("total")
+
     
 
     this.ShowTarefas = this.dbService.getAll('configuracoes/shows','nivel')
@@ -116,6 +123,43 @@ export class TimeTrackerPage {
 
     this.contador=this.ContaPendentes()
 
+
+    this.trackersRef.on('value', trackersList => {
+      
+      let trackers = [];
+      let pontos = 0
+      var valores = [0.5,1,2,4,6,4]
+      var horas = [0,0,0,0,0,0]
+      trackersList.forEach( tracker => {
+        
+        var obj
+        obj = tracker.val()
+        obj.key = tracker.key
+
+        if (obj['total'] == this.hoje ){horas[(Number(obj['nivel'])+2)] += Number(obj['duracao'])
+        let i = 0
+        var final
+          while (i < 6){
+            final += horas[i]*valores[i]
+            i+=1
+            pontos += final
+        
+        }}
+        
+        obj.pontos = pontos
+        
+        trackers.push(obj);
+        
+      return false;
+        
+      });
+      trackers = trackers.reverse()
+
+      this.trackersList = trackers;
+      console.log(this.trackersList)
+    });
+
+
     
     
    
@@ -126,6 +170,8 @@ export class TimeTrackerPage {
     
 
   }
+
+ 
 
   GetHora(){
     var a = new Date

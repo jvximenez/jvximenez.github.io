@@ -147,7 +147,7 @@
 <ion-col col-12 col-xl-6  *ngFor="let d of dias">   
 <ion-card >
     <ion-card-header  class="item">{{d.title}}: 
-      <ion-badge> {{Arredonda(Pontua(d.val),2)}} </ion-badge>
+      <ion-badge  (click)="AtualizaPontua(d.val)"> {{Arredonda(Pontua(d.val),2)}} </ion-badge>
     </ion-card-header>
     <ion-list>
       <div *ngFor="let f of (trackers | async) ">
