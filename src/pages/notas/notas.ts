@@ -37,8 +37,28 @@ export class NotasPage {
     this.valores = this.valores = [0.5,1,2,4,6,4]
     this.NotasArray = this.CriaArrayNotas();
     console.log(this.DiasDiasArray)
+    this.NotasMedia = this.CriaArrayMedia()
+    console.log(this.NotasMedia,'aquiiiii')
   }
 
+  CriaArrayMedia(){
+    var cont = 0
+    var sum = 0 
+    let array = []
+    let array2 = []
+    let array3 = []
+    let array4 = []
+    let array5 = []
+    let array6 = []
+    let array7 = []
+
+    let v1 = 0; let v2=0; let v3=0; let v4=0; let v5=0; let v6=0; let v7=0; let Med
+    this.NotasArray.forEach(element => {cont += 1,
+    (v7 = v6, v6=v5,v5=v4,v4=v3,v3=v2,v2=v1),v1 = element,Med = ((Number(v1))+(Number(v2))+(Number(v3))+(Number(v4))+(Number(v5))+(Number(v6))+(Number(v7)))/7;array5.push(Med) ;if(cont % 7 == 0){array6.push(Med,Med,Med,Med,Med,Med,Med)}array7.push(8000)})
+    array3 = [array,array2,array4,array5,array6,array7]
+
+    return array6
+  }
 
   Pontua(total){
     var valores = this.valores
