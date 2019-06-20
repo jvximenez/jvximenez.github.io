@@ -849,7 +849,9 @@ export class TimeTrackerPage {
             }
 
             if (track.Mfim > 0){
-            var dura = String(Math.round((Number(this.tracker.Hfim) + Math.round((Number(this.tracker.Mfim)/60)*10000)/10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio)/60)*10000)/10000)*10000)/10000)
+            
+            var dura = String(Math.round((Number(this.tracker.Hfim) + Math.round((Number(this.tracker.Mfim)/60)*10000)/10000 - Number(track.Hfim) - Math.round((Number(track.Mfim)/60)*10000)/10000)*10000)/10000)
+            console.log(dura,"duracao", track.Hfim,track.Mfim, track.Hinicio, track.Minicio)
             this.tracker.duracao = Number(dura);
             this.tracker.check = true
           }
