@@ -7,6 +7,7 @@ import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ConfiguracoesPage } from '../configuracoes/configuracoes';
 import { TarefaEditPage } from '../tarefa-edit/tarefa-edit';
+import { ToastController } from 'ionic-angular'
 
 /**
  * Generated class for the TimeTrackerPage page.
@@ -81,7 +82,7 @@ export class TimeTrackerPage {
 
   
 
-  constructor(public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
+  constructor(private toastCtrl: ToastController, public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
     this.VerM = false
 
     this.trackersRef = firebase.database().ref('/trackers').limitToLast(100).orderByChild("total")
@@ -482,6 +483,7 @@ export class TimeTrackerPage {
     }
 
   AtualizarT(tarefas){
+    tarefas.finalT =  this.hoje
     this.dbService.update('tarefas',tarefas)
     this.contador = this.ContaPendentes()
     }
@@ -680,6 +682,14 @@ export class TimeTrackerPage {
     var b;
     b = (Math.round(val*10**casas)/(10**casas))
     return b
+  } 
+
+  ShowDetalhe(Texto){
+    let toast = this.toastCtrl.create({
+      message: Texto,
+      duration: 3000
+    });
+    toast.present();
   }
 
   

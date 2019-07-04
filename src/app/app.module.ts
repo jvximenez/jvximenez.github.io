@@ -39,6 +39,7 @@ import { TodosTrackersPage } from '../pages/todos-trackers/todos-trackers';
 import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-especifico';
 import { AnalisePage } from '../pages/analise/analise';
 import { NotasPage } from '../pages/notas/notas';
+import { Toast } from '@ionic-native/toast/ngx';
 
 
 @NgModule({
@@ -133,6 +134,7 @@ import { NotasPage } from '../pages/notas/notas';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseServiceProvider,
     FuncoesGeraisProvider,
+    Toast,
     
     
   ]

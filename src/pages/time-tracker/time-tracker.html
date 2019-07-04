@@ -98,12 +98,13 @@
                   <ion-col col-10>
                     <ion-item  (click)="goToEditT(f)" >
                       <ion-label >{{f.title}}</ion-label>
-                      <ion-note item-end><p>{{f.duracao}}</p></ion-note>
+                      <ion-note item-end><p>{{f.limite}}</p></ion-note>
+                      <ion-icon (press)="ShowDetalhe(f.detalhes)" *ngIf="f.detalhes" item-end name="bookmark"></ion-icon>
                     </ion-item>
                   </ion-col>
                   <ion-col col-1 no-padding >
-                    <button ion-button icon-start full round clear color="dark" (click)="OpcoesT(f)" no-padding>
-                      <ion-icon name="more"></ion-icon>
+                    <button ion-button style="margin-top:10px"  icon-start full round clear color="dark" (click)="OpcoesT(f)" padding>
+                      <ion-icon item-end name="more"></ion-icon>
                     </button>
                   </ion-col>
               
