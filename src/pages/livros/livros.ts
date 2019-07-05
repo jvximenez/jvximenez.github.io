@@ -105,17 +105,39 @@ export class LivrosPage {
 
   goToEdit(itens){
     this.navCtrl.push(LivrosEditPage, 
-    {'livro' : itens})}
+    {'livro' : itens})
+  }
 
-    Alert(item){
-      const alert = this.alertCtrl.create({
-        title: item.title,
-        subTitle: ("Data: " + item.dia+"/"+item.mes+"/"+item.ano+ "<br>Autor: " + item.autor + "<br>Páginas: " + item.paginas + "<br>Fim:" +item.fim + "<br>Comentario: " + item.comentario) ,
-        buttons: ['OK']
-      });
-      alert.present();
-    }
+  Alert(item){
+    const alert = this.alertCtrl.create({
+      title: item.title,
+      subTitle: ("Data: " + item.dia+"/"+item.mes+"/"+item.ano+ "<br>Autor: " + item.autor + "<br>Páginas: " + item.paginas + "<br>Fim:" +item.fim + "<br>Comentario: " + item.comentario) ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
+  CalculaDias(final,inicio){
+  final = String(final)
+  console.log(final,inicio)
+  
+  var ano1 = inicio.substr(0,4);
+  var mes1 = inicio.substr(4,2);
+  var dia1 = inicio.substr(6,2);
+
+  var ano2 = final.substr(0,4);
+  var mes2 = final.substr(4,2);
+  var dia2 = final.substr(6,2);
+  
+  var date1 = new Date(mes1+'/'+dia1+'/'+ano1);
+  var date2 = new Date(mes2+'/'+dia2+'/'+ano2);
+  console.log(date1,date2)
+
+  var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+  var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+  console.log(diffDays)
+  return(diffDays);
+  }
 
   
 

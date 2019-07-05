@@ -17,6 +17,8 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'filmes.html',
 })
 export class FilmesPage {
+
+  public rows;DataO
   
   filme = { 
     'dia':'',
@@ -42,6 +44,9 @@ export class FilmesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider,public alertCtrl: AlertController ) {
     this.Filmes = this.dbService.getAll('filmes','total').map(a => a.reverse())
+
+    this.DataO = new Date().toISOString();
+    
 
     this.Genero = [
       {title: "Ação"},
@@ -91,12 +96,8 @@ export class FilmesPage {
   }
 
   Criacao(filme){
-    var array = this.Data();
-    this.filme.dia = String(array[0]);
-    this.filme.mes = String(array[1]);
-    this.filme.ano = String(array[2]);
-    this.filme.total = String(this.Total());
-    this.filme.parcial =  String(this.Parcial());
+    this.MudandoData(this.DataO)
+    
     this.dbService.save('filmes',filme)
 
 
@@ -135,12 +136,11 @@ export class FilmesPage {
   }
 
   Ontem(filme){
-    var array = this.Data();
-    this.filme.dia = String(array[0]-1);
-    this.filme.mes = String(array[1]);
-    this.filme.ano = String(array[2]);
-    this.filme.total = String(this.Total2());
-    this.filme.parcial =  String(this.Parcial());
+    var date = new Date
+    date.setDate(date.getDate() - 1)
+    this.DataO = date.toISOString()
+    this.MudandoData(this.DataO)
+    
     this.dbService.save('filmes',filme)
 
     
@@ -167,6 +167,23 @@ export class FilmesPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  Mostra(){
+    
+    this.MudandoData(this.DataO)
+  }
+
+  MudandoData(valor){
+    console.log("Data Aqui", valor)
+    
+    var fields = valor.split('-')
+    var dia = fields[2].split('T')
+    this.filme.dia = dia[0]
+    this.filme.ano =  fields[0]
+    this.filme.mes =  String(Number(fields[1]))
+    this.filme.total =  String(Number(Number(this.filme.ano)*10000 + Number(this.filme.mes)*100 + Number(dia[0])));
+    this.filme.parcial = String(Number(Number(this.filme.ano)*100 + Number(this.filme.mes)));
   }
 
 

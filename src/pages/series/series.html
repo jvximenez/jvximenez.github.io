@@ -60,6 +60,15 @@
       </ion-item>
     </ion-row>
 
+    <ion-row class ="roww">
+      <ion-item>
+        <ion-label class="nome" no-padding (click)="Mostra()">Data</ion-label>
+        <ion-datetime  (click)="Mostra()" displayFormat="DD/MM/YYYY" [(ngModel)]="DataO"></ion-datetime>
+      </ion-item>
+    </ion-row>
+
+
+
     <ion-row>
       <ion-item>
         <ion-label class="nome" no-padding >Comentário: </ion-label>

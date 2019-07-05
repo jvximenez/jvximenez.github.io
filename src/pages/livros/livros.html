@@ -62,7 +62,8 @@
 
       <ion-list>
       <button ion-item *ngFor="let f of (livros | async) " (click)="goToEdit(f)" (press)="Alert(f)">
-        <h2> {{ f.title }}</h2>
+        <h2> {{ f.title }}  </h2>
+        <h2 *ngIf="f.fim != ''"> {{CalculaDias(f.fim,f.total)}}</h2>
         <ion-icon *ngIf="f.fim != ''" style="color: black" name="book" item-end></ion-icon>
         <ion-icon *ngIf="f.fim == ''" style="color: rgb(233, 233, 233)" name="book" item-end></ion-icon>
       </button>  

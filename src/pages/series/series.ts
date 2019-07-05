@@ -18,6 +18,8 @@ import { AlertController } from 'ionic-angular';
 })
 export class SeriesPage {
 
+  public rows;DataO
+
   serie = {
     'dia':'',
     'mes':'',
@@ -40,6 +42,8 @@ export class SeriesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
   this.series = this.dbService.getAll('series','total').map(a => a.reverse())
+
+  this.DataO = new Date().toISOString();
 
   this.Serie = this.SeriesA()
   
@@ -67,11 +71,7 @@ export class SeriesPage {
   Criacao(serie){
     this.serie.title = String(this.serie.title)
     var array = this.Data();
-    this.serie.dia = String(array[0]);
-    this.serie.mes = String(array[1]);
-    this.serie.ano = String(array[2]);
-    this.serie.total = String(this.Total());
-    this.serie.parcial =  String(this.Parcial());
+    this.MudandoData(this.DataO)
     this.dbService.save('series',serie)
     this.serie.ep = String(Number(this.serie.ep) +1)
 
@@ -112,11 +112,11 @@ export class SeriesPage {
 
   Ontem(serie){
     var array = this.Data();
-    this.serie.dia = String(array[0]-1);
-    this.serie.mes = String(array[1]);
-    this.serie.ano = String(array[2]);
-    this.serie.total = String(this.Total2());
-    this.serie.parcial =  String(this.Parcial());
+    var date = new Date
+    date.setDate(date.getDate() - 1)
+    this.DataO = date.toISOString()
+    this.MudandoData(this.DataO)
+
     this.dbService.save('series',serie)
     this.serie.ep = String(Number(this.serie.ep) +1)
 
@@ -150,6 +150,24 @@ export class SeriesPage {
     });
     alert.present();
 
+  }
+
+
+  Mostra(){
+    
+    this.MudandoData(this.DataO)
+  }
+
+  MudandoData(valor){
+    console.log("Data Aqui", valor)
+    
+    var fields = valor.split('-')
+    var dia = fields[2].split('T')
+    this.serie.dia = dia[0]
+    this.serie.ano =  fields[0]
+    this.serie.mes =  String(Number(fields[1]))
+    this.serie.total =  String(Number(Number(this.serie.ano)*10000 + Number(this.serie.mes)*100 + Number(dia[0])));
+    this.serie.parcial = String(Number(Number(this.serie.ano)*100 + Number(this.serie.mes)));
   }
 
 }
