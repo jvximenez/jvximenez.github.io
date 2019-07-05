@@ -44,10 +44,10 @@ export class RestaurantesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider,public alertCtrl: AlertController ) {
     this.restaurantes = this.dbService.getAll('restaurantes','total').map(a=>a.reverse())
-    this.tipos = this.Tipos();
     this.atalhos = this.Atalhos();
     this.restaurantesArray = this.ArrayTotal();
     this.Pessoas=this.dbService.getAll('configuracoes/pessoas','ordem')
+    this.tipos = this.Tipos();
     
 
     
@@ -73,7 +73,7 @@ export class RestaurantesPage {
   Tipos(){
     var array = []
     var B = false
-    this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.tipo) { B = true}}); if (B == false) {array.push(elem.tipo)}})
+    this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.tipo) { B = true}}); if (B == false){console.log(String(elem.tipo)),array.push(String(elem.tipo))}})
   })
   
   return (array)
@@ -82,7 +82,7 @@ export class RestaurantesPage {
   Atalhos(){
     var array = []
     var B = false
-    this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.title) { B = true}}); if (B == false) {array.push(elem.title)}})
+    this.restaurantes.forEach(element => {element.forEach( elem => {B = false; array.forEach(a => {if (a == elem.title) { B = true}}); if (B == false){array.push(elem.title)}})
   })
   
   return (array)
