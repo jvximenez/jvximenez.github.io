@@ -854,8 +854,8 @@ export class TimeTrackerPage {
           text: 'Salvar',
           handler: data => {
             if (data.hora2 > 0){
-              this.tracker.Hfim = data.hora2.split('.')[0];
-              this.tracker.Mfim = data.hora2.split('.')[1];
+              this.tracker.Hfim = Number(data.hora2.split('.')[0]);
+              this.tracker.Mfim = Number(data.hora2.split('.')[1]);
             }
 
             if (track.Mfim > 0){
