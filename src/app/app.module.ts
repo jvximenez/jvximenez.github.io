@@ -40,6 +40,7 @@ import { TrackerEspecificoPage } from '../pages/tracker-especifico/tracker-espec
 import { AnalisePage } from '../pages/analise/analise';
 import { NotasPage } from '../pages/notas/notas';
 import { Toast } from '@ionic-native/toast/ngx';
+import { ResumoSemanalPage } from '../pages/resumo-semanal/resumo-semanal';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { Toast } from '@ionic-native/toast/ngx';
     TrackerEspecificoPage,
     AnalisePage,
     NotasPage,
+    ResumoSemanalPage,
     
     
   ],
@@ -126,6 +128,8 @@ import { Toast } from '@ionic-native/toast/ngx';
     TrackerEspecificoPage,
     AnalisePage,
     NotasPage,
+    ResumoSemanalPage,
+    
 
   ],
   providers: [

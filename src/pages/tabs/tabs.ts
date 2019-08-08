@@ -4,6 +4,7 @@ import { CardsPage } from '../cards/cards';
 import { NavParams } from 'ionic-angular';
 import { AnalisePage } from '../analise/analise';
 import { TimeTrackerPage } from '../time-tracker/time-tracker';
+import { ResumoSemanalPage } from '../resumo-semanal/resumo-semanal';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class TabsPage {
   tab3Root = CardsPage;
   tab4Root = TimeTrackerPage;
   tab5Root = AnalisePage;
+  tab6Root = ResumoSemanalPage;
   
 
   constructor( navParams: NavParams) {
