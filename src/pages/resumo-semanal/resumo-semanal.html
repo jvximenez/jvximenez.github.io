@@ -14,31 +14,44 @@
 
 
 <ion-content>
-    <ion-scroll scrollX="true" direction="x">
-        <ion-card> 
-            <canvas #barCanvas ></canvas>
-            <button ion-item (click)="openDetailActivity(item)">            
-              More info
-              <ion-icon name="arrow-forward" item-right color="primary"></ion-icon>
-            </button>
-        </ion-card>
-      </ion-scroll>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-12 col-xl-6 col-l-6>
 
     
-    <ion-scroll scrollX="true" direction="x">
-        <ion-card>
-          <ion-card-content>
-            <ion-card-title>
-              Olaaa
-              </ion-card-title>
-            <button ion-item (click)="openDetailActivity(item)">            
-              More info
-              <ion-icon name="arrow-forward" item-right color="primary"></ion-icon>
-            </button>
-          </ion-card-content>
-        </ion-card>
-      </ion-scroll>
 
+
+  <ion-scroll scrollX="true" direction="x">
+    <ion-card>
+        <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <canvas #barCanvas class="canvass"></canvas>
+          </ion-col>
+          <ion-col col-6>
+            <canvas #barCanvas2 class="canvass"></canvas>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+    </ion-card>
+  </ion-scroll>
+  </ion-col>
+
+  <ion-col col-12 col-xl-6 col-l-6>
+  <ion-scroll scrollX="true" direction="x">
+      <ion-card>
+        <ion-grid>
+        <ion-row style="height: 100px">
+          <ion-col col-12>
+            <canvas #circleCanvas class="canvass"></canvas>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-scroll>
+    </ion-col>
+    </ion-row>
+    </ion-grid>
 
      
 </ion-content>

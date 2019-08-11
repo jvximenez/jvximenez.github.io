@@ -5,16 +5,36 @@ page-resumo-semanal {
     }
 
     ion-card {
-        width: 500px !important;
-        display: inline-block;
+        width: 200vw !important;
+        height: 30vh !important;
+    
+        
     }
 
-    ion-scroll {
-        min-height: 160px; 
-        height: auto;
+    ion-card-content{
+        width: 90%;
+        height: 50%;
+    }
+
+    ion-scroll{
+        min-height: 30vh; 
+        height: 32vh;
 
             .scroll-content {
             padding: 0px !important;
-        }    
+        }
+        
+    }
+
+    
+
+   
+
+
+    .canvass{
+        height:  100% !important;
+        width: 100% !important;
+        
+
     }
 }
