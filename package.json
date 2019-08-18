@@ -48,12 +48,11 @@
     "sw-toolbox": "3.6.0",
     "web": "0.0.2",
     "zone.js": "0.8.26",
-    "@ionic/app-scripts": "2.1.4",
-    "typescript": "2.3.4"
-  },
-  "devDependencies": {
     "@ionic/app-scripts": "3.2.3",
     "typescript": "~2.6.2"
+  },
+  "devDependencies": {
+    
   },
   "description": "An Ionic project",
   "cordova": {
