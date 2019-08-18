@@ -49,11 +49,9 @@
     "web": "0.0.2",
     "zone.js": "0.8.26",
     "@ionic/app-scripts": "3.2.3",
-    "typescript": "~2.6.2"
+    "typescript": "~2.9.2"
   },
-  "devDependencies": {
-    
-  },
+  "devDependencies": {},
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
@@ -71,7 +69,8 @@
     "platforms": [
       "android",
       "windows",
-      "browser"
+      "browser",
+      "ionic"
     ]
   }
 }
