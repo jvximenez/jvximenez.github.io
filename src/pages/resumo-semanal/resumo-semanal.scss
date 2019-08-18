@@ -7,6 +7,15 @@ page-resumo-semanal {
     ion-card {
         width: 200vw !important;
         height: 30vh !important;
+        @media (max-width: 2080px){
+            min-height: 85vh; 
+            height: 90vh;
+        }
+
+        @media (max-width: 480px){
+            min-height: 20vh; 
+            height: 22vh;
+        }   
     
         
     }
@@ -23,6 +32,17 @@ page-resumo-semanal {
             .scroll-content {
             padding: 0px !important;
         }
+        @media (max-width:2080px){
+            min-height: 85vh; 
+            height: 90vh;
+        }
+
+        @media (max-width: 480px){
+            min-height: 20vh; 
+            height: 22vh;
+        }
+
+
         
     }
 
