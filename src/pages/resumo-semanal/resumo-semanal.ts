@@ -23,19 +23,25 @@ export class ResumoSemanalPage {
   barChart2: any;
   @ViewChild('circleCanvas') circleCanvas;
   circleChart: any;
+  @ViewChild('notaCanvas') notaCanvas;
+  notaChart: any;
 
 
 
   DadosSemRef;DadosSemList= [];DadosSemList2= []
   DadosMesRef;DadosMesList;
+  DadosAnoRef;DadosAnoList;
   Mes
+  Ano
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     
   this.DadosSemRef = firebase.database().ref('/diario').limitToLast(14).orderByChild("total")
   this.DadosMesRef = firebase.database().ref('/diario').limitToLast(31).orderByChild("total")
-  this.Mes = this.GetMes()
+  this.DadosAnoRef = firebase.database().ref('/diario').limitToLast(365).orderByChild("ano")
+  this.Mes = this.GetData("Mes")
+  this.Ano = this.GetData("Ano")
 
   this.DadosSemRef.on('value', DadosSemList => {
     let DadosArray = [];
@@ -74,6 +80,21 @@ export class ResumoSemanalPage {
       console.log('Array', DadosArray)    
       });
 
+
+      this.DadosAnoRef.on('value', DadosAnoList => {
+        let DadosArray = [];
+        DadosAnoList.forEach( dado => { 
+        var obj
+        obj = dado.val()
+        obj.key = dado.key
+        if (obj.ano == this.Ano){
+          DadosArray.push(obj);}
+        return false;
+        });
+        this.DadosAnoList = DadosArray;
+        console.log('Array', DadosArray)    
+        });
+
     console.log("ola", this.DadosSemList,this.DadosSemList2)
     console.log('oi')
     
@@ -82,11 +103,18 @@ export class ResumoSemanalPage {
 
   }
 
-  GetMes(){
+  GetData(Tipo){
     let data = new Date
-    let mes = data.getMonth()+1
+    if (Tipo == "Mes"){
+      let mes = data.getMonth()+1
     let ano = data.getFullYear()
-    let parcial = Number(ano)*100+mes
+    var parcial = Number(ano)*100+mes
+    }
+    if (Tipo == "Ano"){
+    let ano = data.getFullYear()
+    var parcial = Number(ano)
+    }
+
     return (parcial)
   }
 
@@ -240,15 +268,19 @@ export class ResumoSemanalPage {
         {
         label: ['Atual'],
         data: this.Teste(this.DadosSemList),
-        backgroundColor:  '#2f6acf',
+        backgroundColor:  '#008354',
         borderWidth: 0.5,
     },{
     label: ['Mes'],
         data: this.Teste(this.DadosMesList),
-        backgroundColor:  '#C4DAFF',
-        borderWidth: 2},
-       
+        backgroundColor:  '#88A9E3',
+        borderWidth: 2},{
+    label: ['Ano'],
+        data: this.Teste(this.DadosAnoList),
+        backgroundColor:  '#E1E9F8',
+        borderWidth: 2}
       ]}
+      
 
   const options = {
     maintainAspectRatio: false,
@@ -290,13 +322,13 @@ export class ResumoSemanalPage {
     var meditar = 0
     valor.forEach(element => { if(element.leitura == true){leitura +=1};if(Number(element.andando) > 0 || Number(element.correndo)>0){correr += 1};
     if(Number(element.doce) > 0){doce+=1};
-    if(Number(element.refri) > 0){refri +=1 };
+    if(Number(element.refrigerante) > 0){refri +=1 };
     if(Number(element.alcool) >0){alcool +=1 };
     if(Number(element.tempinho) > 0) {tempinho += 1};
-    if(Number(element.uhu) > 0) {uhu += 1};
+    if(Number(element.UHU) > 0) {uhu += 1};
     if((element.besteira) == true) {besteira += 1};
     if((element.agradecer) == true) {agradecer += 1};
-    if((element.meditar) == true) {meditar += 1};
+    if((element.meditacao) == true) {meditar += 1};
     total+=1});
 
     array.push(leitura/total)

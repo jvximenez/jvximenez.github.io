@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { ResumoSemanalPage } from '../resumo-semanal/resumo-semanal';
 
 
 /**
@@ -220,6 +221,7 @@ export class AdicionarPage {
   Criacao(controle){
     this.MudandoData(this.DataO)
     this.dbService.save('diario',controle)
+    this.navCtrl.push(ResumoSemanalPage)
 
 
   }
