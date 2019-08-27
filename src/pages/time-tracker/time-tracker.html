@@ -40,6 +40,22 @@
      
     </ion-row>
 
+    <div *ngFor="let f of (ShowTarefas | async) " >
+      <ion-row class="roww"  *ngIf="f.check == true">
+        <ion-item no-lines>
+          <ion-label class="nome" >Detalhes: </ion-label>
+          <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.detalhes"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="roww"  *ngIf="f.check == true">
+          <ion-item no-lines>
+            <ion-label class="nome" >Data Limite: </ion-label>
+            <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.limite"></ion-input>
+          </ion-item>
+        </ion-row>
+    </div>
+
     <ion-row class="roww">
       <ion-col col-11>
         <ion-item no-lines>
