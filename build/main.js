@@ -1124,12 +1124,12 @@ var TimeTrackerPage = /** @class */ (function () {
                     text: 'Save',
                     handler: function (data) {
                         if (data.hora1 > 0) {
-                            track.Hinicio = data.hora1.split('.')[0];
-                            track.Minicio = data.hora1.split('.')[1];
+                            track.Hinicio = Number(data.hora1.split('.')[0]);
+                            track.Minicio = Number(data.hora1.split('.')[1]);
                         }
                         if (data.hora2 > 0) {
-                            track.Hfim = data.hora2.split('.')[0];
-                            track.Mfim = data.hora2.split('.')[1];
+                            track.Hfim = Number(data.hora2.split('.')[0]);
+                            track.Mfim = Number(data.hora2.split('.')[1]);
                         }
                         if (track.Mfim > 0) {
                             var dura = String(Math.round((Number(track.Hfim) + Math.round((Number(track.Mfim) / 60) * 10000) / 10000 - Number(track.Hinicio) - Math.round((Number(track.Minicio) / 60) * 10000) / 10000) * 10000) / 10000);

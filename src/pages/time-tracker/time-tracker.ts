@@ -984,12 +984,12 @@ export class TimeTrackerPage {
           text: 'Save',
           handler: data => {
             if (data.hora1 > 0){
-              track.Hinicio = data.hora1.split('.')[0];
-              track.Minicio = data.hora1.split('.')[1];
+              track.Hinicio = Number(data.hora1.split('.')[0]);
+              track.Minicio = Number(data.hora1.split('.')[1]);
             }
             if (data.hora2 > 0){
-              track.Hfim = data.hora2.split('.')[0];
-              track.Mfim = data.hora2.split('.')[1];
+              track.Hfim = Number(data.hora2.split('.')[0]);
+              track.Mfim = Number(data.hora2.split('.')[1]);
             }
 
             if (track.Mfim > 0){
