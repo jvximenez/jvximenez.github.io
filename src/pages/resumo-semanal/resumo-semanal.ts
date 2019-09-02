@@ -30,7 +30,8 @@ export class ResumoSemanalPage {
 
   DadosSemRef;DadosSemList= [];DadosSemList2= []
   DadosMesRef;DadosMesList;
-  DadosAnoRef;DadosAnoList;
+  DadosAnoRef;DadosAnoList;DadosAnoArrays;
+  
   Mes
   Ano
   
@@ -94,6 +95,22 @@ export class ResumoSemanalPage {
         this.DadosAnoList = DadosArray;
         console.log('Array', DadosArray)    
         });
+
+        this.DadosAnoRef.on('value', DadosAnoList2 => {
+          let AnoArray = [];
+          DadosAnoList2.forEach( dado => { 
+          var obj
+          obj = dado.val()
+          obj.key = dado.key
+          
+          AnoArray.push(obj);}
+          );
+          
+          this.DadosAnoList = AnoArray;
+          console.log('Array', AnoArray)    
+        });
+
+
 
     console.log("ola", this.DadosSemList,this.DadosSemList2)
     console.log('oi')
