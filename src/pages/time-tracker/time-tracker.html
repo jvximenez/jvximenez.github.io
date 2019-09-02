@@ -87,12 +87,12 @@
   </div>
   <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
 
-  <!--ATALHOS-------------------------------------------------------------------------------------------------------------------------------------->
+  <!------------------------------------------------ATALHOS----------------------------------------------------------------------------------------------->
   <div *ngIf = "show == true">
     <ion-grid no-padding>
       <ion-row justify-content-center>
         <ion-col col-3 col-xl-1 *ngFor="let a of (atalhos | async)" justify-content-center>
-          <button class="btn4" type="submit" ion-button round small color="{{Cor(a.nivel)}}" (click)=atalho(a)>{{a.title}}</button>
+          <button class="btn4" type="submit" ion-button round small color="{{Cor(a.nivel)}}" (click)=atalho(a) (press)="atalhoIniciado(a)">{{a.title}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>

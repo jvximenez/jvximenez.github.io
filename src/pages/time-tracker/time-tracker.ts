@@ -172,7 +172,6 @@ export class TimeTrackerPage {
       trackers = trackers.reverse()
 
       this.trackersList = trackers;
-      console.log(this.trackersList, this.trackersList[0]['pontos'])
     });
 
 
@@ -195,7 +194,6 @@ export class TimeTrackerPage {
     var b
     b = a.getHours() + a.getMinutes()/60
     b = b/24
-    console.log(b)
     return (b)
 
   }
@@ -224,8 +222,25 @@ export class TimeTrackerPage {
   }
 
   atalho(atalho){
+    console.log("criouuuuuuuuuuu sozinhooooo")
     this.tracker.nivel = atalho.nivel
     this.input.title = atalho.title
+    this.Criacao(this.tracker)
+
+
+  }
+
+  atalhoIniciado(atalho){
+    console.log("criouuuuuuuuuuu pressssssssssssssssssssss")
+
+    var ultimo = this.trackersList
+    var ultimo3 = ultimo[0]
+
+    this.tracker.nivel = atalho.nivel
+    this.input.title = atalho.title
+    this.tracker.Minicio = ultimo3['Mfim']
+    this.tracker.Hinicio = ultimo3['Hfim']
+
     this.Criacao(this.tracker)
 
 
@@ -283,7 +298,6 @@ export class TimeTrackerPage {
     var a5 = (String((array[0]+array[1]+array[2]+array[3]+array[4])/0.24)+'%')
     var a6 = (String((array[0]+array[1]+array[2]+array[3]+array[4]+array[5])/0.24)+'%')
     var a7 = String((this.GetHora())*100+'%')
-    console.log (a7)
     
     
     document.getElementById("teste1").style.width = a1
@@ -357,6 +371,21 @@ export class TimeTrackerPage {
   }
 
   Criacao(tarefa){
+    var array = this.Data();
+    this.tracker.title = this.input.title
+    this.tracker.dia = String(array[0]);
+    this.tracker.mes = String(array[1]);
+    this.tracker.ano = String(array[2]);
+    this.tracker.total = String(this.Total());
+    this.tracker.parcial =  String(this.Parcial());
+    this.dbService.save('trackers',tarefa)
+    this.input.title = ""
+    this.tracker.Hinicio = Number('')
+    this.tracker.Minicio = Number('')
+
+  }
+
+  Criacao3(tarefa){
     var array = this.Data();
     this.tracker.title = this.input.title
     this.tracker.dia = String(array[0]);
@@ -861,7 +890,6 @@ export class TimeTrackerPage {
             if (track.Mfim > 0){
             
             var dura = String(Math.round((Number(this.tracker.Hfim) + Math.round((Number(this.tracker.Mfim)/60)*10000)/10000 - Number(track.Hfim) - Math.round((Number(track.Mfim)/60)*10000)/10000)*10000)/10000)
-            console.log(dura,"duracao", track.Hfim,track.Mfim, track.Hinicio, track.Minicio)
             this.tracker.duracao = Number(dura);
             this.tracker.check = true
           }
