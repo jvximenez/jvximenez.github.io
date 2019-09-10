@@ -5,6 +5,7 @@ import { ResumoSemanalPage } from '../resumo-semanal/resumo-semanal';
 import  firebase  from 'firebase';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { ToastController } from 'ionic-angular'
+import { runOutsideAngular } from 'angularfire2';
 
 
 /**
@@ -291,6 +292,18 @@ export class AdicionarPage {
   }
 
   VericaTrackers(){
+    var numero = 50
+
+    var totalReal;
+    var data = new Date();
+    var dia1 = data.getDate();
+    var mes1 = data.getMonth();
+    var ano1 = data.getFullYear();
+    totalReal = Number(ano1*10000 + (mes1+1)*100 + dia1);
+
+    
+
+
     console.log(this.DataO)
     var valor = this.DataO
     var fields = valor.split('-')
@@ -301,7 +314,19 @@ export class AdicionarPage {
     var total =  String(Number(Number(ano)*10000 + Number(mes)*100 + Number(dia)));
     console.log(total)
 
-    var trackersRef = firebase.database().ref('/trackers').limitToLast(1000).orderByChild("total")
+    var diferenca = Number(totalReal) - Number(total)
+    console.log(diferenca)
+    if (diferenca <= 0){numero = 50}
+    if (diferenca <= 2){numero = 150}
+    if (diferenca <= 5){numero = 5*30}
+    if (diferenca <= 10){numero = 10*30}
+    if (diferenca <= 20){numero = 20*30}
+    if (diferenca <= 31){numero = 31*30}
+    if (diferenca <= 200){numero = 1000}
+    if (diferenca > 200){numero = 10000}
+
+
+    var trackersRef = firebase.database().ref('/trackers').limitToLast(numero).orderByChild("total")
 
 
 
@@ -321,7 +346,9 @@ export class AdicionarPage {
         trackers = trackers.reverse()
         var trackersArray = trackers;
 
-        var array = [0,0,0,0,0,0,0,0,0,0,0]
+        var array = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var Estudos = []
+        var Aulas = []
         trackersArray.forEach(item => {
           if(item.title.includes("Dormir"))
           {array[0] += item.duracao}; 
@@ -336,7 +363,7 @@ export class AdicionarPage {
           if(item.title.includes("Ingles"))
           {array[5] += item.duracao};
           if(item.title.includes("Aula"))
-          {array[6] += item.duracao};
+          {array[6] += item.duracao; Aulas.push(item.title)};
           if(item.title.includes("Relaxar"))
           {array[7] += item.duracao};
           if(item.title.includes("Tempinho"))
@@ -344,11 +371,20 @@ export class AdicionarPage {
           if(item.title.includes("Dani"))
           {array[9] += item.duracao};
           if(item.title.includes("Estudar"))
-          {array[10] += item.duracao};})
+          {array[10] += item.duracao; Estudos.push(item.title)};
+          if(item.title.includes("Correr"))
+          {array[11] += item.duracao};
+        })
         
+        var array2 = []
+        array.forEach(a => {array2.push(Math.round(a*100)/100)})
+        array = array2
         this.ArrayDeTrackers = array
         
-        var texto = ("Dia:"+dia+"/"+mes+"\n Tempinho: "+array[8]+"\n Ler: "+array[1]+"\n  Programar: "+array[3]+"\n  Aula: "+array[6]+"\n Estudar mesmo: "+array[10]+"\n Estudar Total: "+String(Number(array[10])+Number(array[3])+Number(array[1])))
+        var texto = ("Dia: "+dia+"/"+mes+"\n Tempinho: "+array[8]+"\n Ler: "+array[1]+"\n  Programar: "+array[3]+
+        "\n  Aula: "+array[6]+"\n Estudar mesmo: "+array[10]+
+        "\n Estudar Total: "+String(Number(array[10])+Number(array[3])+Number(array[1]))+
+        "\n"+Estudos+"\n"+Aulas)
         let toast = this.toastCtrl.create({
         message: texto,
        duration: 6000
