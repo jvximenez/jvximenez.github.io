@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { ResumoSemanalPage } from '../resumo-semanal/resumo-semanal';
+import  firebase  from 'firebase';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { ToastController } from 'ionic-angular'
 
 
 /**
@@ -87,13 +89,14 @@ export class AdicionarPage {
 
   }
 
-  public Remedios;Roles;Estudos;Pessoas;Atividades;Dentes
+  public Remedios;Roles;Estudos;Pessoas;Atividades;Dentes;
+  public ArrayDeTrackers = [0,0,0,0,0,0,0,0,0,0,10]
   
 
   
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, private statusBar: StatusBar) {
+  constructor(private toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, private statusBar: StatusBar) {
     this.DataO = new Date().toISOString();
     
     this.statusBar.backgroundColorByHexString('#ffffff');
@@ -286,6 +289,75 @@ export class AdicionarPage {
     this.controle.total =  String(Number(Number(this.controle.ano)*10000 + Number(this.controle.mes)*100 + Number(dia[0])));
     this.controle.parcial = String(Number(Number(this.controle.ano)*100 + Number(this.controle.mes)));
   }
+
+  VericaTrackers(){
+    console.log(this.DataO)
+    var valor = this.DataO
+    var fields = valor.split('-')
+    var dia = fields[2].split('T')
+    var dia = dia[0]
+    var ano =  fields[0]
+    var mes =  String(Number(fields[1]))
+    var total =  String(Number(Number(ano)*10000 + Number(mes)*100 + Number(dia)));
+    console.log(total)
+
+    var trackersRef = firebase.database().ref('/trackers').limitToLast(1000).orderByChild("total")
+
+
+
+    trackersRef.on('value', trackersList => {
+      let trackers = [];
+      trackersList.forEach(tracker => {
+        
+        var obj
+        obj = tracker.val()
+        obj.key = tracker.key
+
+        if (obj['total'] == total ){
+
+          trackers.push(obj);
+          return false;
+        };})
+        trackers = trackers.reverse()
+        var trackersArray = trackers;
+
+        var array = [0,0,0,0,0,0,0,0,0,0,0]
+        trackersArray.forEach(item => {
+          if(item.title.includes("Dormir"))
+          {array[0] += item.duracao}; 
+          if(item.title.includes("Banho"))
+          {array[1] += item.duracao};
+          if(item.title.includes("Ler"))
+          {array[2] += item.duracao};
+          if(item.title.includes("Programar"))
+          {array[3] += item.duracao};
+          if(item.title.includes("Frances"))
+          {array[4] += item.duracao};
+          if(item.title.includes("Ingles"))
+          {array[5] += item.duracao};
+          if(item.title.includes("Aula"))
+          {array[6] += item.duracao};
+          if(item.title.includes("Relaxar"))
+          {array[7] += item.duracao};
+          if(item.title.includes("Tempinho"))
+          {array[8] += item.duracao};
+          if(item.title.includes("Dani"))
+          {array[9] += item.duracao};
+          if(item.title.includes("Estudar"))
+          {array[10] += item.duracao};})
+        
+        this.ArrayDeTrackers = array
+        
+        var texto = ("Dia:"+dia+"/"+mes+"\n Tempinho: "+array[8]+"\n Ler: "+array[1]+"\n  Programar: "+array[3]+"\n  Aula: "+array[6]+"\n Estudar mesmo: "+array[10]+"\n Estudar Total: "+String(Number(array[10])+Number(array[3])+Number(array[1])))
+        let toast = this.toastCtrl.create({
+        message: texto,
+       duration: 6000
+        });
+        toast.present();
+     
+
+     
+  })}
 
   
 

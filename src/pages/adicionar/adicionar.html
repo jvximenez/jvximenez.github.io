@@ -14,7 +14,11 @@
     <ion-buttons end>
       <button ion-button icon-only (click)="atualiza()">
         <ion-icon name="sync"></ion-icon>
-    </button></ion-buttons>
+    </button>
+    <button ion-button icon-only (click)="VericaTrackers()">
+      <ion-icon name="search"></ion-icon>
+  </button>
+  </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -22,6 +26,11 @@
 
 <ion-content>
   <ion-grid>
+
+    <ion-item>
+      <ion-label class="nome" no-padding (click)="Mostra()">Data</ion-label>
+      <ion-datetime  (click)="Mostra()" displayFormat="DDD - DD/MM/YYYY" [(ngModel)]="DataO"></ion-datetime>
+    </ion-item>
 
     <ion-row  class="roww">
       <ion-item>
@@ -195,7 +204,8 @@
     <ion-row  class="roww">
       <ion-item no-lines>
         <ion-range no-padding min="0" max="12" [(ngModel)]="controle.tempoE">
-          <ion-label class="nome" range-left>Estudando: </ion-label>
+          <ion-label class="nome" range-left>Estudando: ({{ArrayDeTrackers[10]}}) </ion-label>
+          <p>{{ArrayDeTrackers[10]}}</p>
           <ion-label range-right>{{controle.tempoE}}</ion-label>
         </ion-range>
       </ion-item>
@@ -357,10 +367,7 @@
       </ion-item>
     </ion-row>
 
-    <ion-item>
-      <ion-label class="nome" no-padding (click)="Mostra()">Data</ion-label>
-      <ion-datetime  (click)="Mostra()" displayFormat="DDD - DD/MM/YYYY" [(ngModel)]="DataO"></ion-datetime>
-    </ion-item>
+    
 
     <ion-row justify-content-center>
       <button class="btn3" ion-button round small outline (click)="Ontem(controle)">Ontem</button>
