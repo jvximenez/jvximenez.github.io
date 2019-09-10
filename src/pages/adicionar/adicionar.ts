@@ -387,7 +387,7 @@ export class AdicionarPage {
         "\n"+Estudos+"\n"+Aulas)
         let toast = this.toastCtrl.create({
         message: texto,
-       duration: 6000
+        duration: 6000
         });
         toast.present();
      
