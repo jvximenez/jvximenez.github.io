@@ -85,6 +85,8 @@ export class ConfiguracoesPage {
     this.tarefas= this.dbService.getAll('configuracoes/tarefas','ordem')
     this.shows= this.dbService.getAll('configuracoes/shows','ordem')
 
+    this.pessoas.subscribe(res => console.log(res))
+
     this.parametros = [{title: 'atalho'},
     {title: 'categoria'},
     {title: 'configuracoes'},
@@ -266,6 +268,13 @@ export class ConfiguracoesPage {
             this.Deletar(track,local);
           }
           
+        }, {
+          text: 'Editar',
+          
+          handler: () => {
+            this.EditarProp(track,local);
+          }
+          
         },
         {
           text: 'Cancelar',
@@ -277,6 +286,7 @@ export class ConfiguracoesPage {
     });
     actionSheet.present();
   }
+
 
   Deletar(track,local){
     console.log(track.key,local,String('configuracoes/'+local))
@@ -303,6 +313,66 @@ export class ConfiguracoesPage {
   }, 10000);
   
     
+
+  }
+
+  EditarProp(track,local){
+    const prompt = this.alertCtrl.create({
+      title: 'Editar:'+String(local),
+      message: "Entre com o nome e ordem",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: track.title,
+          value:track.title,
+
+
+
+        },
+        {
+          name: 'ordem',
+          placeholder: track.ordem,
+          value: track.ordem,
+          type: 'number',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'Atualizar',
+          handler: data => {
+            track.title = data.title;
+            track.ordem = Number(data.ordem);
+            this.dbService.update(String('configuracoes/'+local),track)
+            }
+          }
+        
+      ]
+    });
+    prompt.present();
+  }
+
+
+
+
+
+  reorderItems(indexes,local) {
+    let element = this.pessoas[indexes.from];
+    let a = 1
+    this.pessoas.forEach(elements => {elements.forEach(element => {element.ordem = a ;a+=1;this.dbService.update(String('configuracoes/'+local),element)
+
+    });
+      
+    });
+
+    console.log(indexes,element)
+    if (indexes.from < indexes.to){
+      this.pessoas.forEach(elements => {elements.forEach(element => { var continua = true; if(element.ordem-1 == indexes.from) {element.ordem = indexes.to+1; continua = false}; if( continua == true && element.ordem < indexes.to) {element.ordem -= 1}})})
+      this.pessoas.forEach(elements => {elements.forEach(element => {this.dbService.update(String('configuracoes/'+local),element)})})
+    }
+
 
   }
 

@@ -56,10 +56,15 @@
 
   <ion-item-group>
     <ion-item-divider color="light" (click)="CriaNovo('pessoas')" >Pessoas</ion-item-divider>
-    <ion-item *ngFor="let f of (pessoas | async)">
-      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
-        <ion-checkbox (press)="Opcoes(f,'pessoas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'pessoas')" (press)="Opcoes(f,'pessoas')"></ion-checkbox>
-      </ion-item>
+    <ion-list>
+      <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event,'pessoas')">
+        <ion-item *ngFor="let f of (pessoas | async)">
+          <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+            <ion-checkbox (press)="Opcoes(f,'pessoas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'pessoas')" (press)="Opcoes(f,'pessoas')"></ion-checkbox>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+    
   </ion-item-group>
 
   <ion-item-group>
