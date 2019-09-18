@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { ConfiguracoesEditPage } from '../configuracoes-edit/configuracoes-edit';
+import  firebase  from 'firebase';
 
 /**
  * Generated class for the ConfiguracoesPage page.
@@ -73,8 +74,31 @@ export class ConfiguracoesPage {
   parametros
 
   public tarefas;dentes; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
+  public PessoasRef
+  pessoasList
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
+    this.PessoasRef = firebase.database().ref('/configuracoes/pessoas').limitToLast(100).orderByChild("ordem")
+
+
+    this.PessoasRef.on('value', pessoasList => {
+      let pessoasM = [];
+      let count = 0
+      pessoasList.forEach( pessoas => {
+        count += 1 
+        var obj
+        obj = pessoas.val()
+        obj.key = pessoas.key
+        pessoasM.push(obj);
+        
+        return false;
+      });
+    
+      this.pessoasList = pessoasM;
+  
+    });
+    
+    
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
     this.dentes=this.dbService.getAll('configuracoes/dentes','ordem')
     this.atividades=this.dbService.getAll('configuracoes/atividades','ordem')
@@ -358,6 +382,7 @@ export class ConfiguracoesPage {
 
 
 
+
   reorderItems(indexes,local) {
     let element = this.pessoas[indexes.from];
     let a = 1
@@ -374,6 +399,20 @@ export class ConfiguracoesPage {
     }
 
 
+  }
+
+
+  reorderItems2(indexes,local){
+    console.log("ola")
+    let a = 0
+    let element = this.pessoasList[indexes.from];
+    this.pessoasList.splice(indexes.from, 1);
+    this.pessoasList.splice(indexes.to, 0, element);
+    console.log(this.pessoasList)
+
+    this.pessoasList.forEach(element => { element.ordem = a + 1; a+=1; this.dbService.update(String('configuracoes/'+local),element)
+      
+    });
   }
 
 
