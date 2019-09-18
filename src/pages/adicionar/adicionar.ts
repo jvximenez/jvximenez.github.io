@@ -346,7 +346,7 @@ export class AdicionarPage {
         trackers = trackers.reverse()
         var trackersArray = trackers;
 
-        var array = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var array = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         var Estudos = []
         var Aulas = []
         trackersArray.forEach(item => {
@@ -374,6 +374,8 @@ export class AdicionarPage {
           {array[10] += item.duracao; Estudos.push(item.title)};
           if(item.title.includes("Correr"))
           {array[11] += item.duracao};
+          if(item.title.includes("Andar"))
+          {array[12] += item.duracao}
         })
         
         var array2 = []
