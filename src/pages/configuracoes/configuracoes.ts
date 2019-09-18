@@ -74,11 +74,16 @@ export class ConfiguracoesPage {
   parametros
 
   public tarefas;dentes; remedios; atividades; roles; estudos; pessoas; viagens; cidades; dias;shows
-  public PessoasRef
-  pessoasList
+  public PessoasRef;RemediosRef;RolesRef;EstudosRef;
+  pessoasList;remediosList;rolesList;estudosList
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
     this.PessoasRef = firebase.database().ref('/configuracoes/pessoas').limitToLast(100).orderByChild("ordem")
+    this.RemediosRef = firebase.database().ref('/configuracoes/remedios').limitToLast(100).orderByChild("ordem")
+    this.RolesRef = firebase.database().ref('/configuracoes/roles').limitToLast(100).orderByChild("ordem")
+    this.EstudosRef = firebase.database().ref('/configuracoes/estudos').limitToLast(100).orderByChild("ordem")
+
+
 
 
     this.PessoasRef.on('value', pessoasList => {
@@ -96,7 +101,55 @@ export class ConfiguracoesPage {
     
       this.pessoasList = pessoasM;
   
+
+      
     });
+
+    this.RemediosRef.on('value', remediosList => {
+      let pessoasM = [];
+      let count = 0
+      remediosList.forEach( pessoas => {
+        count += 1 
+        var obj
+        obj = pessoas.val()
+        obj.key = pessoas.key
+        pessoasM.push(obj);
+        
+        return false;
+      });
+    
+      this.remediosList = pessoasM;});
+
+      this.RolesRef.on('value', pessoasList => {
+        let pessoasM = [];
+        let count = 0
+        pessoasList.forEach( pessoas => {
+          count += 1 
+          var obj
+          obj = pessoas.val()
+          obj.key = pessoas.key
+          pessoasM.push(obj);
+          
+          return false;
+        });
+      
+        this.rolesList = pessoasM;});
+
+        this.EstudosRef.on('value', pessoasList => {
+          let pessoasM = [];
+          let count = 0
+          pessoasList.forEach( pessoas => {
+            count += 1 
+            var obj
+            obj = pessoas.val()
+            obj.key = pessoas.key
+            pessoasM.push(obj);
+            
+            return false;
+          });
+        
+          this.estudosList = pessoasM;});
+
     
     
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
@@ -402,15 +455,15 @@ export class ConfiguracoesPage {
   }
 
 
-  reorderItems2(indexes,local){
+  reorderItems2(indexes,local,lista){
     console.log("ola")
     let a = 0
-    let element = this.pessoasList[indexes.from];
-    this.pessoasList.splice(indexes.from, 1);
-    this.pessoasList.splice(indexes.to, 0, element);
+    let element = lista[indexes.from];
+    lista.splice(indexes.from, 1);
+    lista.splice(indexes.to, 0, element);
     console.log(this.pessoasList)
 
-    this.pessoasList.forEach(element => { element.ordem = a + 1; a+=1; this.dbService.update(String('configuracoes/'+local),element)
+    lista.forEach(element => { element.ordem = a + 1; a+=1; this.dbService.update(String('configuracoes/'+local),element)
       
     });
   }
