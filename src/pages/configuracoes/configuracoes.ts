@@ -17,6 +17,12 @@ import  firebase  from 'firebase';
   templateUrl: 'configuracoes.html',
 })
 export class ConfiguracoesPage {
+  public DiaDaSemana = {
+    'title':'',
+    'tarefas': [],
+    'ordem':Number(''),
+  }
+
   public tarefa = {
     'title':'',
     'nivel':'',
@@ -77,11 +83,14 @@ export class ConfiguracoesPage {
   public PessoasRef;RemediosRef;RolesRef;EstudosRef;
   pessoasList;remediosList;rolesList;estudosList
 
+  DiasRef;diasList
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
     this.PessoasRef = firebase.database().ref('/configuracoes/pessoas').limitToLast(100).orderByChild("ordem")
     this.RemediosRef = firebase.database().ref('/configuracoes/remedios').limitToLast(100).orderByChild("ordem")
     this.RolesRef = firebase.database().ref('/configuracoes/roles').limitToLast(100).orderByChild("ordem")
     this.EstudosRef = firebase.database().ref('/configuracoes/estudos').limitToLast(100).orderByChild("ordem")
+    console.log(this.DiasRef = firebase.database().ref('/configuracoes/diasDaSemana').limitToLast(10).orderByChild("ordem"))
 
 
 
@@ -149,7 +158,6 @@ export class ConfiguracoesPage {
           });
         
           this.estudosList = pessoasM;});
-
     
     
     this.remedios=this.dbService.getAll('configuracoes/remedios','ordem')
@@ -263,6 +271,10 @@ export class ConfiguracoesPage {
             if (local == "pessoas") {
               this.pessoa.title = data.title, this.pessoa.ordem = Number(data.ordem);
               this.dbService.save('configuracoes/pessoas', this.pessoa);
+            }
+            if (local == "DiaDaSemana") {
+              this.DiaDaSemana.title = data.title, this.DiaDaSemana.ordem = Number(data.ordem);
+              this.dbService.save('configuracoes/diaDaSemana', this.DiaDaSemana);
             }
             if (local == "shows") {
               this.show.title = data.title, this.show.ordem = Number(data.ordem);

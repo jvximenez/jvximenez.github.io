@@ -17,10 +17,11 @@
     <ion-item-group>
       <ion-item-divider color="light" (click)="CriaNovo('remedios')" >Remédio</ion-item-divider>
       <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,'remedios',remediosList)">
-      <ion-item *ngFor="let f of remediosList">
-      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+        <ion-item *ngFor="let f of remediosList">
+        <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
           <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'remedios')" (press)="Opcoes(f,'remedios')" ></ion-checkbox>
         </ion-item>
+    </ion-item-group>
     </ion-item-group>
 
     <ion-item-group>
@@ -30,8 +31,9 @@
           <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'dentes')" (press)="Opcoes(f,'dentes')" ></ion-checkbox>
         </ion-item>
     </ion-item-group>
-    </ion-item-group>
+    
 
+    
   <ion-item-group>
     <ion-item-divider color="light" (click)="CriaNovo('atividades')" >Atividades</ion-item-divider>
     <ion-item *ngFor="let f of (atividades | async)">
@@ -69,8 +71,17 @@
             <ion-checkbox (press)="Opcoes(f,'pessoas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'pessoas')" (press)="Opcoes(f,'pessoas')"></ion-checkbox>
         </ion-item>
       </ion-item-group>
-    </ion-list>
-    
+    </ion-list> 
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light" (click)="CriaNova('DiaDaSemana')" >Dias da semana:</ion-item-divider>
+    <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,'pessoas',pessoasList)">
+      <ion-item *ngFor="let f of (pessoasList)">
+        <ion-label> {{f.ordem}} - {{f.title}} </ion-label>
+          <ion-checkbox (press)="Opcoes(f,'pessoas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'pessoas')" (press)="Opcoes(f,'pessoas')"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
   </ion-item-group>
 
   <ion-item-group>
@@ -80,6 +91,9 @@
         <ion-checkbox  (press)="Opcoes(f,'tarefas')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,'tarefa')"></ion-checkbox>
       </ion-item>
   </ion-item-group>
+  
+
+
   <ion-item-group>
       <ion-item-divider color="light" (click)="CriaNovo('shows')" >Show</ion-item-divider>
       <ion-item *ngFor="let f of (shows | async)">
@@ -96,8 +110,5 @@
         </ion-item>
     </ion-item-group>
 
-  
-
-  
 
 </ion-content>
