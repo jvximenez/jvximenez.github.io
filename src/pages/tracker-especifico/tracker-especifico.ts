@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import  firebase  from 'firebase';
 import { TimeTrackerEditPage } from '../time-tracker-edit/time-tracker-edit';
+import { TodosTrackersPage } from '../todos-trackers/todos-trackers';
+import { StatusBar } from '@ionic-native/status-bar';
+import { ConfiguracoesPage } from '../configuracoes/configuracoes';
+import { TarefaEditPage } from '../tarefa-edit/tarefa-edit';
+import { ToastController } from 'ionic-angular'
 
 /**
  * Generated class for the TrackerEspecificoPage page.
@@ -42,7 +48,7 @@ export class TrackerEspecificoPage {
   actionSheetControler: any;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public alertCtrl: AlertController) {
+  constructor(private toastCtrl: ToastController, public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
     this.total = this.navParams.get('total')
     this.trackers =  this.navParams.get('trackers')
     
@@ -127,12 +133,14 @@ export class TrackerEspecificoPage {
   }
 
   Criacao(tarefa){
+    console.log(tarefa,"oi",this.total)
     this.tracker.title = this.input.title
-    this.tracker.dia = this.total.substr(6,2)
-    this.tracker.mes = this.total.substr(4,2)
-    this.tracker.ano = this.total.substr(0,4)
-    this.tracker.total = this.total
-    this.tracker.parcial =  this.total.substr(0,4)+this.total.substr(4,2)
+    this.tracker.dia = this.total[0].substr(6,2)
+    this.tracker.mes = this.total[0].substr(4,2)
+    this.tracker.ano = this.total[0].substr(0,4)
+    console.log(this.tracker)
+    this.tracker.total = this.total[0]
+    this.tracker.parcial =  this.total[0].substr(0,4)+this.total[0].substr(4,2)
     this.dbService.save('trackers',tarefa)
     this.input.title = ""
     this.tracker.Hinicio = Number('')
@@ -209,75 +217,76 @@ export class TrackerEspecificoPage {
     }
 
 
-    Opcoes(track){
-      const actionSheet = this.actionSheetControler.create({
-        title: 'Opções',
-        buttons: [
-          {
-            text: 'Copiar',
-            
-            handler: () => {
-              this.input.title = track.title;
-              this.tracker.nivel = track.nivel;
-              this.Criacao(this.tracker);
-            }
-            
-          },
-          {
-            text: 'Deletar',
-            
-            handler: () => {
-              this.Deletar(track);
-            }
-            
-          },{
-            text: 'Limpar final',
-            handler: () => {
-              track.Hfim = '';
-              track.Mfim = '';
-              this.dbService.update('trackers',track);
-            }
-          },{
-            text:"Alterar Horários",
-            handler:() => {this.AlteraHora(track)}
-          },{
-            text: 'Limpar tudo',
-            handler: () => {
-              track.Hfim = '';
-              track.Mfim = '';
-              track.Hinicio = '';
-              track.Minicio = '';
-              track.duracao = '';
-              this.dbService.update('trackers',track);
-              
-            }
-          },{
-            text: 'Alterar Nível',
-            handler: () => {
-              this.AlteraNivelradio(track);
-            }
-          },{
-            text: 'Relaxar',
-            handler: () => {
-              this.AlteraNivel(track,"-2");
-              this.AlterarNome(track, 'Relaxar');
-            }
-          },{
-            text: 'Criar Novo',
-              handler: () => {
-              this.PromptCriarNovo(track)
-             
-            }
-          },{
-            text: 'Cancelar',
-            role: 'cancel',
-            handler: () => {
-            }
+    
+  Opcoes(track){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Opções',
+      buttons: [
+        {
+          text: 'Copiar',
+          
+          handler: () => {
+            this.input.title = track.title;
+            this.tracker.nivel = track.nivel;
+            this.Criacao(this.tracker);
           }
-        ]
-      });
-      actionSheet.present();
-    }
+          
+        },
+        {
+          text: 'Deletar',
+          
+          handler: () => {
+            this.Deletar(track);
+          }
+          
+        },{
+          text: 'Limpar final',
+          handler: () => {
+            track.Hfim = '';
+            track.Mfim = '';
+            this.dbService.update('trackers',track);
+          }
+        },{
+          text:"Alterar Horários",
+          handler:() => {this.AlteraHora(track)}
+        },{
+          text: 'Limpar tudo',
+          handler: () => {
+            track.Hfim = '';
+            track.Mfim = '';
+            track.Hinicio = '';
+            track.Minicio = '';
+            track.duracao = '';
+            this.dbService.update('trackers',track);
+            
+          }
+        },{
+          text: 'Alterar Nível',
+          handler: () => {
+            this.AlteraNivelradio(track);
+          }
+        },{
+          text: 'Relaxar',
+          handler: () => {
+            this.AlteraNivel(track,"-2");
+            this.AlterarNome(track, 'Relaxar');
+          }
+        },{
+          text: 'Criar Novo',
+            handler: () => {
+            this.PromptCriarNovo(track)
+           
+          }
+        },{
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
 
 
     AlterarNome(track, nome){
