@@ -1,13 +1,399 @@
 webpackJsonp([29],{
 
-/***/ 102:
+/***/ 103:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResumoSemanalPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_chart_js__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the ResumoSemanalPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ResumoSemanalPage = /** @class */ (function () {
+    function ResumoSemanalPage(navCtrl, navParams) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.DadosSemList = [];
+        this.DadosSemList2 = [];
+        this.DadosSemRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/diario').limitToLast(14).orderByChild("total");
+        this.DadosMesRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/diario').limitToLast(31).orderByChild("total");
+        this.DadosAnoRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/diario').limitToLast(365).orderByChild("ano");
+        this.Mes = this.GetData("Mes");
+        this.Ano = this.GetData("Ano");
+        this.DadosSemRef.on('value', function (DadosSemList) {
+            var DadosArray = [];
+            DadosSemList.forEach(function (dado) {
+                var obj;
+                obj = dado.val();
+                obj.DiaSemana = _this.TotalToData(obj.total);
+                obj.key = dado.key;
+                DadosArray.push(obj);
+                return false;
+            });
+            DadosArray = DadosArray.reverse();
+            var numero = 0;
+            numero = DadosArray.findIndex(function (element) { return element.DiaSemana == "Domingo"; });
+            console.log(numero, 'qual o numero do array');
+            DadosArray.slice(0, numero);
+            _this.DadosSemList = (DadosArray.slice(0, Number(numero) + 1)).reverse();
+            _this.DadosSemList2 = (DadosArray.slice(Number(numero), Number(numero) + 7)).reverse();
+            console.log("ola", _this.DadosSemList, _this.DadosSemList2);
+        });
+        this.DadosMesRef.on('value', function (DadosMesList) {
+            var DadosArray = [];
+            DadosMesList.forEach(function (dado) {
+                var obj;
+                obj = dado.val();
+                obj.key = dado.key;
+                if (obj.parcial == _this.Mes) {
+                    DadosArray.push(obj);
+                }
+                return false;
+            });
+            _this.DadosMesList = DadosArray;
+            console.log('Array', DadosArray);
+        });
+        this.DadosAnoRef.on('value', function (DadosAnoList) {
+            var DadosArray = [];
+            DadosAnoList.forEach(function (dado) {
+                var obj;
+                obj = dado.val();
+                obj.key = dado.key;
+                if (obj.ano == _this.Ano) {
+                    DadosArray.push(obj);
+                }
+                return false;
+            });
+            _this.DadosAnoList = DadosArray;
+            console.log('Array', DadosArray);
+        });
+        this.DadosAnoRef.on('value', function (DadosAnoList2) {
+            var AnoArray = [];
+            DadosAnoList2.forEach(function (dado) {
+                var obj;
+                obj = dado.val();
+                obj.key = dado.key;
+                AnoArray.push(obj);
+            });
+            _this.DadosAnoList = AnoArray;
+            console.log('Array', AnoArray);
+        });
+        console.log("ola", this.DadosSemList, this.DadosSemList2);
+        console.log('oi');
+    }
+    ResumoSemanalPage.prototype.GetData = function (Tipo) {
+        var data = new Date;
+        if (Tipo == "Mes") {
+            var mes = data.getMonth() + 1;
+            var ano = data.getFullYear();
+            var parcial = Number(ano) * 100 + mes;
+        }
+        if (Tipo == "Ano") {
+            var ano = data.getFullYear();
+            var parcial = Number(ano);
+        }
+        return (parcial);
+    };
+    ResumoSemanalPage.prototype.TotalToData = function (total) {
+        var dia;
+        var mes;
+        var ano;
+        var semana;
+        var final;
+        ano = total.substr(0, 4);
+        mes = total.substr(4, 2);
+        dia = total.substr(6, 2);
+        var myDate = new Date();
+        myDate.setFullYear(Number(ano));
+        myDate.setMonth(Number(mes) - 1);
+        myDate.setDate(Number(dia));
+        if (myDate.getDay() == 1) {
+            semana = 'Segunda';
+        }
+        if (myDate.getDay() == 2) {
+            semana = 'Terça';
+        }
+        if (myDate.getDay() == 3) {
+            semana = 'Quarta';
+        }
+        if (myDate.getDay() == 4) {
+            semana = 'Quinta';
+        }
+        if (myDate.getDay() == 5) {
+            semana = 'Sexta';
+        }
+        if (myDate.getDay() == 6) {
+            semana = 'Sábado';
+        }
+        if (myDate.getDay() == 0) {
+            semana = 'Domingo';
+        }
+        final = (dia + '/' + mes + '/' + ano + " - " + semana);
+        return (semana);
+    };
+    ResumoSemanalPage.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.barChart = _this.getBarChart();
+            _this.barChart2 = _this.getBarChart2();
+            _this.circleChart = _this.getCircleChart();
+        }, 600);
+    };
+    ResumoSemanalPage.prototype.getBarChart = function () {
+        var data = {
+            labels: ['Dom', "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+            datasets: [{
+                    label: ['Minimo'],
+                    data: [8000, 8000, 8000, 8000, 8000, 8000, 8000],
+                    type: 'line',
+                    backgroundColor: 'rgba(255, 255, 255, .100)',
+                    borderColor: '#FF0000'
+                },
+                {
+                    label: ['Passos passados'],
+                    data: this.DadosSemList2.map(function (a) { return Number(a.passos); }),
+                    backgroundColor: '#C4DAFF',
+                    borderWidth: 0.5,
+                }, {
+                    label: ['Atual'],
+                    data: this.DadosSemList.map(function (a) { return Number(a.passos); }),
+                    backgroundColor: '#2f6acf',
+                    borderWidth: 2
+                },
+            ]
+        };
+        var options = {
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            autoSkip: false,
+                        }
+                    }],
+                xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                        }
+                    }]
+            }
+        };
+        return this.getChart(this.barCanvas.nativeElement, 'bar', data, options);
+    };
+    ResumoSemanalPage.prototype.getBarChart2 = function () {
+        var data = {
+            labels: this.DadosMesList.map(function (a) { return Number(a.dia); }),
+            datasets: [{
+                    label: ['Peso'],
+                    yAxisID: 'B',
+                    data: this.DadosMesList.map(function (a) { return Number(a.peso); }),
+                    type: 'line',
+                    backgroundColor: 'rgba(255, 255, 255, .255)',
+                    borderColor: '#008354'
+                }, {
+                    label: ['Passos Mes'],
+                    yAxesGroup: 'A',
+                    data: this.DadosMesList.map(function (a) { return Number(a.passos); }),
+                    backgroundColor: '#2f6acf',
+                    borderWidth: 0.5,
+                }]
+        };
+        var options = {
+            scales: {
+                yAxes: [{
+                        id: 'A',
+                        type: 'linear',
+                        position: 'left',
+                        scalePositionLeft: true
+                    },
+                    {
+                        id: 'B',
+                        type: 'linear',
+                        position: 'right',
+                        scalePositionLeft: true,
+                        ticks: {
+                            max: 100,
+                            min: 60
+                        }
+                    }
+                ],
+                xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                        }
+                    }]
+            }
+        };
+        return this.getChart(this.barCanvas2.nativeElement, 'bar', data, options);
+    };
+    ResumoSemanalPage.prototype.getChart = function (context, charType, data, options) {
+        return new __WEBPACK_IMPORTED_MODULE_3_chart_js___default.a(context, {
+            data: data,
+            options: options,
+            type: charType
+        });
+    };
+    ResumoSemanalPage.prototype.getCircleChart = function () {
+        var data = {
+            labels: ['Ler', 'Correr', "Doce", "Refri", "Alcool", "Tempinho", "uhu", "Agradecer", "Meditar"],
+            datasets: [
+                {
+                    label: ['Atual'],
+                    data: this.Teste(this.DadosSemList),
+                    backgroundColor: '#008354',
+                    borderWidth: 0.5,
+                }, {
+                    label: ['Mes'],
+                    data: this.Teste(this.DadosMesList),
+                    backgroundColor: '#88A9E3',
+                    borderWidth: 2
+                }, {
+                    label: ['Ano'],
+                    data: this.Teste(this.DadosAnoList),
+                    backgroundColor: '#E1E9F8',
+                    borderWidth: 2
+                }
+            ]
+        };
+        var options = {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            autoSkip: false,
+                        }
+                    }],
+                xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                        }
+                    }]
+            }
+        };
+        return this.getChart(this.circleCanvas.nativeElement, 'bar', data, options);
+    };
+    ResumoSemanalPage.prototype.Teste = function (valor) {
+        var array = [];
+        var total = 0;
+        var leitura = 0;
+        var correr = 0;
+        var doce = 0;
+        var refri = 0;
+        var alcool = 0;
+        var tempinho = 0;
+        var uhu = 0;
+        var besteira = 0;
+        var agradecer = 0;
+        var meditar = 0;
+        valor.forEach(function (element) {
+            if (element.leitura == true) {
+                leitura += 1;
+            }
+            ;
+            if (Number(element.andando) > 0 || Number(element.correndo) > 0) {
+                correr += 1;
+            }
+            ;
+            if (Number(element.doce) > 0) {
+                doce += 1;
+            }
+            ;
+            if (Number(element.refrigerante) > 0) {
+                refri += 1;
+            }
+            ;
+            if (Number(element.alcool) > 0) {
+                alcool += 1;
+            }
+            ;
+            if (Number(element.tempinho) > 0) {
+                tempinho += 1;
+            }
+            ;
+            if (Number(element.UHU) > 0) {
+                uhu += 1;
+            }
+            ;
+            if ((element.besteira) == true) {
+                besteira += 1;
+            }
+            ;
+            if ((element.agradecer) == true) {
+                agradecer += 1;
+            }
+            ;
+            if ((element.meditacao) == true) {
+                meditar += 1;
+            }
+            ;
+            total += 1;
+        });
+        array.push(leitura / total);
+        array.push(correr / total);
+        array.push(doce / total);
+        array.push(refri / total, alcool / total, tempinho / total, uhu / total, besteira / total, agradecer / total, agradecer / meditar);
+        console.log("aqui valores,", total, leitura, array);
+        return array;
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas'),
+        __metadata("design:type", Object)
+    ], ResumoSemanalPage.prototype, "barCanvas", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas2'),
+        __metadata("design:type", Object)
+    ], ResumoSemanalPage.prototype, "barCanvas2", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('circleCanvas'),
+        __metadata("design:type", Object)
+    ], ResumoSemanalPage.prototype, "circleCanvas", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('notaCanvas'),
+        __metadata("design:type", Object)
+    ], ResumoSemanalPage.prototype, "notaCanvas", void 0);
+    ResumoSemanalPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-resumo-semanal',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\resumo-semanal\resumo-semanal.html"*/'<!--\n  Generated template for the ResumoSemanalPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Resumo Semanal</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12 col-xl-6>\n        <ion-card>\n            <canvas #barCanvas class="canvass" style="height: 25vh"></canvas>\n        </ion-card>\n      </ion-col>\n      <ion-col col-12 col-xl-6>\n        <ion-card>\n          <canvas #barCanvas2 class="canvass" style="height: 25vh"></canvas>\n        </ion-card>\n      </ion-col>\n      <ion-col col-12 col-xl-6>\n        <ion-card>\n          <canvas #circleCanvas class="canvass" style="height: 25vh" ></canvas>\n        </ion-card>\n      </ion-col>\n    </ion-row>\n  </ion-grid>     \n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\resumo-semanal\resumo-semanal.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+    ], ResumoSemanalPage);
+    return ResumoSemanalPage;
+}());
+
+//# sourceMappingURL=resumo-semanal.js.map
+
+/***/ }),
+
+/***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EdicaoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -229,14 +615,14 @@ var EdicaoPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 103:
+/***/ 105:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimeTrackerEditPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -295,21 +681,21 @@ var TimeTrackerEditPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 104:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimeTrackerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase__ = __webpack_require__(422);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__time_tracker_edit_time_tracker_edit__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__todos_trackers_todos_trackers__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__configuracoes_configuracoes__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tarefa_edit_tarefa_edit__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__time_tracker_edit_time_tracker_edit__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__todos_trackers_todos_trackers__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__configuracoes_configuracoes__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tarefa_edit_tarefa_edit__ = __webpack_require__(82);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -379,10 +765,12 @@ var TimeTrackerPage = /** @class */ (function () {
         this.show = false;
         this.trackersList = [{ 'pontosH': 0, 'pontos0': 0 }];
         this.pontos = 0;
+        this.DataHoje = new Date;
         this.VerM = false;
         this.trackersRef = __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.database().ref('/trackers').limitToLast(100).orderByChild("total");
         this.ShowTarefas = this.dbService.getAll('configuracoes/shows', 'nivel');
         this.trackers = this.dbService.getAllEspecificoMsm('trackers', 'total', 50).map(function (b) { return b.reverse(); }).map(function (a) { return a.sort(function (a, b) { return Number(String(b['Hinicio'] + b['Minicio'] / 60)) - Number(String(a['Hinicio'] + a['Minicio'] / 60)); }); });
+        this.trackersEspecifico = this.dbService.getAllEspecifico('trackers', 'total', "").map(function (b) { return b.reverse(); }).map(function (a) { return a.sort(function (a, b) { return Number(String(b['Hinicio'] + b['Minicio'] / 60)) - Number(String(a['Hinicio'] + a['Minicio'] / 60)); }); });
         this.statusBar.backgroundColorByHexString('#ffffff');
         this.atalhos = this.dbService.getAll('configuracoes/tarefas', 'nivel');
         this.Indicadores = this.Calcula(this.Total());
@@ -440,15 +828,28 @@ var TimeTrackerPage = /** @class */ (function () {
             });
             trackers = trackers.reverse();
             _this.trackersList = trackers;
-            console.log(_this.trackersList, _this.trackersList[0]['pontos']);
         });
     }
+    TimeTrackerPage.prototype.AtualizaTrackerEspecifico = function (Total) {
+        this.trackersEspecifico = this.dbService.getAllEspecifico('trackers', 'total', Total).map(function (b) { return b.reverse(); }).map(function (a) { return a.sort(function (a, b) { return Number(String(b['Hinicio'] + b['Minicio'] / 60)) - Number(String(a['Hinicio'] + a['Minicio'] / 60)); }); });
+    };
+    TimeTrackerPage.prototype.Mostra = function () {
+        this.MudandoData(this.DataHoje);
+    };
+    TimeTrackerPage.prototype.MudandoData = function (valor) {
+        var fields = valor.split('-');
+        var dia = fields[2].split('T');
+        var dia2 = dia[0];
+        var ano = fields[0];
+        var mes = String(Number(fields[1]));
+        var total = String(Number(Number(ano) * 10000 + Number(mes) * 100 + Number(dia2)));
+        this.AtualizaTrackerEspecifico(total);
+    };
     TimeTrackerPage.prototype.GetHora = function () {
         var a = new Date;
         var b;
         b = a.getHours() + a.getMinutes() / 60;
         b = b / 24;
-        console.log(b);
         return (b);
     };
     TimeTrackerPage.prototype.CorIfTrue = function (dado) {
@@ -470,8 +871,19 @@ var TimeTrackerPage = /** @class */ (function () {
         }, 50);
     };
     TimeTrackerPage.prototype.atalho = function (atalho) {
+        console.log("criouuuuuuuuuuu sozinhooooo");
         this.tracker.nivel = atalho.nivel;
         this.input.title = atalho.title;
+        this.Criacao(this.tracker);
+    };
+    TimeTrackerPage.prototype.atalhoIniciado = function (atalho) {
+        console.log("criouuuuuuuuuuu pressssssssssssssssssssss");
+        var ultimo = this.trackersList;
+        var ultimo3 = ultimo[0];
+        this.tracker.nivel = atalho.nivel;
+        this.input.title = atalho.title;
+        this.tracker.Minicio = ultimo3['Mfim'];
+        this.tracker.Hinicio = ultimo3['Hfim'];
         this.Criacao(this.tracker);
     };
     TimeTrackerPage.prototype.Calcula = function (dia) {
@@ -545,7 +957,6 @@ var TimeTrackerPage = /** @class */ (function () {
         var a5 = (String((array[0] + array[1] + array[2] + array[3] + array[4]) / 0.24) + '%');
         var a6 = (String((array[0] + array[1] + array[2] + array[3] + array[4] + array[5]) / 0.24) + '%');
         var a7 = String((this.GetHora()) * 100 + '%');
-        console.log(a7);
         document.getElementById("teste1").style.width = a1;
         document.getElementById("teste2").style.width = a2;
         document.getElementById("teste3").style.width = a3;
@@ -604,6 +1015,19 @@ var TimeTrackerPage = /** @class */ (function () {
         return array;
     };
     TimeTrackerPage.prototype.Criacao = function (tarefa) {
+        var array = this.Data();
+        this.tracker.title = this.input.title;
+        this.tracker.dia = String(array[0]);
+        this.tracker.mes = String(array[1]);
+        this.tracker.ano = String(array[2]);
+        this.tracker.total = String(this.Total());
+        this.tracker.parcial = String(this.Parcial());
+        this.dbService.save('trackers', tarefa);
+        this.input.title = "";
+        this.tracker.Hinicio = Number('');
+        this.tracker.Minicio = Number('');
+    };
+    TimeTrackerPage.prototype.Criacao3 = function (tarefa) {
         var array = this.Data();
         this.tracker.title = this.input.title;
         this.tracker.dia = String(array[0]);
@@ -1007,7 +1431,6 @@ var TimeTrackerPage = /** @class */ (function () {
                         }
                         if (track.Mfim > 0) {
                             var dura = String(Math.round((Number(_this.tracker.Hfim) + Math.round((Number(_this.tracker.Mfim) / 60) * 10000) / 10000 - Number(track.Hfim) - Math.round((Number(track.Mfim) / 60) * 10000) / 10000) * 10000) / 10000);
-                            console.log(dura, "duracao", track.Hfim, track.Mfim, track.Hinicio, track.Minicio);
                             _this.tracker.duracao = Number(dura);
                             _this.tracker.check = true;
                         }
@@ -1146,7 +1569,7 @@ var TimeTrackerPage = /** @class */ (function () {
     };
     TimeTrackerPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-time-tracker',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\time-tracker\time-tracker.html"*/'<!--\n\n  Generated template for the TimeTrackerPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<!--HEADER----------------------------------------------------------------------------------------------------------------------------------------------------------------------->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Tarefas</ion-title>\n\n    <ion-buttons end *ngFor="let f of (ShowTarefas | async) ">\n\n        <button ion-button icon-only color="{{CorIfTrue(f.check)}}" (click)="ChangeCheckTarefas(f)">\n\n          <ion-icon name="list-box"></ion-icon>\n\n          <ion-badge *ngIf="contador[0] > 0" id="notifications-badge" color="danger">{{contador[0]}}</ion-badge>\n\n        </button>\n\n      <button ion-button icon-only (click)="atualiza()">\n\n        <ion-icon name="sync"></ion-icon>\n\n      </button>\n\n      <button ion-button icon-only (click)="goToTotal()">\n\n        <ion-icon name="calendar"></ion-icon>\n\n      </button>\n\n      <button ion-button icon-only (click)="goToSettings()">\n\n        <ion-icon name="settings"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<!--ADICAO-->\n\n<ion-content>\n\n  <ion-grid>\n\n    <ion-row class="roww">\n\n        <ion-item no-lines>\n\n          <ion-label class="nome" >Tracker: </ion-label>\n\n          <ion-input text-right type="text"  value="" [(ngModel)]="input.title" (keyup.enter)="Criacao(tracker)"></ion-input>\n\n        </ion-item>\n\n     \n\n    </ion-row>\n\n\n\n    <ion-row class="roww">\n\n      <ion-col col-11>\n\n        <ion-item no-lines>\n\n            <ion-range  min="-2" max="2"  snaps color="{{Cor(tracker.nivel)}}" [(ngModel)]="tracker.nivel">\n\n              <ion-icon range-left color="{{Cor(tracker.nivel)}}"  small name="close-circle"></ion-icon>\n\n              <ion-icon range-right  color="{{Cor(tracker.nivel)}}"  small name="checkmark-circle"></ion-icon>\n\n            </ion-range>\n\n          </ion-item>\n\n      </ion-col>\n\n      <ion-col col-1 >\n\n        <button ion-button icon-start round clear no-padding (click)="Nivel(3)">\n\n          <ion-icon color="verde" name="clipboard" (click)="Nivel(3)"> </ion-icon>\n\n        </button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid>\n\n\n\n<!--bOTOES ADICAO-------------------------------------------------------------------------------------------------------------------------------------->\n\n\n\n  <ion-row justify-content-center >\n\n    <button class="btn2" ion-button outline round small (click)="Amanha(tracker)">Amanhã</button>\n\n    <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>\n\n    <button class="btn2" ion-button outline  round small (click)="Ontem(tracker)">Ontem</button>\n\n  </ion-row>\n\n  <div *ngFor="let f of (ShowTarefas | async) ">\n\n    <ion-row justify-content-center *ngIf="f.check == true">\n\n        <button class="btn3" ion-button  clear round small  (click)="CriacaoTarefa(tarefa)">Tarefa</button>\n\n    </ion-row>\n\n  </div>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>\n\n\n\n  <!--ATALHOS-------------------------------------------------------------------------------------------------------------------------------------->\n\n  <div *ngIf = "show == true">\n\n    <ion-grid no-padding>\n\n      <ion-row justify-content-center>\n\n        <ion-col col-3 col-xl-1 *ngFor="let a of (atalhos | async)" justify-content-center>\n\n          <button class="btn4" type="submit" ion-button round small color="{{Cor(a.nivel)}}" (click)=atalho(a)>{{a.title}}</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n\n\n  <!-------------------------------------------------------------------TAREFAS-------------------------------------------------------------------->\n\n  <div *ngFor="let f of (ShowTarefas | async) ">\n\n    <ion-card no-padding *ngIf="f.check == true">\n\n      <ion-card-header class="item">Tarefas</ion-card-header>\n\n      <ion-list>\n\n        <div *ngFor ="let f of (tarefas | async)">\n\n          <div *ngIf = "f.check == false">\n\n            <ion-row class="item">\n\n                  <ion-col col-1>\n\n                    <ion-item class ="item" no-padding>\n\n                      <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>\n\n                    </ion-item>\n\n                  </ion-col>\n\n                  <ion-col col-10>\n\n                    <ion-item  (click)="goToEditT(f)" >\n\n                      <ion-label >{{f.title}}</ion-label>\n\n                      <ion-note item-end><p>{{f.limite}}</p></ion-note>\n\n                      <ion-icon (press)="ShowDetalhe(f.detalhes)" *ngIf="f.detalhes" item-end name="bookmark"></ion-icon>\n\n                    </ion-item>\n\n                  </ion-col>\n\n                  <ion-col col-1 no-padding >\n\n                    <button ion-button style="margin-top:10px"  icon-start full round clear color="dark" (click)="OpcoesT(f)" padding>\n\n                      <ion-icon item-end name="more"></ion-icon>\n\n                    </button>\n\n                  </ion-col>\n\n              \n\n            </ion-row>\n\n          </div>\n\n        </div>\n\n        <div *ngFor ="let f of (tarefas | async)">\n\n          <div *ngIf = "f.check != false">\n\n            <ion-row class="item">\n\n              <ion-col col-1>\n\n                <ion-item class ="item" no-padding>\n\n                  <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>\n\n                </ion-item>\n\n              </ion-col>\n\n              <ion-col col-10>\n\n                <ion-item  (click)="goToEditT(f)" >\n\n                  <ion-label >{{f.title}}</ion-label>\n\n                  <ion-note item-end><p>{{f.duracao}}</p></ion-note>\n\n                </ion-item>\n\n              </ion-col>\n\n              <ion-col col-1 no-padding >\n\n                <button ion-button icon-start full round clear color="dark" (click)="OpcoesT(f)" no-padding>\n\n                  <ion-icon name="more"></ion-icon>\n\n                </button>\n\n              </ion-col>\n\n            </ion-row>\n\n          </div>\n\n        </div> \n\n        <ion-row>\n\n          <button ion-button clear (click)="VerMais(VerM)">\n\n            {{ValorVerMais(VerM)}}\n\n          </button>\n\n        </ion-row> \n\n        </ion-list>\n\n    </ion-card>\n\n  </div>\n\n    \n\n<!----------------------------------------------------------------HOJE E ONTEM---------------------------------------------------------------------------------------------->\n\n<ion-grid>\n\n<ion-row>\n\n<ion-col col-12 col-xl-6  *ngFor="let d of dias">   \n\n<ion-card >\n\n    <ion-card-header  class="item">{{d.title}}: \n\n      <ion-badge *ngIf=\'d.title=="Hoje"\' (click)="AtualizaPontua(d.val)"> {{trackersList[0][\'pontosH\']}} </ion-badge>\n\n      <ion-badge *ngIf=\'d.title=="Ontem"\' (click)="AtualizaPontua(d.val)"> {{trackersList[0][\'pontosO\']}} </ion-badge>\n\n    </ion-card-header>\n\n    <ion-list>\n\n      <div *ngFor="let f of (trackers | async) ">\n\n        <ion-row *ngIf=\'f.total == RetornaDia(d.title) && f.Hinicio == "" && f.Minicio == ""\'class="item">\n\n        <ion-col col-1>\n\n          <ion-item class="item" no-padding>\n\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n          </ion-item>\n\n        </ion-col>\n\n          <ion-col col-1>\n\n           <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n            </button>\n\n          </ion-col>\n\n            <ion-col col-9>\n\n              <ion-item  (click)="goToEdit(f)" >\n\n                <ion-label >{{f.title}}</ion-label>\n\n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n              </ion-item>\n\n            </ion-col>\n\n            <ion-col col-1 >\n\n              <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>\n\n                <ion-icon name="more"></ion-icon>\n\n              </button>\n\n            </ion-col>\n\n         </ion-row>\n\n      </div>\n\n         \n\n      <div *ngFor="let f of (trackers | async) ">\n\n      <ion-row *ngIf=\'f.total == RetornaDia(d.title) && f.Minicio != ""\'class="item">\n\n        <ion-col col-1>\n\n          <ion-item class="item" no-padding>\n\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n          </ion-item>\n\n        </ion-col>\n\n          <ion-col col-1>\n\n           <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n            </button>\n\n          </ion-col>\n\n            <ion-col col-9>\n\n              <ion-item  (click)="goToEdit(f)" >\n\n                <ion-label >{{f.title}}</ion-label>\n\n                <p class="corEnd" item-end>{{RetornaH(Atual(f))}}</p>\n\n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n              </ion-item>\n\n            </ion-col>\n\n            <ion-col col-1 >\n\n              <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>\n\n                <ion-icon name="more"></ion-icon>\n\n              </button>\n\n            </ion-col>\n\n         </ion-row>\n\n      </div>\n\n    </ion-list>\n\n    \n\n\n\n    <div id="container">\n\n    <h2 padding  *ngIf="d.title == \'Hoje\' || d.title ==\'Ontem\' " (click)="AtualizaGraf()" >Progresso:</h2>\n\n    <div class="progress" *ngIf="d.title == \'Hoje\'" (click)=teste(totalM)>\n\n        <div class="determinate7" style="width: 0%" id="testeH" ></div>\n\n      <div class="determinate1" style="width: 0%" id="teste6" ></div>\n\n      <div class="determinate2" style="width: 0%" id="teste5" ></div>\n\n      <div class="determinate3" style="width: 0%" id="teste4" ></div>\n\n      <div class="determinate4" style="width: 0%" id="teste3" ></div>\n\n      <div class="determinate5" style="width: testao" id="teste2" ></div>\n\n      <div class="determinate6" style="width: 0%" id="teste1" ></div>\n\n      \n\n    </div>\n\n\n\n    <div class="progress2" *ngIf="d.title == \'Ontem\'" (click)=teste(totalM)>\n\n      <div class="determinate1" style="width: 0%" id="teste12" ></div>\n\n      <div class="determinate2" style="width: 0%" id="teste11" ></div>\n\n      <div class="determinate3" style="width: 0%" id="teste10" ></div>\n\n      <div class="determinate4" style="width: 0%" id="teste9" ></div>\n\n      <div class="determinate5" style="width: 0%" id="teste8" ></div>\n\n      <div class="determinate6" style="width: 0%" id="teste7" ></div>\n\n    </div>\n\n    \n\n    <div class="alinharB" *ngIf="d.title == \'Hoje\'">\n\n      <ion-row> \n\n        <ion-col col-7>\n\n          <h3 padding>Tarefas Cotidianas:\n\n            <br>Dormir    - {{RetornaH(Arredonda(Indicadores[0]))}}\n\n            <br>Banho     - {{RetornaH(Arredonda(Indicadores[1]))}}\n\n            <br>Ler       - {{RetornaH(Arredonda(Indicadores[2]))}}\n\n            <br>Programar - {{RetornaH(Arredonda(Indicadores[3]))}}\n\n            <br>Estudar    -  {{RetornaH(Arredonda(Indicadores[10]))}}\n\n            <br>Frances    -  {{RetornaH(Arredonda(Indicadores[4]))}}\n\n          </h3>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <h3>\n\n            <br>\n\n            <br>Ingles    -  {{RetornaH(Arredonda(Indicadores[5]))}}\n\n            <br>Aulas     - {{RetornaH(Arredonda(Indicadores[6]))}}\n\n            <br>Relaxar   - {{RetornaH(Arredonda(Indicadores[7]))}}\n\n            <br>Tempinho  - {{RetornaH(Arredonda(Indicadores[8]))}}\n\n            <br>Dani      - {{RetornaH(Arredonda(Indicadores[9]))}}\n\n          </h3>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n\n\n\n\n    <div *ngIf="d.title == \'Ontem\'">\n\n      <ion-row>\n\n        <ion-col col-7>\n\n          <h3 class="h3">Tarefas Cotidianas:\n\n            <br>Dormir    - {{RetornaH(Arredonda(IndicadoresO[0]))}}\n\n            <br>Banho     - {{RetornaH(Arredonda(IndicadoresO[1]))}}\n\n            <br>Ler       - {{RetornaH(Arredonda(IndicadoresO[2]))}}\n\n            <br>Programar - {{RetornaH(Arredonda(IndicadoresO[3]))}}\n\n            <br>Estudar    -  {{RetornaH(Arredonda(IndicadoresO[10]))}}\n\n            <br>Frances    -  {{RetornaH(Arredonda(IndicadoresO[4]))}}\n\n          </h3>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <h3>\n\n            <br>\n\n            <br>Ingles    -  {{RetornaH(Arredonda(IndicadoresO[5]))}}\n\n            <br>Aulas     - {{RetornaH(Arredonda(IndicadoresO[6]))}}\n\n            <br>Relaxar   - {{RetornaH(Arredonda(IndicadoresO[7]))}}\n\n            <br>Tempinho  - {{RetornaH(Arredonda(IndicadoresO[8]))}}\n\n            <br>Dani      - {{RetornaH(Arredonda(IndicadoresO[9]))}}\n\n          </h3>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n    </div>\n\n  </ion-card>\n\n </ion-col>\n\n </ion-row>\n\n </ion-grid>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\time-tracker\time-tracker.html"*/,
+            selector: 'page-time-tracker',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\time-tracker\time-tracker.html"*/'<!--\n\n  Generated template for the TimeTrackerPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<!--HEADER----------------------------------------------------------------------------------------------------------------------------------------------------------------------->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Tarefas</ion-title>\n\n    <ion-buttons end *ngFor="let f of (ShowTarefas | async) ">\n\n        <button ion-button icon-only color="{{CorIfTrue(f.check)}}" (click)="ChangeCheckTarefas(f)">\n\n          <ion-icon name="list-box"></ion-icon>\n\n          <ion-badge *ngIf="contador[0] > 0" id="notifications-badge" color="danger">{{contador[0]}}</ion-badge>\n\n        </button>\n\n      <button ion-button icon-only (click)="atualiza()">\n\n        <ion-icon name="sync"></ion-icon>\n\n      </button>\n\n      <button ion-button icon-only (click)="goToTotal()">\n\n        <ion-icon name="calendar"></ion-icon>\n\n      </button>\n\n      <button ion-button icon-only (click)="goToSettings()">\n\n        <ion-icon name="settings"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<!--ADICAO-->\n\n<ion-content>\n\n  <ion-grid>\n\n    <ion-row class="roww">\n\n        <ion-item no-lines>\n\n          <ion-label class="nome" >Tracker: </ion-label>\n\n          <ion-input text-right type="text"  value="" [(ngModel)]="input.title" (keyup.enter)="Criacao(tracker)"></ion-input>\n\n        </ion-item>\n\n     \n\n    </ion-row>\n\n\n\n    <div *ngFor="let f of (ShowTarefas | async) " >\n\n      <ion-row class="roww"  *ngIf="f.check == true">\n\n        <ion-item no-lines>\n\n          <ion-label class="nome" >Detalhes: </ion-label>\n\n          <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.detalhes"></ion-input>\n\n        </ion-item>\n\n      </ion-row>\n\n\n\n      <ion-row class="roww"  *ngIf="f.check == true">\n\n          <ion-item no-lines>\n\n            <ion-label class="nome" >Data Limite: </ion-label>\n\n            <ion-input text-right type="text"  value="" [(ngModel)]="tarefa.limite"></ion-input>\n\n          </ion-item>\n\n        </ion-row>\n\n    </div>\n\n\n\n    <ion-row class="roww">\n\n      <ion-col col-11>\n\n        <ion-item no-lines>\n\n            <ion-range  min="-2" max="2"  snaps color="{{Cor(tracker.nivel)}}" [(ngModel)]="tracker.nivel">\n\n              <ion-icon range-left color="{{Cor(tracker.nivel)}}"  small name="close-circle"></ion-icon>\n\n              <ion-icon range-right  color="{{Cor(tracker.nivel)}}"  small name="checkmark-circle"></ion-icon>\n\n            </ion-range>\n\n          </ion-item>\n\n      </ion-col>\n\n      <ion-col col-1 >\n\n        <button ion-button icon-start round clear no-padding (click)="Nivel(3)">\n\n          <ion-icon color="verde" name="clipboard" (click)="Nivel(3)"> </ion-icon>\n\n        </button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid>\n\n\n\n<!--bOTOES ADICAO-------------------------------------------------------------------------------------------------------------------------------------->\n\n\n\n  <ion-row justify-content-center >\n\n    <button class="btn2" ion-button outline round small (click)="Amanha(tracker)">Amanhã</button>\n\n    <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>\n\n    <button class="btn2" ion-button outline  round small (click)="Ontem(tracker)">Ontem</button>\n\n  </ion-row>\n\n  <div *ngFor="let f of (ShowTarefas | async) ">\n\n    <ion-row justify-content-center *ngIf="f.check == true">\n\n        <button class="btn3" ion-button  clear round small  (click)="CriacaoTarefa(tarefa)">Tarefa</button>\n\n    </ion-row>\n\n  </div>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>\n\n\n\n  <!------------------------------------------------ATALHOS----------------------------------------------------------------------------------------------->\n\n  <div *ngIf = "show == true">\n\n    <ion-grid no-padding>\n\n      <ion-row justify-content-center>\n\n        <ion-col col-3 col-xl-1 *ngFor="let a of (atalhos | async)" justify-content-center>\n\n          <button class="btn4" type="submit" ion-button round small color="{{Cor(a.nivel)}}" (click)=atalho(a) (press)="atalhoIniciado(a)">{{a.title}}</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n\n\n  <!-------------------------------------------------------------------TAREFAS-------------------------------------------------------------------->\n\n  <div *ngFor="let f of (ShowTarefas | async) ">\n\n    <ion-card no-padding *ngIf="f.check == true">\n\n      <ion-card-header class="item">Tarefas</ion-card-header>\n\n      <ion-list>\n\n        <div *ngFor ="let f of (tarefas | async)">\n\n          <div *ngIf = "f.check == false">\n\n            <ion-row class="item">\n\n                  <ion-col col-1>\n\n                    <ion-item class ="item" no-padding>\n\n                      <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>\n\n                    </ion-item>\n\n                  </ion-col>\n\n                  <ion-col col-10>\n\n                    <ion-item  (click)="goToEditT(f)" >\n\n                      <ion-label >{{f.title}}</ion-label>\n\n                      <ion-note item-end><p>{{f.limite}}</p></ion-note>\n\n                      <ion-icon (press)="ShowDetalhe(f.detalhes)" *ngIf="f.detalhes" item-end name="bookmark"></ion-icon>\n\n                    </ion-item>\n\n                  </ion-col>\n\n                  <ion-col col-1 no-padding >\n\n                    <button ion-button style="margin-top:10px"  icon-start full round clear color="dark" (click)="OpcoesT(f)" padding>\n\n                      <ion-icon item-end name="more"></ion-icon>\n\n                    </button>\n\n                  </ion-col>\n\n              \n\n            </ion-row>\n\n          </div>\n\n        </div>\n\n        <div *ngFor ="let f of (tarefas | async)">\n\n          <div *ngIf = "f.check != false">\n\n            <ion-row class="item">\n\n              <ion-col col-1>\n\n                <ion-item class ="item" no-padding>\n\n                  <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="AtualizarT(f)" no-padding></ion-checkbox>\n\n                </ion-item>\n\n              </ion-col>\n\n              <ion-col col-10>\n\n                <ion-item  (click)="goToEditT(f)" >\n\n                  <ion-label >{{f.title}}</ion-label>\n\n                  <ion-note item-end><p>{{f.duracao}}</p></ion-note>\n\n                </ion-item>\n\n              </ion-col>\n\n              <ion-col col-1 no-padding >\n\n                <button ion-button icon-start full round clear color="dark" (click)="OpcoesT(f)" no-padding>\n\n                  <ion-icon name="more"></ion-icon>\n\n                </button>\n\n              </ion-col>\n\n            </ion-row>\n\n          </div>\n\n        </div> \n\n        <ion-row>\n\n          <button ion-button clear (click)="VerMais(VerM)">\n\n            {{ValorVerMais(VerM)}}\n\n          </button>\n\n        </ion-row> \n\n        </ion-list>\n\n    </ion-card>\n\n  </div>\n\n    \n\n<!----------------------------------------------------------------HOJE E ONTEM---------------------------------------------------------------------------------------------->\n\n<ion-grid>\n\n<ion-row>\n\n<ion-col col-12 col-xl-6  *ngFor="let d of dias">   \n\n<ion-card >\n\n    <ion-card-header  class="item">{{d.title}}: \n\n      <ion-badge *ngIf=\'d.title=="Hoje"\' (click)="AtualizaPontua(d.val)"> {{trackersList[0][\'pontosH\']}} </ion-badge>\n\n      <ion-badge *ngIf=\'d.title=="Ontem"\' (click)="AtualizaPontua(d.val)"> {{trackersList[0][\'pontosO\']}} </ion-badge>\n\n    </ion-card-header>\n\n    <ion-list>\n\n      <div *ngFor="let f of (trackers | async) ">\n\n        <ion-row *ngIf=\'f.total == RetornaDia(d.title) && f.Hinicio == "" && f.Minicio == ""\'class="item">\n\n        <ion-col col-1>\n\n          <ion-item class="item" no-padding>\n\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n          </ion-item>\n\n        </ion-col>\n\n          <ion-col col-1>\n\n           <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n            </button>\n\n          </ion-col>\n\n            <ion-col col-9>\n\n              <ion-item  (click)="goToEdit(f)" >\n\n                <ion-label >{{f.title}}</ion-label>\n\n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n              </ion-item>\n\n            </ion-col>\n\n            <ion-col col-1 >\n\n              <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)"  (press)="PromptCriarNovo(f)" no-padding>\n\n                <ion-icon name="more"></ion-icon>\n\n              </button>\n\n            </ion-col>\n\n         </ion-row>\n\n      </div>\n\n         \n\n      <div *ngFor="let f of (trackers | async) ">\n\n      <ion-row *ngIf=\'f.total == RetornaDia(d.title) && f.Minicio != ""\'class="item">\n\n        <ion-col col-1>\n\n          <ion-item class="item" no-padding>\n\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n          </ion-item>\n\n        </ion-col>\n\n          <ion-col col-1>\n\n           <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n            </button>\n\n          </ion-col>\n\n            <ion-col col-9>\n\n              <ion-item  (click)="goToEdit(f)" >\n\n                <ion-label >{{f.title}}</ion-label>\n\n                <p class="corEnd" item-end>{{RetornaH(Atual(f))}}</p>\n\n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n              </ion-item>\n\n            </ion-col>\n\n            <ion-col col-1 >\n\n              <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" (press)="PromptCriarNovo(f)" no-padding>\n\n                <ion-icon name="more"></ion-icon>\n\n              </button>\n\n            </ion-col>\n\n         </ion-row>\n\n      </div>\n\n    </ion-list>\n\n    \n\n\n\n    <div id="container">\n\n    <h2 padding  *ngIf="d.title == \'Hoje\' || d.title ==\'Ontem\' " (click)="AtualizaGraf()" >Progresso:</h2>\n\n    <div class="progress" *ngIf="d.title == \'Hoje\'" (click)=teste(totalM)>\n\n        <div class="determinate7" style="width: 0%" id="testeH" ></div>\n\n      <div class="determinate1" style="width: 0%" id="teste6" ></div>\n\n      <div class="determinate2" style="width: 0%" id="teste5" ></div>\n\n      <div class="determinate3" style="width: 0%" id="teste4" ></div>\n\n      <div class="determinate4" style="width: 0%" id="teste3" ></div>\n\n      <div class="determinate5" style="width: testao" id="teste2" ></div>\n\n      <div class="determinate6" style="width: 0%" id="teste1" ></div>\n\n      \n\n    </div>\n\n\n\n    <div class="progress2" *ngIf="d.title == \'Ontem\'" (click)=teste(totalM)>\n\n      <div class="determinate1" style="width: 0%" id="teste12" ></div>\n\n      <div class="determinate2" style="width: 0%" id="teste11" ></div>\n\n      <div class="determinate3" style="width: 0%" id="teste10" ></div>\n\n      <div class="determinate4" style="width: 0%" id="teste9" ></div>\n\n      <div class="determinate5" style="width: 0%" id="teste8" ></div>\n\n      <div class="determinate6" style="width: 0%" id="teste7" ></div>\n\n    </div>\n\n    \n\n    <div class="alinharB" *ngIf="d.title == \'Hoje\'">\n\n      <ion-row> \n\n        <ion-col col-7>\n\n          <h3 padding>Tarefas Cotidianas:\n\n            <br>Dormir    - {{RetornaH(Arredonda(Indicadores[0]))}}\n\n            <br>Banho     - {{RetornaH(Arredonda(Indicadores[1]))}}\n\n            <br>Ler       - {{RetornaH(Arredonda(Indicadores[2]))}}\n\n            <br>Programar - {{RetornaH(Arredonda(Indicadores[3]))}}\n\n            <br>Estudar    -  {{RetornaH(Arredonda(Indicadores[10]))}}\n\n            <br>Frances    -  {{RetornaH(Arredonda(Indicadores[4]))}}\n\n          </h3>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <h3>\n\n            <br>\n\n            <br>Ingles    -  {{RetornaH(Arredonda(Indicadores[5]))}}\n\n            <br>Aulas     - {{RetornaH(Arredonda(Indicadores[6]))}}\n\n            <br>Relaxar   - {{RetornaH(Arredonda(Indicadores[7]))}}\n\n            <br>Tempinho  - {{RetornaH(Arredonda(Indicadores[8]))}}\n\n            <br>Dani      - {{RetornaH(Arredonda(Indicadores[9]))}}\n\n          </h3>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n\n\n\n\n    <div *ngIf="d.title == \'Ontem\'">\n\n      <ion-row>\n\n        <ion-col col-7>\n\n          <h3 class="h3">Tarefas Cotidianas:\n\n            <br>Dormir    - {{RetornaH(Arredonda(IndicadoresO[0]))}}\n\n            <br>Banho     - {{RetornaH(Arredonda(IndicadoresO[1]))}}\n\n            <br>Ler       - {{RetornaH(Arredonda(IndicadoresO[2]))}}\n\n            <br>Programar - {{RetornaH(Arredonda(IndicadoresO[3]))}}\n\n            <br>Estudar    -  {{RetornaH(Arredonda(IndicadoresO[10]))}}\n\n            <br>Frances    -  {{RetornaH(Arredonda(IndicadoresO[4]))}}\n\n          </h3>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <h3>\n\n            <br>\n\n            <br>Ingles    -  {{RetornaH(Arredonda(IndicadoresO[5]))}}\n\n            <br>Aulas     - {{RetornaH(Arredonda(IndicadoresO[6]))}}\n\n            <br>Relaxar   - {{RetornaH(Arredonda(IndicadoresO[7]))}}\n\n            <br>Tempinho  - {{RetornaH(Arredonda(IndicadoresO[8]))}}\n\n            <br>Dani      - {{RetornaH(Arredonda(IndicadoresO[9]))}}\n\n          </h3>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n    </div>\n\n  </ion-card>\n\n </ion-col>\n\n </ion-row>\n\n\n\n\n\n<ion-row>\n\n<ion-col col-12 col-xl-6>   \n\n<ion-card >\n\n    <ion-card-header  class="item">Especifico: \n\n    </ion-card-header>\n\n    <ion-item>\n\n      <ion-label class="nome" no-padding (ionChange)="Mostra()">Data</ion-label>\n\n      <ion-datetime  (ionChange)="Mostra()" displayFormat="DDD - DD/MM/YYYY" [(ngModel)]="DataHoje"></ion-datetime>\n\n    </ion-item>\n\n    <ion-list>\n\n      <div *ngFor="let f of (trackersEspecifico | async) ">\n\n        <ion-row class="item">\n\n        <ion-col col-1>\n\n          <ion-item class="item" no-padding>\n\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n          </ion-item>\n\n        </ion-col>\n\n          <ion-col col-1>\n\n           <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n            </button>\n\n          </ion-col>\n\n            <ion-col col-9>\n\n              <ion-item  (click)="goToEdit(f)" >\n\n                <ion-label >{{f.title}}</ion-label>\n\n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n              </ion-item>\n\n            </ion-col>\n\n            <ion-col col-1 >\n\n              <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)"  (press)="PromptCriarNovo(f)" no-padding>\n\n                <ion-icon name="more"></ion-icon>\n\n              </button>\n\n            </ion-col>\n\n         </ion-row>\n\n      </div>\n\n         \n\n    </ion-list>\n\n</ion-card>\n\n</ion-col>\n\n</ion-row>\n\n</ion-grid>\n\n</ion-content>'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\time-tracker\time-tracker.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]])
     ], TimeTrackerPage);
@@ -1157,15 +1580,15 @@ var TimeTrackerPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseServiceProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(415);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operators__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(644);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(692);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1250,15 +1673,18 @@ var FirebaseServiceProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 173:
+/***/ 175:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdicionarPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__resumo_semanal_resumo_semanal__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1272,6 +1698,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 /**
  * Generated class for the AdicionarPage page.
  *
@@ -1279,7 +1708,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var AdicionarPage = /** @class */ (function () {
-    function AdicionarPage(navCtrl, navParams, dbService, statusBar) {
+    function AdicionarPage(toastCtrl, navCtrl, navParams, dbService, statusBar) {
+        this.toastCtrl = toastCtrl;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.dbService = dbService;
@@ -1332,6 +1762,7 @@ var AdicionarPage = /** @class */ (function () {
             'total': '',
             'parcial': '',
         };
+        this.ArrayDeTrackers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10];
         this.DataO = new Date().toISOString();
         this.statusBar.backgroundColorByHexString('#ffffff');
         this.rows = 5;
@@ -1434,6 +1865,7 @@ var AdicionarPage = /** @class */ (function () {
     AdicionarPage.prototype.Criacao = function (controle) {
         this.MudandoData(this.DataO);
         this.dbService.save('diario', controle);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__resumo_semanal_resumo_semanal__["a" /* ResumoSemanalPage */]);
     };
     AdicionarPage.prototype.Total = function () {
         var total;
@@ -1482,11 +1914,143 @@ var AdicionarPage = /** @class */ (function () {
         this.controle.total = String(Number(Number(this.controle.ano) * 10000 + Number(this.controle.mes) * 100 + Number(dia[0])));
         this.controle.parcial = String(Number(Number(this.controle.ano) * 100 + Number(this.controle.mes)));
     };
+    AdicionarPage.prototype.VericaTrackers = function () {
+        var _this = this;
+        var numero = 50;
+        var totalReal;
+        var data = new Date();
+        var dia1 = data.getDate();
+        var mes1 = data.getMonth();
+        var ano1 = data.getFullYear();
+        totalReal = Number(ano1 * 10000 + (mes1 + 1) * 100 + dia1);
+        console.log(this.DataO);
+        var valor = this.DataO;
+        var fields = valor.split('-');
+        var dia = fields[2].split('T');
+        var dia = dia[0];
+        var ano = fields[0];
+        var mes = String(Number(fields[1]));
+        var total = String(Number(Number(ano) * 10000 + Number(mes) * 100 + Number(dia)));
+        console.log(total);
+        var diferenca = Number(totalReal) - Number(total);
+        console.log(diferenca);
+        if (diferenca <= 0) {
+            numero = 50;
+        }
+        if (diferenca <= 2) {
+            numero = 150;
+        }
+        if (diferenca <= 5) {
+            numero = 5 * 30;
+        }
+        if (diferenca <= 10) {
+            numero = 10 * 30;
+        }
+        if (diferenca <= 20) {
+            numero = 20 * 30;
+        }
+        if (diferenca <= 31) {
+            numero = 31 * 30;
+        }
+        if (diferenca <= 200) {
+            numero = 1000;
+        }
+        if (diferenca > 200) {
+            numero = 10000;
+        }
+        var trackersRef = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.database().ref('/trackers').limitToLast(numero).orderByChild("total");
+        trackersRef.on('value', function (trackersList) {
+            var trackers = [];
+            trackersList.forEach(function (tracker) {
+                var obj;
+                obj = tracker.val();
+                obj.key = tracker.key;
+                if (obj['total'] == total) {
+                    trackers.push(obj);
+                    return false;
+                }
+                ;
+            });
+            trackers = trackers.reverse();
+            var trackersArray = trackers;
+            var array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var Estudos = [];
+            var Aulas = [];
+            trackersArray.forEach(function (item) {
+                if (item.title.includes("Dormir")) {
+                    array[0] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Banho")) {
+                    array[1] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Ler")) {
+                    array[2] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Programar")) {
+                    array[3] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Frances")) {
+                    array[4] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Ingles")) {
+                    array[5] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Aula")) {
+                    array[6] += item.duracao;
+                    Aulas.push(item.title);
+                }
+                ;
+                if (item.title.includes("Relaxar")) {
+                    array[7] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Tempinho")) {
+                    array[8] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Dani")) {
+                    array[9] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Estudar")) {
+                    array[10] += item.duracao;
+                    Estudos.push(item.title);
+                }
+                ;
+                if (item.title.includes("Correr")) {
+                    array[11] += item.duracao;
+                }
+                ;
+                if (item.title.includes("Andar")) {
+                    array[12] += item.duracao;
+                }
+            });
+            var array2 = [];
+            array.forEach(function (a) { array2.push(Math.round(a * 100) / 100); });
+            array = array2;
+            _this.ArrayDeTrackers = array;
+            var texto = ("Dia: " + dia + "/" + mes + "\n Tempinho: " + array[8] + "\n Ler: " + array[1] + "\n  Programar: " + array[3] +
+                "\n  Aula: " + array[6] + "\n Estudar mesmo: " + array[10] +
+                "\n Estudar Total: " + String(Number(array[10]) + Number(array[3]) + Number(array[1])) +
+                "\n" + Estudos + "\n" + Aulas);
+            var toast = _this.toastCtrl.create({
+                message: texto,
+                duration: 6000
+            });
+            toast.present();
+        });
+    };
     AdicionarPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-adicionar',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\adicionar\adicionar.html"*/'<!--\n  Generated template for the AdicionarPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Adicionar</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="atualiza()">\n        <ion-icon name="sync"></ion-icon>\n    </button></ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-label class="nome">Remedios: </ion-label>\n          <ion-select class="input" [(ngModel)]="controle.remedios" interface="popover" multiple =  True>\n            <ion-option *ngFor="let rem of (Remedios | async) ">{{rem.title}}</ion-option>\n          </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Dentes: </ion-label>\n        <ion-select  text-righ [(ngModel)]="controle.dentes" interface="popover" multiple =  True>\n          <ion-option text-righ *ngFor="let den of (Dentes | async)">{{den.title}}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Atividades: </ion-label>\n        <ion-select text-righ [(ngModel)]="controle.atividades" interface="popover" multiple =  True>\n          <ion-option text-righ *ngFor="let ativ of (Atividades | async)">{{ativ.title}}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Passos: </ion-label>\n        <ion-input text-right type="number" value="" [(ngModel)]="controle.passos"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    \n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Peso: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="controle.peso"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="100" step = \'5\' [(ngModel)]="controle.andando">\n          <ion-label range-left class="nome">Andando: </ion-label>\n          <ion-label range-right>{{controle.andando}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n        <ion-item>\n          <ion-range no-padding min="0" max="100" step=\'5\' [(ngModel)]="controle.correndo">\n            <ion-label class="nome" range-left >Correndo: </ion-label>\n            <ion-label range-right>{{controle.correndo}}</ion-label>\n          </ion-range>\n        </ion-item>\n      </ion-row>\n\n   <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="60"  [(ngModel)]="controle.tempinho">\n          <ion-label class="nome" range-left>Tempinho: </ion-label>\n          <ion-label range-right>{{controle.tempinho}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="10"  [(ngModel)]="controle.tempinhoQ">\n          <ion-label class="nome" range-left>Tempinho: </ion-label>\n          <ion-label range-right>{{controle.tempinhoQ}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-range no-padding min="0" max="10" [(ngModel)]="controle.UHU">\n          <ion-label class="nome" range-left>Uhu: </ion-label>\n          <ion-label range-right>{{controle.UHU}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.cafe">\n          <ion-label class="nome" range-left>Cafe: </ion-label>\n          <ion-label range-right>{{controle.cafe}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheM">\n          <ion-label class="nome" range-left>Lanche: </ion-label>\n          <ion-label range-right>{{controle.lancheM}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines  >\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.almoco">\n          <ion-label class="nome" range-left>Almoço: </ion-label>\n          <ion-label range-right>{{controle.almoco}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheT">\n          <ion-label class="nome" range-left>Lanche: </ion-label>\n          <ion-label range-right>{{controle.lancheT}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.jantar">\n          <ion-label class="nome" range-left>Jantar: </ion-label>\n          <ion-label range-right>{{controle.jantar}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheN">\n          <ion-label class="nome" range-left>Lanche: </ion-label>\n          <ion-label range-right>{{controle.lancheN}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.doce">\n          <ion-label class="nome" range-left>Doce: </ion-label>\n          <ion-label range-right>{{controle.doce}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.refrigerante">\n          <ion-label class="nome" range-left>Refrigerante: </ion-label>\n          <ion-label range-right>{{controle.refrigerante}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.alcool">\n          <ion-label class="nome" range-left>Alcool: </ion-label>\n          <ion-label range-right>{{controle.alcool}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="12" [(ngModel)]="controle.tempoE">\n          <ion-label class="nome" range-left>Estudando: </ion-label>\n          <ion-label range-right>{{controle.tempoE}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item> \n        <ion-range no-padding min="0" max="12" [(ngModel)]="controle.tempoA">\n          <ion-label class="nome" range-left>Aulas: </ion-label>\n          <ion-label range-right>{{controle.tempoA}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n      <ion-grid no-padding justify-content-center>\n        <ion-row>\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines>\n              <ion-label class="nome2">Viagem:</ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.viagem" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines>\n              <ion-label class="nome2">Besteira:</ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.besteira" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines>\n              <ion-label class="nome2">Barba:</ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.barba" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      \n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Agradecer: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.agradecimento" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Meditação: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.meditacao" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Escrever: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.escrever" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Raser: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.raser" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Exercicios: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.exercicios" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Leitura: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.leitura" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n    \n    <ion-row>\n    <ion-item class="roww2"></ion-item>\n      <ion-item no-lines>\n        <ion-label class="nome" >Role: </ion-label>\n          <ion-select class="input" [(ngModel)]="controle.role" interface="popover" multiple =  True>\n            <ion-option *ngFor="let rol of (Roles | async)">{{rol.title}}</ion-option>\n          </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item no-lines>\n          <ion-label class="nome" >Estudos: </ion-label>\n            <ion-select class="input" [(ngModel)]="controle.estudos" interface="popover" multiple =  True>\n              <ion-option *ngFor="let est of (Estudos | async)">{{est.title}}</ion-option>\n            </ion-select>\n        </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item> \n          <ion-label class="nome" >Pessoas: </ion-label>\n            <ion-select class="input" [(ngModel)]="controle.pessoas" interface="popover" multiple =  True>\n              <ion-option *ngFor="let pes of (Pessoas | async)">{{pes.title}}</ion-option>\n            </ion-select>\n        </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item>\n        <ion-label class="nome" no-padding >Resumo: </ion-label>\n        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>\n      </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item>\n        <ion-label class="nome" no-padding >Viagem: </ion-label>\n        <ion-input [(ngModel)]="controle.viagemLugar"  (click)="roww()" style="color: black; font-size: 13px;" rows="1" autocomplete="on" autocorrect="on" type="text" value="" ></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-item>\n      <ion-label class="nome" no-padding (click)="Mostra()">Data</ion-label>\n      <ion-datetime  (click)="Mostra()" displayFormat="DD/MM/YYYY" [(ngModel)]="DataO"></ion-datetime>\n    </ion-item>\n\n    <ion-row justify-content-center>\n      <button class="btn3" ion-button round small outline (click)="Ontem(controle)">Ontem</button>\n      <button class="btn3" ion-button round small (click)="Criacao(controle)">Adicionar</button>\n   </ion-row>\n\n \n\n  </ion-grid>\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\adicionar\adicionar.html"*/,
+            selector: 'page-adicionar',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\adicionar\adicionar.html"*/'<!--\n  Generated template for the AdicionarPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Adicionar</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="atualiza()">\n        <ion-icon name="sync"></ion-icon>\n    </button>\n    <button ion-button icon-only (click)="VericaTrackers()">\n      <ion-icon name="search"></ion-icon>\n  </button>\n  </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n\n    <ion-item>\n      <ion-label class="nome" no-padding (click)="Mostra()">Data</ion-label>\n      <ion-datetime  (click)="Mostra()" displayFormat="DDD - DD/MM/YYYY" [(ngModel)]="DataO"></ion-datetime>\n    </ion-item>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-label class="nome">Remedios: </ion-label>\n          <ion-select class="input" [(ngModel)]="controle.remedios" interface="popover" multiple =  True>\n            <ion-option *ngFor="let rem of (Remedios | async) ">{{rem.title}}</ion-option>\n          </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Dentes: </ion-label>\n        <ion-select  text-righ [(ngModel)]="controle.dentes" interface="popover" multiple =  True>\n          <ion-option text-righ *ngFor="let den of (Dentes | async)">{{den.title}}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Atividades: </ion-label>\n        <ion-select text-righ [(ngModel)]="controle.atividades" interface="popover" multiple =  True>\n          <ion-option text-righ *ngFor="let ativ of (Atividades | async)">{{ativ.title}}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Passos: </ion-label>\n        <ion-input text-right type="number" value="" [(ngModel)]="controle.passos"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    \n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Peso: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="controle.peso"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="100" step = \'5\' [(ngModel)]="controle.andando">\n          <ion-label range-left class="nome">Andando: ({{ArrayDeTrackers[12]}})  </ion-label>\n          <ion-label range-right>{{controle.andando}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n        <ion-item>\n          <ion-range no-padding min="0" max="100" step=\'5\' [(ngModel)]="controle.correndo">\n            <ion-label class="nome" range-left >Correndo: ({{ArrayDeTrackers[11]}}) </ion-label>\n            <ion-label range-right>{{controle.correndo}}</ion-label>\n          </ion-range>\n        </ion-item>\n      </ion-row>\n\n   <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="60"  [(ngModel)]="controle.tempinho">\n          <ion-label class="nome" range-left>Tempinho: ({{ArrayDeTrackers[8]}}) </ion-label>\n          <ion-label range-right>{{controle.tempinho}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="10"  [(ngModel)]="controle.tempinhoQ">\n          <ion-label class="nome" range-left>Tempinho: </ion-label>\n          <ion-label range-right>{{controle.tempinhoQ}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-range no-padding min="0" max="10" [(ngModel)]="controle.UHU">\n          <ion-label class="nome" range-left>Uhu: </ion-label>\n          <ion-label range-right>{{controle.UHU}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.cafe">\n          <ion-label class="nome" range-left>Cafe: </ion-label>\n          <ion-label range-right>{{controle.cafe}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheM">\n          <ion-label class="nome" range-left>Lanche: </ion-label>\n          <ion-label range-right>{{controle.lancheM}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines  >\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.almoco">\n          <ion-label class="nome" range-left>Almoço: </ion-label>\n          <ion-label range-right>{{controle.almoco}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheT">\n          <ion-label class="nome" range-left>Lanche: </ion-label>\n          <ion-label range-right>{{controle.lancheT}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.jantar">\n          <ion-label class="nome" range-left>Jantar: </ion-label>\n          <ion-label range-right>{{controle.jantar}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.lancheN">\n          <ion-label class="nome" range-left>Lanche: </ion-label>\n          <ion-label range-right>{{controle.lancheN}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.doce">\n          <ion-label class="nome" range-left>Doce: </ion-label>\n          <ion-label range-right>{{controle.doce}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.refrigerante">\n          <ion-label class="nome" range-left>Refrigerante: </ion-label>\n          <ion-label range-right>{{controle.refrigerante}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item>\n        <ion-range no-padding min="0" max="5" [(ngModel)]="controle.alcool">\n          <ion-label class="nome" range-left>Alcool: </ion-label>\n          <ion-label range-right>{{controle.alcool}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item no-lines>\n        <ion-range no-padding min="0" max="12" [(ngModel)]="controle.tempoE">\n          <ion-label class="nome" range-left>Estudando: ({{ArrayDeTrackers[10]}}) </ion-label>\n          <p>{{ArrayDeTrackers[10]}}</p>\n          <ion-label range-right>{{controle.tempoE}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n    <ion-row  class="roww">\n      <ion-item> \n        <ion-range no-padding min="0" max="12" [(ngModel)]="controle.tempoA">\n          <ion-label class="nome" range-left>Aulas: ({{ArrayDeTrackers[6]}}) </ion-label>\n          <ion-label range-right>{{controle.tempoA}}</ion-label>\n        </ion-range>\n      </ion-item>\n    </ion-row>\n\n      <ion-grid no-padding justify-content-center>\n        <ion-row>\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines>\n              <ion-label class="nome2">Viagem:</ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.viagem" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines>\n              <ion-label class="nome2">Besteira:</ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.besteira" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines>\n              <ion-label class="nome2">Barba:</ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.barba" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      \n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Agradecer: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.agradecimento" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Meditação: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.meditacao" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Escrever: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.escrever" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Raser: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.raser" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Exercicios: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.exercicios" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n\n        <ion-col col-4 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Leitura: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="controle.leitura" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n    \n    <ion-row>\n    <ion-item class="roww2"></ion-item>\n      <ion-item no-lines>\n        <ion-label class="nome" >Role: </ion-label>\n          <ion-select class="input" [(ngModel)]="controle.role" interface="popover" multiple =  True>\n            <ion-option *ngFor="let rol of (Roles | async)">{{rol.title}}</ion-option>\n          </ion-select>\n      </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item no-lines>\n          <ion-label class="nome" >Estudos: </ion-label>\n            <ion-select class="input" [(ngModel)]="controle.estudos" interface="popover" multiple =  True>\n              <ion-option *ngFor="let est of (Estudos | async)">{{est.title}}</ion-option>\n            </ion-select>\n        </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item> \n          <ion-label class="nome" >Pessoas: </ion-label>\n            <ion-select class="input" [(ngModel)]="controle.pessoas" interface="popover" multiple =  True>\n              <ion-option *ngFor="let pes of (Pessoas | async)">{{pes.title}}</ion-option>\n            </ion-select>\n        </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item>\n        <ion-label class="nome" no-padding >Resumo: </ion-label>\n        <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="5" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="controle.resumo"></ion-textarea>\n      </ion-item>\n    </ion-row>\n\n    <ion-row>\n      <ion-item>\n        <ion-label class="nome" no-padding >Viagem: </ion-label>\n        <ion-input [(ngModel)]="controle.viagemLugar"  (click)="roww()" style="color: black; font-size: 13px;" rows="1" autocomplete="on" autocorrect="on" type="text" value="" ></ion-input>\n      </ion-item>\n    </ion-row>\n\n    \n\n    <ion-row justify-content-center>\n      <button class="btn3" ion-button round small outline (click)="Ontem(controle)">Ontem</button>\n      <button class="btn3" ion-button round small (click)="Criacao(controle)">Adicionar</button>\n   </ion-row>\n\n \n\n  </ion-grid>\n  \n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\adicionar\adicionar.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_5__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]])
     ], AdicionarPage);
     return AdicionarPage;
 }());
@@ -1495,15 +2059,15 @@ var AdicionarPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 174:
+/***/ 176:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalisePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__edicao_edicao__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__edicao_edicao__ = __webpack_require__(104);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1601,7 +2165,7 @@ var AnalisePage = /** @class */ (function () {
     };
     AnalisePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-analise',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\analise\analise.html"*/'<!--\n\n  Generated template for the AnalisePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Analise</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-scroll scrollX="true" scrollY="true" style="width:150%; height: 100%">\n\n    <div class="inner">\n\n      <ion-row>\n\n        <ion-col col-1>\n\n          <h2 class="dados" justify-content-center>Dia</h2>\n\n        </ion-col>\n\n        <ion-col col-1 *ngFor="let item of itens" justify-content-center> \n\n          <h2 class="cabecalho" justify-content-center>{{item.title}} </h2>\n\n        </ion-col>\n\n      </ion-row>\n\n\n\n      <ion-row *ngFor="let dado of (Dados | async)">\n\n      <ion-row col-12 *ngIf="ChecaDia(dado.dia,dado.mes,dado.ano) == true"> ____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</ion-row>        \n\n        <ion-col no-padding col-1 justify-content-center (click)="GoEdicao(dado)">\n\n          <h2 class="dados">{{dado.dia}}/{{dado.mes}}</h2>\n\n        </ion-col>\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{iconColor(dado.leitura)}}" name="{{icon(dado.leitura)}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{contemCor(dado.atividades,\'Corrida\')}}" name="{{contem(dado.atividades,\'Corrida\')}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{contadorCor(dado.passos,\'8000\')}}" name="{{contador(dado.passos,\'8000\')}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{iconColor(dado.agradecimento)}}" name="{{icon(dado.agradecimento)}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{iconColor(dado.meditacao)}}" name="{{icon(dado.meditacao)}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center> {{dado.peso}}\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center> {{dado.passos}}\n\n          </h2>\n\n        </ion-col>\n\n\n\n        \n\n\n\n\n\n      </ion-row>\n\n    </div>\n\n  </ion-scroll>\n\n    \n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\analise\analise.html"*/,
+            selector: 'page-analise',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\analise\analise.html"*/'<!--\n\n  Generated template for the AnalisePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Analise</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-scroll scrollX="true" scrollY="true" style="width:150vw; height: 100%">\n\n    <div class="inner">\n\n      <ion-row>\n\n        <ion-col col-1>\n\n          <h2 class="dados" justify-content-center>Dia</h2>\n\n        </ion-col>\n\n        <ion-col col-1 *ngFor="let item of itens" justify-content-center> \n\n          <h2 class="cabecalho" justify-content-center>{{item.title}} </h2>\n\n        </ion-col>\n\n      </ion-row>\n\n\n\n      <ion-row *ngFor="let dado of (Dados | async)">\n\n      <ion-row col-12 *ngIf="ChecaDia(dado.dia,dado.mes,dado.ano) == true"> ____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</ion-row>        \n\n        <ion-col no-padding col-1 justify-content-center (click)="GoEdicao(dado)">\n\n          <h2 class="dados">{{dado.dia}}/{{dado.mes}}</h2>\n\n        </ion-col>\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{iconColor(dado.leitura)}}" name="{{icon(dado.leitura)}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{contemCor(dado.atividades,\'Corrida\')}}" name="{{contem(dado.atividades,\'Corrida\')}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{contadorCor(dado.passos,\'8000\')}}" name="{{contador(dado.passos,\'8000\')}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{iconColor(dado.agradecimento)}}" name="{{icon(dado.agradecimento)}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center>\n\n            <ion-icon  color="{{iconColor(dado.meditacao)}}" name="{{icon(dado.meditacao)}}"></ion-icon>\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center> {{dado.peso}}\n\n          </h2>\n\n        </ion-col>\n\n\n\n        <ion-col no-padding col-1 justify-content-center>\n\n          <h2 class="dados" justify-content-center> {{dado.passos}}\n\n          </h2>\n\n        </ion-col>\n\n\n\n        \n\n\n\n\n\n      </ion-row>\n\n    </div>\n\n  </ion-scroll>\n\n    \n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\analise\analise.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */]])
     ], AnalisePage);
@@ -1612,62 +2176,16 @@ var AnalisePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 175:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfiguracoesEditPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the ConfiguracoesEditPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ConfiguracoesEditPage = /** @class */ (function () {
-    function ConfiguracoesEditPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.edits = this.navParams.get('edicao');
-    }
-    ConfiguracoesEditPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ConfiguracoesEditPage');
-    };
-    ConfiguracoesEditPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-configuracoes-edit',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes-edit\configuracoes-edit.html"*/'<!--\n  Generated template for the ConfiguracoesEditPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Edição de Configuração</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Nome: </ion-label>\n          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="edit.title"></ion-input>\n        </ion-item>\n      </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Check: </ion-label>\n        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.mes"></ion-input>\n      </ion-item>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes-edit\configuracoes-edit.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
-    ], ConfiguracoesEditPage);
-    return ConfiguracoesEditPage;
-}());
-
-//# sourceMappingURL=configuracoes-edit.js.map
-
-/***/ }),
-
-/***/ 176:
+/***/ 177:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardsDoMesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__edicao_edicao__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_chart_js__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__edicao_edicao__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_chart_js__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_chart_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2092,15 +2610,15 @@ var CardsDoMesPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards_do_mes_cards_do_mes__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards_do_mes_cards_do_mes__ = __webpack_require__(177);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2325,6 +2843,11 @@ var CardsPage = /** @class */ (function () {
                 comeco += 1;
             }
             comeco = 201901;
+            while (comeco <= 201912) {
+                array.push(comeco);
+                comeco += 1;
+            }
+            comeco = 202001;
             while (comeco <= total) {
                 array.push(comeco);
                 comeco += 1;
@@ -2408,15 +2931,63 @@ var CardsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfiguracoesEditPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the ConfiguracoesEditPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ConfiguracoesEditPage = /** @class */ (function () {
+    function ConfiguracoesEditPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.edits = this.navParams.get('edicao');
+    }
+    ConfiguracoesEditPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ConfiguracoesEditPage');
+    };
+    ConfiguracoesEditPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-configuracoes-edit',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes-edit\configuracoes-edit.html"*/'<!--\n  Generated template for the ConfiguracoesEditPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Edição de Configuração</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Nome: </ion-label>\n          <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="edit.title"></ion-input>\n        </ion-item>\n      </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Check: </ion-label>\n        <ion-input text-right type="number" clearInput="true" value="" [(ngModel)]="tarefa.mes"></ion-input>\n      </ion-item>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes-edit\configuracoes-edit.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+    ], ConfiguracoesEditPage);
+    return ConfiguracoesEditPage;
+}());
+
+//# sourceMappingURL=configuracoes-edit.js.map
+
+/***/ }),
+
+/***/ 180:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfiguracoesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__configuracoes_edit_configuracoes_edit__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__configuracoes_edit_configuracoes_edit__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2430,6 +3001,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the ConfiguracoesPage page.
  *
@@ -2438,11 +3010,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var ConfiguracoesPage = /** @class */ (function () {
     function ConfiguracoesPage(navCtrl, navParams, dbService, alertCtrl, actionSheetCtrl) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.dbService = dbService;
         this.alertCtrl = alertCtrl;
         this.actionSheetCtrl = actionSheetCtrl;
+        this.DiaDaSemana = {
+            'title': '',
+            'tarefas': [],
+            'ordem': Number(''),
+        };
         this.tarefa = {
             'title': '',
             'nivel': '',
@@ -2496,6 +3074,63 @@ var ConfiguracoesPage = /** @class */ (function () {
             'check': true,
             'ordem': Number('')
         };
+        this.PessoasRef = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.database().ref('/configuracoes/pessoas').limitToLast(100).orderByChild("ordem");
+        this.RemediosRef = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.database().ref('/configuracoes/remedios').limitToLast(100).orderByChild("ordem");
+        this.RolesRef = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.database().ref('/configuracoes/roles').limitToLast(100).orderByChild("ordem");
+        this.EstudosRef = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.database().ref('/configuracoes/estudos').limitToLast(100).orderByChild("ordem");
+        console.log(this.DiasRef = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.database().ref('/configuracoes/diasDaSemana').limitToLast(10).orderByChild("ordem"));
+        this.PessoasRef.on('value', function (pessoasList) {
+            var pessoasM = [];
+            var count = 0;
+            pessoasList.forEach(function (pessoas) {
+                count += 1;
+                var obj;
+                obj = pessoas.val();
+                obj.key = pessoas.key;
+                pessoasM.push(obj);
+                return false;
+            });
+            _this.pessoasList = pessoasM;
+        });
+        this.RemediosRef.on('value', function (remediosList) {
+            var pessoasM = [];
+            var count = 0;
+            remediosList.forEach(function (pessoas) {
+                count += 1;
+                var obj;
+                obj = pessoas.val();
+                obj.key = pessoas.key;
+                pessoasM.push(obj);
+                return false;
+            });
+            _this.remediosList = pessoasM;
+        });
+        this.RolesRef.on('value', function (pessoasList) {
+            var pessoasM = [];
+            var count = 0;
+            pessoasList.forEach(function (pessoas) {
+                count += 1;
+                var obj;
+                obj = pessoas.val();
+                obj.key = pessoas.key;
+                pessoasM.push(obj);
+                return false;
+            });
+            _this.rolesList = pessoasM;
+        });
+        this.EstudosRef.on('value', function (pessoasList) {
+            var pessoasM = [];
+            var count = 0;
+            pessoasList.forEach(function (pessoas) {
+                count += 1;
+                var obj;
+                obj = pessoas.val();
+                obj.key = pessoas.key;
+                pessoasM.push(obj);
+                return false;
+            });
+            _this.estudosList = pessoasM;
+        });
         this.remedios = this.dbService.getAll('configuracoes/remedios', 'ordem');
         this.dentes = this.dbService.getAll('configuracoes/dentes', 'ordem');
         this.atividades = this.dbService.getAll('configuracoes/atividades', 'ordem');
@@ -2505,6 +3140,7 @@ var ConfiguracoesPage = /** @class */ (function () {
         this.viagens = this.dbService.getAll('configuracoes/viagens', 'ordem');
         this.tarefas = this.dbService.getAll('configuracoes/tarefas', 'ordem');
         this.shows = this.dbService.getAll('configuracoes/shows', 'ordem');
+        this.pessoas.subscribe(function (res) { return console.log(res); });
         this.parametros = [{ title: 'atalho' },
             { title: 'categoria' },
             { title: 'configuracoes' },
@@ -2598,6 +3234,10 @@ var ConfiguracoesPage = /** @class */ (function () {
                             _this.pessoa.title = data.title, _this.pessoa.ordem = Number(data.ordem);
                             _this.dbService.save('configuracoes/pessoas', _this.pessoa);
                         }
+                        if (local == "DiaDaSemana") {
+                            _this.DiaDaSemana.title = data.title, _this.DiaDaSemana.ordem = Number(data.ordem);
+                            _this.dbService.save('configuracoes/diaDaSemana', _this.DiaDaSemana);
+                        }
                         if (local == "shows") {
                             _this.show.title = data.title, _this.show.ordem = Number(data.ordem);
                             _this.dbService.save('configuracoes/shows2', _this.show);
@@ -2671,6 +3311,11 @@ var ConfiguracoesPage = /** @class */ (function () {
                     handler: function () {
                         _this.Deletar(track, local);
                     }
+                }, {
+                    text: 'Editar',
+                    handler: function () {
+                        _this.EditarProp(track, local);
+                    }
                 },
                 {
                     text: 'Cancelar',
@@ -2700,9 +3345,79 @@ var ConfiguracoesPage = /** @class */ (function () {
             console.log('enviei', _this.parametros);
         }, 10000);
     };
+    ConfiguracoesPage.prototype.EditarProp = function (track, local) {
+        var _this = this;
+        var prompt = this.alertCtrl.create({
+            title: 'Editar:' + String(local),
+            message: "Entre com o nome e ordem",
+            inputs: [
+                {
+                    name: 'title',
+                    placeholder: track.title,
+                    value: track.title,
+                },
+                {
+                    name: 'ordem',
+                    placeholder: track.ordem,
+                    value: track.ordem,
+                    type: 'number',
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                },
+                {
+                    text: 'Atualizar',
+                    handler: function (data) {
+                        track.title = data.title;
+                        track.ordem = Number(data.ordem);
+                        _this.dbService.update(String('configuracoes/' + local), track);
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    ConfiguracoesPage.prototype.reorderItems = function (indexes, local) {
+        var _this = this;
+        var element = this.pessoas[indexes.from];
+        var a = 1;
+        this.pessoas.forEach(function (elements) {
+            elements.forEach(function (element) {
+                element.ordem = a;
+                a += 1;
+                _this.dbService.update(String('configuracoes/' + local), element);
+            });
+        });
+        console.log(indexes, element);
+        if (indexes.from < indexes.to) {
+            this.pessoas.forEach(function (elements) { elements.forEach(function (element) { var continua = true; if (element.ordem - 1 == indexes.from) {
+                element.ordem = indexes.to + 1;
+                continua = false;
+            } ; if (continua == true && element.ordem < indexes.to) {
+                element.ordem -= 1;
+            } }); });
+            this.pessoas.forEach(function (elements) { elements.forEach(function (element) { _this.dbService.update(String('configuracoes/' + local), element); }); });
+        }
+    };
+    ConfiguracoesPage.prototype.reorderItems2 = function (indexes, local, lista) {
+        var _this = this;
+        console.log("ola");
+        var a = 0;
+        var element = lista[indexes.from];
+        lista.splice(indexes.from, 1);
+        lista.splice(indexes.to, 0, element);
+        console.log(this.pessoasList);
+        lista.forEach(function (element) {
+            element.ordem = a + 1;
+            a += 1;
+            _this.dbService.update(String('configuracoes/' + local), element);
+        });
+    };
     ConfiguracoesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-configuracoes',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes\configuracoes.html"*/'<!--\n  Generated template for the ConfiguracoesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Configuracoes</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <ion-item-group>\n      <ion-item-divider color="light" (click)="CriaNovo(\'remedios\')" >Remédio</ion-item-divider>\n      <ion-item *ngFor="let f of (remedios | async)">\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'remedios\')" (press)="Opcoes(f,\'remedios\')" ></ion-checkbox>\n        </ion-item>\n    </ion-item-group>\n\n    <ion-item-group>\n      <ion-item-divider color="light" (click)="CriaNovo(\'dentes\')" >Dentes</ion-item-divider>\n      <ion-item *ngFor="let f of (dentes | async)">\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'dentes\')" (press)="Opcoes(f,\'dentes\')" ></ion-checkbox>\n        </ion-item>\n    </ion-item-group>\n\n  <ion-item-group>\n    <ion-item-divider color="light" (click)="CriaNovo(\'atividades\')" >Atividades</ion-item-divider>\n    <ion-item *ngFor="let f of (atividades | async)">\n    <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'atividades\')" (press)="Opcoes(f,\'atividades\')" ></ion-checkbox>\n      </ion-item>\n  </ion-item-group>\n\n  <ion-item-group>\n    <ion-item-divider color="light" (click)="CriaNovo(\'roles\')" >Roles</ion-item-divider>\n    <ion-item *ngFor="let f of (roles | async)">\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n        <ion-checkbox (press)="Opcoes(f,\'roles\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'roles\')" (press)="Opcoes(f,\'roles\')"></ion-checkbox>\n      </ion-item>\n  </ion-item-group>\n\n  <ion-item-group>\n    <ion-item-divider color="light" (click)="CriaNovo(\'estudos\')" >Estudos</ion-item-divider>\n    <ion-item *ngFor="let f of (estudos | async)">\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n        <ion-checkbox (press)="Opcoes(f,\'roles\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'estudos\')" (press)="Opcoes(f,\'estudos\')"></ion-checkbox>\n      </ion-item>\n  </ion-item-group>\n\n  <ion-item-group>\n    <ion-item-divider color="light" (click)="CriaNovo(\'pessoas\')" >Pessoas</ion-item-divider>\n    <ion-item *ngFor="let f of (pessoas | async)">\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n        <ion-checkbox (press)="Opcoes(f,\'pessoas\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'pessoas\')" (press)="Opcoes(f,\'pessoas\')"></ion-checkbox>\n      </ion-item>\n  </ion-item-group>\n\n  <ion-item-group>\n    <ion-item-divider color="light" (click)="CriaTarefa()" >Tarefas</ion-item-divider>\n    <ion-item *ngFor="let f of (tarefas | async)">\n      <ion-label> {{f.ordem}} - {{f.title}} - Nível:{{f.nivel}} </ion-label>\n        <ion-checkbox  (press)="Opcoes(f,\'tarefas\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'tarefa\')"></ion-checkbox>\n      </ion-item>\n  </ion-item-group>\n  <ion-item-group>\n      <ion-item-divider color="light" (click)="CriaNovo(\'shows\')" >Show</ion-item-divider>\n      <ion-item *ngFor="let f of (shows | async)">\n        <ion-label> {{f.ordem}} - {{f.title}}</ion-label>\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'tarefa\')"></ion-checkbox>\n        </ion-item>\n    </ion-item-group>\n\n    <ion-item-group>\n      <ion-item-divider color="light" (click)="CriaBackup()" >Backup</ion-item-divider>\n      <ion-item *ngFor="let f of (backup | async)">\n        <ion-label>Teste</ion-label>\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'tarefa\')"></ion-checkbox>\n        </ion-item>\n    </ion-item-group>\n\n  \n\n  \n\n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes\configuracoes.html"*/,
+            selector: 'page-configuracoes',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes\configuracoes.html"*/'<!--\n\n  Generated template for the ConfiguracoesPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Configuracoes</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n    <ion-item-group>\n\n      <ion-item-divider color="light" (click)="CriaNovo(\'remedios\')" >Remédio</ion-item-divider>\n\n      <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,\'remedios\',remediosList)">\n\n        <ion-item *ngFor="let f of remediosList">\n\n        <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'remedios\')" (press)="Opcoes(f,\'remedios\')" ></ion-checkbox>\n\n        </ion-item>\n\n    </ion-item-group>\n\n    </ion-item-group>\n\n\n\n    <ion-item-group>\n\n      <ion-item-divider color="light" (click)="CriaNovo(\'dentes\')" >Dentes</ion-item-divider>\n\n      <ion-item *ngFor="let f of (dentes | async)">\n\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'dentes\')" (press)="Opcoes(f,\'dentes\')" ></ion-checkbox>\n\n        </ion-item>\n\n    </ion-item-group>\n\n    \n\n\n\n    \n\n  <ion-item-group>\n\n    <ion-item-divider color="light" (click)="CriaNovo(\'atividades\')" >Atividades</ion-item-divider>\n\n    <ion-item *ngFor="let f of (atividades | async)">\n\n    <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n        <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'atividades\')" (press)="Opcoes(f,\'atividades\')" ></ion-checkbox>\n\n      </ion-item>\n\n  </ion-item-group>\n\n\n\n  <ion-item-group>\n\n    <ion-item-divider color="light" (click)="CriaNovo(\'roles\')" >Roles</ion-item-divider>\n\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,\'roles\',rolesList)">\n\n    <ion-item *ngFor="let f of rolesList">\n\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n        <ion-checkbox (press)="Opcoes(f,\'roles\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'roles\')" (press)="Opcoes(f,\'roles\')"></ion-checkbox>\n\n      </ion-item>\n\n    </ion-item-group>\n\n  </ion-item-group>\n\n\n\n  <ion-item-group>\n\n    <ion-item-divider color="light" (click)="CriaNovo(\'estudos\')" >Estudos</ion-item-divider>\n\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,\'estudos\',estudosList)">\n\n    <ion-item *ngFor="let f of estudosList">\n\n      <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n        <ion-checkbox (press)="Opcoes(f,\'roles\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'estudos\')" (press)="Opcoes(f,\'estudos\')"></ion-checkbox>\n\n      </ion-item>\n\n    </ion-item-group>\n\n  </ion-item-group>\n\n\n\n  <ion-item-group>\n\n    <ion-item-divider color="light" (click)="CriaNovo(\'pessoas\')" >Pessoas</ion-item-divider>\n\n    <ion-list>\n\n      <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,\'pessoas\',pessoasList)">\n\n        <ion-item *ngFor="let f of (pessoasList)">\n\n          <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n            <ion-checkbox (press)="Opcoes(f,\'pessoas\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'pessoas\')" (press)="Opcoes(f,\'pessoas\')"></ion-checkbox>\n\n        </ion-item>\n\n      </ion-item-group>\n\n    </ion-list> \n\n  </ion-item-group>\n\n\n\n  <ion-item-group>\n\n    <ion-item-divider color="light" (click)="CriaNova(\'DiaDaSemana\')" >Dias da semana:</ion-item-divider>\n\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems2($event,\'pessoas\',pessoasList)">\n\n      <ion-item *ngFor="let f of (pessoasList)">\n\n        <ion-label> {{f.ordem}} - {{f.title}} </ion-label>\n\n          <ion-checkbox (press)="Opcoes(f,\'pessoas\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'pessoas\')" (press)="Opcoes(f,\'pessoas\')"></ion-checkbox>\n\n      </ion-item>\n\n    </ion-item-group>\n\n  </ion-item-group>\n\n\n\n  <ion-item-group>\n\n    <ion-item-divider color="light" (click)="CriaTarefa()" >Tarefas</ion-item-divider>\n\n    <ion-item *ngFor="let f of (tarefas | async)">\n\n      <ion-label> {{f.ordem}} - {{f.title}} - Nível:{{f.nivel}} </ion-label>\n\n        <ion-checkbox  (press)="Opcoes(f,\'tarefas\')" [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'tarefa\')"></ion-checkbox>\n\n      </ion-item>\n\n  </ion-item-group>\n\n  \n\n\n\n\n\n  <ion-item-group>\n\n      <ion-item-divider color="light" (click)="CriaNovo(\'shows\')" >Show</ion-item-divider>\n\n      <ion-item *ngFor="let f of (shows | async)">\n\n        <ion-label> {{f.ordem}} - {{f.title}}</ion-label>\n\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'tarefa\')"></ion-checkbox>\n\n        </ion-item>\n\n    </ion-item-group>\n\n\n\n    <ion-item-group>\n\n      <ion-item-divider color="light" (click)="CriaBackup()" >Backup</ion-item-divider>\n\n      <ion-item *ngFor="let f of (backup | async)">\n\n        <ion-label>Teste</ion-label>\n\n          <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f,\'tarefa\')"></ion-checkbox>\n\n        </ion-item>\n\n    </ion-item-group>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\configuracoes\configuracoes.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]])
     ], ConfiguracoesPage);
@@ -2713,14 +3428,14 @@ var ConfiguracoesPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 179:
+/***/ 181:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilmeEditPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2855,15 +3570,15 @@ var FilmeEditPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 180:
+/***/ 182:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilmesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filme_edit_filme_edit__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filme_edit_filme_edit__ = __webpack_require__(181);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3027,14 +3742,14 @@ var FilmesPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 181:
+/***/ 183:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LivrosEditPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3097,15 +3812,15 @@ var LivrosEditPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 182:
+/***/ 184:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LivrosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__livros_edit_livros_edit__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__livros_edit_livros_edit__ = __webpack_require__(183);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3239,15 +3954,15 @@ var LivrosPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 183:
+/***/ 185:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_chart_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3472,14 +4187,14 @@ var NotasPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 184:
+/***/ 186:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantesEditPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3533,15 +4248,15 @@ var RestaurantesEditPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 185:
+/***/ 187:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__restaurantes_edit_restaurantes_edit__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__restaurantes_edit_restaurantes_edit__ = __webpack_require__(186);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3752,453 +4467,6 @@ var RestaurantesPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 186:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResumoSemanalPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(422);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_chart_js__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the ResumoSemanalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ResumoSemanalPage = /** @class */ (function () {
-    function ResumoSemanalPage(navCtrl, navParams) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.DadosSemList = [];
-        this.DadosSemList2 = [];
-        this.DadosSemRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/diario').limitToLast(14).orderByChild("total");
-        this.DadosMesRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/diario').limitToLast(31).orderByChild("total");
-        this.Mes = this.GetMes();
-        this.DadosSemRef.on('value', function (DadosSemList) {
-            var DadosArray = [];
-            DadosSemList.forEach(function (dado) {
-                var obj;
-                obj = dado.val();
-                obj.DiaSemana = _this.TotalToData(obj.total);
-                obj.key = dado.key;
-                DadosArray.push(obj);
-                return false;
-            });
-            DadosArray = DadosArray.reverse();
-            var numero = 0;
-            numero = DadosArray.findIndex(function (element) { return element.DiaSemana == "Domingo"; });
-            console.log(numero, 'qual o numero do array');
-            DadosArray.slice(0, numero);
-            _this.DadosSemList = (DadosArray.slice(0, Number(numero) + 1)).reverse();
-            _this.DadosSemList2 = (DadosArray.slice(Number(numero), Number(numero) + 7)).reverse();
-            console.log("ola", _this.DadosSemList, _this.DadosSemList2);
-        });
-        this.DadosMesRef.on('value', function (DadosMesList) {
-            var DadosArray = [];
-            DadosMesList.forEach(function (dado) {
-                var obj;
-                obj = dado.val();
-                obj.key = dado.key;
-                if (obj.parcial == _this.Mes) {
-                    DadosArray.push(obj);
-                }
-                return false;
-            });
-            _this.DadosMesList = DadosArray;
-            console.log('Array', DadosArray);
-        });
-        console.log("ola", this.DadosSemList, this.DadosSemList2);
-        console.log('oi');
-    }
-    ResumoSemanalPage.prototype.GetMes = function () {
-        var data = new Date;
-        var mes = data.getMonth() + 1;
-        var ano = data.getFullYear();
-        var parcial = Number(ano) * 100 + mes;
-        return (parcial);
-    };
-    ResumoSemanalPage.prototype.TotalToData = function (total) {
-        var dia;
-        var mes;
-        var ano;
-        var semana;
-        var final;
-        ano = total.substr(0, 4);
-        mes = total.substr(4, 2);
-        dia = total.substr(6, 2);
-        var myDate = new Date();
-        myDate.setFullYear(Number(ano));
-        myDate.setMonth(Number(mes) - 1);
-        myDate.setDate(Number(dia));
-        if (myDate.getDay() == 1) {
-            semana = 'Segunda';
-        }
-        if (myDate.getDay() == 2) {
-            semana = 'Terça';
-        }
-        if (myDate.getDay() == 3) {
-            semana = 'Quarta';
-        }
-        if (myDate.getDay() == 4) {
-            semana = 'Quinta';
-        }
-        if (myDate.getDay() == 5) {
-            semana = 'Sexta';
-        }
-        if (myDate.getDay() == 6) {
-            semana = 'Sábado';
-        }
-        if (myDate.getDay() == 0) {
-            semana = 'Domingo';
-        }
-        final = (dia + '/' + mes + '/' + ano + " - " + semana);
-        return (semana);
-    };
-    ResumoSemanalPage.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.barChart = _this.getBarChart();
-            _this.barChart2 = _this.getBarChart2();
-            _this.circleChart = _this.getCircleChart();
-        }, 600);
-    };
-    ResumoSemanalPage.prototype.getBarChart = function () {
-        var data = {
-            labels: ['Dom', "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
-            datasets: [{
-                    label: ['Minimo'],
-                    data: [8000, 8000, 8000, 8000, 8000, 8000, 8000],
-                    type: 'line',
-                    backgroundColor: 'rgba(255, 255, 255, .100)',
-                    borderColor: '#FF0000'
-                },
-                {
-                    label: ['Passos passados'],
-                    data: this.DadosSemList2.map(function (a) { return Number(a.passos); }),
-                    backgroundColor: '#C4DAFF',
-                    borderWidth: 0.5,
-                }, {
-                    label: ['Atual'],
-                    data: this.DadosSemList.map(function (a) { return Number(a.passos); }),
-                    backgroundColor: '#2f6acf',
-                    borderWidth: 2
-                },
-            ]
-        };
-        var options = {
-            scales: {
-                yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            autoSkip: false,
-                        }
-                    }],
-                xAxes: [{
-                        ticks: {
-                            autoSkip: false,
-                        }
-                    }]
-            }
-        };
-        return this.getChart(this.barCanvas.nativeElement, 'bar', data, options);
-    };
-    ResumoSemanalPage.prototype.getBarChart2 = function () {
-        var data = {
-            labels: this.DadosMesList.map(function (a) { return Number(a.dia); }),
-            datasets: [{
-                    label: ['Peso'],
-                    yAxisID: 'B',
-                    data: this.DadosMesList.map(function (a) { return Number(a.peso); }),
-                    type: 'line',
-                    backgroundColor: 'rgba(255, 255, 255, .255)',
-                    borderColor: '#008354'
-                }, {
-                    label: ['Passos Mes'],
-                    yAxesGroup: 'A',
-                    data: this.DadosMesList.map(function (a) { return Number(a.passos); }),
-                    backgroundColor: '#2f6acf',
-                    borderWidth: 0.5,
-                }]
-        };
-        var options = {
-            scales: {
-                yAxes: [{
-                        id: 'A',
-                        type: 'linear',
-                        position: 'left',
-                        scalePositionLeft: true
-                    },
-                    {
-                        id: 'B',
-                        type: 'linear',
-                        position: 'right',
-                        scalePositionLeft: true,
-                        ticks: {
-                            max: 100,
-                            min: 60
-                        }
-                    }
-                ],
-                xAxes: [{
-                        ticks: {
-                            autoSkip: false,
-                        }
-                    }]
-            }
-        };
-        return this.getChart(this.barCanvas2.nativeElement, 'bar', data, options);
-    };
-    ResumoSemanalPage.prototype.getChart = function (context, charType, data, options) {
-        return new __WEBPACK_IMPORTED_MODULE_3_chart_js___default.a(context, {
-            data: data,
-            options: options,
-            type: charType
-        });
-    };
-    ResumoSemanalPage.prototype.getCircleChart = function () {
-        var data = {
-            labels: ['Ler', 'Correr', "Doce", "Refri", "Alcool", "Tempinho", "uhu", "Agradecer", "Meditar"],
-            datasets: [
-                {
-                    label: ['Atual'],
-                    data: this.Teste(this.DadosSemList),
-                    backgroundColor: '#2f6acf',
-                    borderWidth: 0.5,
-                }, {
-                    label: ['Mes'],
-                    data: this.Teste(this.DadosMesList),
-                    backgroundColor: '#C4DAFF',
-                    borderWidth: 2
-                },
-            ]
-        };
-        var options = {
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            autoSkip: false,
-                        }
-                    }],
-                xAxes: [{
-                        ticks: {
-                            autoSkip: false,
-                        }
-                    }]
-            }
-        };
-        return this.getChart(this.circleCanvas.nativeElement, 'bar', data, options);
-    };
-    ResumoSemanalPage.prototype.Teste = function (valor) {
-        var array = [];
-        var total = 0;
-        var leitura = 0;
-        var correr = 0;
-        var doce = 0;
-        var refri = 0;
-        var alcool = 0;
-        var tempinho = 0;
-        var uhu = 0;
-        var besteira = 0;
-        var agradecer = 0;
-        var meditar = 0;
-        valor.forEach(function (element) {
-            if (element.leitura == true) {
-                leitura += 1;
-            }
-            ;
-            if (Number(element.andando) > 0 || Number(element.correndo) > 0) {
-                correr += 1;
-            }
-            ;
-            if (Number(element.doce) > 0) {
-                doce += 1;
-            }
-            ;
-            if (Number(element.refri) > 0) {
-                refri += 1;
-            }
-            ;
-            if (Number(element.alcool) > 0) {
-                alcool += 1;
-            }
-            ;
-            if (Number(element.tempinho) > 0) {
-                tempinho += 1;
-            }
-            ;
-            if (Number(element.uhu) > 0) {
-                uhu += 1;
-            }
-            ;
-            if ((element.besteira) == true) {
-                besteira += 1;
-            }
-            ;
-            if ((element.agradecer) == true) {
-                agradecer += 1;
-            }
-            ;
-            if ((element.meditar) == true) {
-                meditar += 1;
-            }
-            ;
-            total += 1;
-        });
-        array.push(leitura / total);
-        array.push(correr / total);
-        array.push(doce / total);
-        array.push(refri / total, alcool / total, tempinho / total, uhu / total, besteira / total, agradecer / total, agradecer / meditar);
-        console.log("aqui valores,", total, leitura, array);
-        return array;
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas'),
-        __metadata("design:type", Object)
-    ], ResumoSemanalPage.prototype, "barCanvas", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas2'),
-        __metadata("design:type", Object)
-    ], ResumoSemanalPage.prototype, "barCanvas2", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('circleCanvas'),
-        __metadata("design:type", Object)
-    ], ResumoSemanalPage.prototype, "circleCanvas", void 0);
-    ResumoSemanalPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-resumo-semanal',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\resumo-semanal\resumo-semanal.html"*/'<!--\n  Generated template for the ResumoSemanalPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Resumo Semanal</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid no-padding>\n    <ion-row>\n      <ion-col col-12>\n\n    \n\n\n  <ion-scroll scrollX="true" direction="x">\n    <ion-card>\n        <ion-grid>\n        <ion-row>\n          <ion-col col-12>\n            <canvas #barCanvas class="canvass"></canvas>\n          </ion-col>\n          <ion-col col-12>\n            <canvas #barCanvas2 class="canvass"></canvas>\n          </ion-col>\n        </ion-row>\n        </ion-grid>\n    </ion-card>\n  </ion-scroll>\n  </ion-col>\n\n  <ion-col col-12 col-xl-6 col-l-6>\n  <ion-scroll scrollX="true" direction="x">\n      <ion-card>\n        <ion-grid>\n        <ion-row style="height: 100px">\n          <ion-col col-6>\n            <canvas #circleCanvas class="canvass"></canvas>\n          </ion-col>\n        </ion-row>\n        </ion-grid>\n      </ion-card>\n    </ion-scroll>\n    </ion-col>\n    </ion-row>\n    </ion-grid>\n\n     \n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\resumo-semanal\resumo-semanal.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
-    ], ResumoSemanalPage);
-    return ResumoSemanalPage;
-}());
-
-//# sourceMappingURL=resumo-semanal.js.map
-
-/***/ }),
-
-/***/ 187:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SerieEditPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/**
- * Generated class for the SerieEditPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var SerieEditPage = /** @class */ (function () {
-    function SerieEditPage(navCtrl, navParams, dbService) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.dbService = dbService;
-        this.serie = this.navParams.get('serie');
-        this.Serie = [
-            { title: "Modern Family" },
-            { title: "Izoombie" },
-            { title: "House of cards" },
-            { title: "How to get away with murder" },
-            { title: "The flash" },
-            { title: "Santa Clarita Diet" },
-            { title: "Atypical" },
-            { title: "Suits" },
-            { title: "Orphan black" }
-        ];
-    }
-    SerieEditPage.prototype.Data = function () {
-        var data = new Date();
-        var dia = data.getDate();
-        var mes = data.getMonth() + 1;
-        var ano = data.getFullYear();
-        var array = [dia, mes, ano];
-        return array;
-    };
-    SerieEditPage.prototype.Criacao = function (filme) {
-        var array = this.Data();
-        this.serie.dia = String(array[0]);
-        this.serie.mes = String(array[1]);
-        this.serie.ano = String(array[2]);
-        this.serie.total = String(this.Total());
-        this.serie.parcial = String(this.Parcial());
-        this.dbService.save('filmes', filme);
-    };
-    SerieEditPage.prototype.Total = function () {
-        var total;
-        var data = new Date();
-        var dia = data.getDate();
-        var mes = data.getMonth();
-        var ano = data.getFullYear();
-        total = Number(ano * 10000 + (mes + 1) * 100 + dia);
-        return total;
-    };
-    SerieEditPage.prototype.Parcial = function () {
-        var total;
-        var data = new Date();
-        var mes = data.getMonth();
-        var ano = data.getFullYear();
-        total = Number(ano * 100 + (mes + 1));
-        return total;
-    };
-    SerieEditPage.prototype.Atualizar = function (serie) {
-        var _this = this;
-        this.dbService.update('series', serie).then(function (d) {
-            _this.navCtrl.pop();
-        });
-    };
-    SerieEditPage.prototype.Deletar = function (serie) {
-        var _this = this;
-        this.dbService.revome('series', serie).then(function (d) {
-            _this.navCtrl.pop();
-        });
-    };
-    SerieEditPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-serie-edit',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\serie-edit\serie-edit.html"*/'<!--\n  Generated template for the SerieEditPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Editar Série</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Dia: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.dia"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Mes: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.mes"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Ano: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.ano"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Total: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.total"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Parcial: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.parcial"></ion-input>\n      </ion-item>\n    </ion-row>\n\n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Série: </ion-label>\n          <ion-input text-right type="text"  value="" [(ngModel)]="serie.title"></ion-input>\n        </ion-item>\n      </ion-row>\n  \n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Temporada: </ion-label>\n          <ion-input text-right type="number"  value="" [(ngModel)]="serie.temp"></ion-input>\n        </ion-item>\n      </ion-row>\n  \n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Episódio: </ion-label>\n          <ion-input text-right type="number"  value="" [(ngModel)]="serie.ep"></ion-input>\n        </ion-item>\n      </ion-row>\n\n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Duração: </ion-label>\n          <ion-input text-right type="number"  value="" [(ngModel)]="serie.duracao"></ion-input>\n        </ion-item>\n      </ion-row>\n  \n  \n      <ion-row  class="roww">\n        <ion-item>\n          <ion-label class="nome">Série: </ion-label>\n            <ion-select class="input" [(ngModel)]="serie.title" interface="popover" multiple =  True>\n              <ion-option *ngFor="let ser of Serie">{{ser.title}}</ion-option>\n            </ion-select>\n        </ion-item>\n      </ion-row>\n      \n      <ion-row>\n        <ion-item>\n          <ion-label class="nome" no-padding >Comentário: </ion-label>\n          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="serie.comentario"></ion-textarea>\n        </ion-item>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col col-6 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Netflix: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="true" [(ngModel)]="serie.netflix" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      \n        <ion-col col-6 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Produção Netflix: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="serie.producaoN" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      </ion-row>\n      \n  \n  \n    </ion-grid>\n  \n    <ion-row justify-content-center>\n      <button class="btn3" round small  color="danger" ion-button outline (click)="Deletar(serie)">Deletar</button>\n      <button class="btn3" round small ion-button  (click)="Atualizar(serie)">Atualizar</button>\n   </ion-row>\n\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\serie-edit\serie-edit.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */]])
-    ], SerieEditPage);
-    return SerieEditPage;
-}());
-
-//# sourceMappingURL=serie-edit.js.map
-
-/***/ }),
-
 /***/ 188:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4206,8 +4474,8 @@ var SerieEditPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SeriesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__serie_edit_serie_edit__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__serie_edit_serie_edit__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4367,12 +4635,115 @@ var SeriesPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SerieEditPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/**
+ * Generated class for the SerieEditPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var SerieEditPage = /** @class */ (function () {
+    function SerieEditPage(navCtrl, navParams, dbService) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.dbService = dbService;
+        this.serie = this.navParams.get('serie');
+        this.Serie = [
+            { title: "Modern Family" },
+            { title: "Izoombie" },
+            { title: "House of cards" },
+            { title: "How to get away with murder" },
+            { title: "The flash" },
+            { title: "Santa Clarita Diet" },
+            { title: "Atypical" },
+            { title: "Suits" },
+            { title: "Orphan black" }
+        ];
+    }
+    SerieEditPage.prototype.Data = function () {
+        var data = new Date();
+        var dia = data.getDate();
+        var mes = data.getMonth() + 1;
+        var ano = data.getFullYear();
+        var array = [dia, mes, ano];
+        return array;
+    };
+    SerieEditPage.prototype.Criacao = function (filme) {
+        var array = this.Data();
+        this.serie.dia = String(array[0]);
+        this.serie.mes = String(array[1]);
+        this.serie.ano = String(array[2]);
+        this.serie.total = String(this.Total());
+        this.serie.parcial = String(this.Parcial());
+        this.dbService.save('filmes', filme);
+    };
+    SerieEditPage.prototype.Total = function () {
+        var total;
+        var data = new Date();
+        var dia = data.getDate();
+        var mes = data.getMonth();
+        var ano = data.getFullYear();
+        total = Number(ano * 10000 + (mes + 1) * 100 + dia);
+        return total;
+    };
+    SerieEditPage.prototype.Parcial = function () {
+        var total;
+        var data = new Date();
+        var mes = data.getMonth();
+        var ano = data.getFullYear();
+        total = Number(ano * 100 + (mes + 1));
+        return total;
+    };
+    SerieEditPage.prototype.Atualizar = function (serie) {
+        var _this = this;
+        this.dbService.update('series', serie).then(function (d) {
+            _this.navCtrl.pop();
+        });
+    };
+    SerieEditPage.prototype.Deletar = function (serie) {
+        var _this = this;
+        this.dbService.revome('series', serie).then(function (d) {
+            _this.navCtrl.pop();
+        });
+    };
+    SerieEditPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-serie-edit',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\serie-edit\serie-edit.html"*/'<!--\n  Generated template for the SerieEditPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Editar Série</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Dia: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.dia"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Mes: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.mes"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Ano: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.ano"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Total: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.total"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class="roww">\n      <ion-item>\n        <ion-label class="nome" >Parcial: </ion-label>\n        <ion-input text-right type="number"  value="" [(ngModel)]="serie.parcial"></ion-input>\n      </ion-item>\n    </ion-row>\n\n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Série: </ion-label>\n          <ion-input text-right type="text"  value="" [(ngModel)]="serie.title"></ion-input>\n        </ion-item>\n      </ion-row>\n  \n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Temporada: </ion-label>\n          <ion-input text-right type="number"  value="" [(ngModel)]="serie.temp"></ion-input>\n        </ion-item>\n      </ion-row>\n  \n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Episódio: </ion-label>\n          <ion-input text-right type="number"  value="" [(ngModel)]="serie.ep"></ion-input>\n        </ion-item>\n      </ion-row>\n\n      <ion-row class="roww">\n        <ion-item>\n          <ion-label class="nome" >Duração: </ion-label>\n          <ion-input text-right type="number"  value="" [(ngModel)]="serie.duracao"></ion-input>\n        </ion-item>\n      </ion-row>\n  \n  \n      <ion-row  class="roww">\n        <ion-item>\n          <ion-label class="nome">Série: </ion-label>\n            <ion-select class="input" [(ngModel)]="serie.title" interface="popover" multiple =  True>\n              <ion-option *ngFor="let ser of Serie">{{ser.title}}</ion-option>\n            </ion-select>\n        </ion-item>\n      </ion-row>\n      \n      <ion-row>\n        <ion-item>\n          <ion-label class="nome" no-padding >Comentário: </ion-label>\n          <ion-textarea   (click)="roww()" style="color: black; font-size: 13px;" rows="3" autocomplete="on" autocorrect="on" type="text" value="" [(ngModel)]="serie.comentario"></ion-textarea>\n        </ion-item>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col col-6 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Netflix: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="true" [(ngModel)]="serie.netflix" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      \n        <ion-col col-6 no-paddig>\n          <ion-row justify-content-center>\n            <ion-item no-lines justify-content-center>\n              <ion-label class="nome2">Produção Netflix: </ion-label>\n            </ion-item>\n          </ion-row>\n          <ion-row justify-content-center>\n            <ion-toggle class="toggle" checked="false" [(ngModel)]="serie.producaoN" ></ion-toggle>\n          </ion-row>\n        </ion-col>\n      </ion-row>\n      \n  \n  \n    </ion-grid>\n  \n    <ion-row justify-content-center>\n      <button class="btn3" round small  color="danger" ion-button outline (click)="Deletar(serie)">Deletar</button>\n      <button class="btn3" round small ion-button  (click)="Atualizar(serie)">Atualizar</button>\n   </ion-row>\n\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\serie-edit\serie-edit.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */]])
+    ], SerieEditPage);
+    return SerieEditPage;
+}());
+
+//# sourceMappingURL=serie-edit.js.map
+
+/***/ }),
+
+/***/ 190:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TarefasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tarefa_edit_tarefa_edit__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__todas_tarefas_todas_tarefas__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tarefa_edit_tarefa_edit__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__todas_tarefas_todas_tarefas__ = __webpack_require__(191);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4511,15 +4882,15 @@ var TarefasPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 190:
+/***/ 191:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodasTarefasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tarefa_edit_tarefa_edit__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tarefa_edit_tarefa_edit__ = __webpack_require__(82);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4657,16 +5028,16 @@ var TodasTarefasPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 191:
+/***/ 192:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodosTrackersPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tracker_especifico_tracker_especifico__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notas_notas__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tracker_especifico_tracker_especifico__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notas_notas__ = __webpack_require__(185);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4922,15 +5293,16 @@ var TodosTrackersPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 192:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TrackerEspecificoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__time_tracker_edit_time_tracker_edit__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__time_tracker_edit_time_tracker_edit__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(76);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4944,6 +5316,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 /**
  * Generated class for the TrackerEspecificoPage page.
  *
@@ -4951,11 +5325,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var TrackerEspecificoPage = /** @class */ (function () {
-    function TrackerEspecificoPage(navCtrl, navParams, dbService, alertCtrl) {
+    function TrackerEspecificoPage(toastCtrl, statusBar, alertCtrl, navCtrl, navParams, dbService, actionSheetCtrl) {
+        this.toastCtrl = toastCtrl;
+        this.statusBar = statusBar;
+        this.alertCtrl = alertCtrl;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.dbService = dbService;
-        this.alertCtrl = alertCtrl;
+        this.actionSheetCtrl = actionSheetCtrl;
         this.input = {
             'title': ''
         };
@@ -5023,6 +5400,9 @@ var TrackerEspecificoPage = /** @class */ (function () {
             return ('pause');
         }
     };
+    TrackerEspecificoPage.prototype.atualiza = function () {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    };
     TrackerEspecificoPage.prototype.CorIfTrue = function (dado) {
         if (dado == true) {
             return "primary";
@@ -5039,12 +5419,14 @@ var TrackerEspecificoPage = /** @class */ (function () {
         this.tracker.nivel = Nivel;
     };
     TrackerEspecificoPage.prototype.Criacao = function (tarefa) {
+        console.log(tarefa, "oi", this.total);
         this.tracker.title = this.input.title;
-        this.tracker.dia = this.total.substr(6, 2);
-        this.tracker.mes = this.total.substr(4, 2);
-        this.tracker.ano = this.total.substr(0, 4);
-        this.tracker.total = this.total;
-        this.tracker.parcial = this.total.substr(0, 4) + this.total.substr(4, 2);
+        this.tracker.dia = this.total[0].substr(6, 2);
+        this.tracker.mes = this.total[0].substr(4, 2);
+        this.tracker.ano = this.total[0].substr(0, 4);
+        console.log(this.tracker);
+        this.tracker.total = this.total[0];
+        this.tracker.parcial = this.total[0].substr(0, 4) + this.total[0].substr(4, 2);
         this.dbService.save('trackers', tarefa);
         this.input.title = "";
         this.tracker.Hinicio = Number('');
@@ -5108,7 +5490,7 @@ var TrackerEspecificoPage = /** @class */ (function () {
     };
     TrackerEspecificoPage.prototype.Opcoes = function (track) {
         var _this = this;
-        var actionSheet = this.actionSheetControler.create({
+        var actionSheet = this.actionSheetCtrl.create({
             title: 'Opções',
             buttons: [
                 {
@@ -5323,9 +5705,9 @@ var TrackerEspecificoPage = /** @class */ (function () {
     };
     TrackerEspecificoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tracker-especifico',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\tracker-especifico\tracker-especifico.html"*/'<!--\n  Generated template for the TrackerEspecificoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Tracker Especifico</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n  <!--ADICAO-->\n<ion-content>\n    <ion-grid>\n      <ion-row class="roww">\n          <ion-item no-lines>\n            <ion-label class="nome" >Tracker: </ion-label>\n            <ion-input text-right type="text"  value="" [(ngModel)]="input.title" (keyup.enter)="Criacao(tracker)"></ion-input>\n          </ion-item>\n       \n      </ion-row>\n  \n      <ion-row class="roww">\n        <ion-col col-11>\n          <ion-item no-lines>\n              <ion-range  min="-2" max="2"  snaps color="{{Cor(tracker.nivel)}}" [(ngModel)]="tracker.nivel">\n                <ion-icon range-left color="{{Cor(tracker.nivel)}}"  small name="close-circle"></ion-icon>\n                <ion-icon range-right  color="{{Cor(tracker.nivel)}}"  small name="checkmark-circle"></ion-icon>\n              </ion-range>\n            </ion-item>\n        </ion-col>\n        <ion-col col-1 >\n          <button ion-button icon-start round clear no-padding (click)="Nivel(3)">\n            <ion-icon color="verde" name="clipboard" (click)="Nivel(3)"> </ion-icon>\n          </button>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  \n  <!--bOTOES ADICAO-------------------------------------------------------------------------------------------------------------------------------------->\n  \n    <ion-row justify-content-center >\n      <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>\n    </ion-row>\n\n  <!--Card -------------------------------------------------------------------------------------------------------------------------------------->\n\n  <ion-card>\n    <ion-card-header>\n      {{total[0]}}\n    </ion-card-header>\n\n    <ion-list>\n      <div *ngFor="let f of (trackers | async) ">\n        <ion-row *ngIf=\'f.total == total[0] && f.Hinicio == "" && f.Minicio == ""\'class="item">\n        <ion-col col-1>\n          <ion-item class="item" no-padding>\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n          </ion-item>\n        </ion-col>\n        <ion-col col-1>\n          <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n            <ion-icon name="{{Icone(f)}}"> </ion-icon>\n          </button>\n        </ion-col>\n          <ion-col col-9>\n            <ion-item  (click)="goToEdit(f)" >\n              <ion-label >{{f.title}}</ion-label>\n              <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n            </ion-item>\n          </ion-col>\n          <ion-col col-1 >\n            <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>\n              <ion-icon name="more"></ion-icon>\n            </button>\n          </ion-col>\n        </ion-row>\n      </div>\n\n      <div *ngFor="let f of (trackers | async) ">\n        <ion-row *ngIf=\'f.total == total[0] && f.Minicio != ""\'class="item">\n          <ion-col col-1>\n            <ion-item class="item" no-padding>\n              <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n            </ion-item>\n          </ion-col>\n          <ion-col col-1>\n            <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n            </button>\n          </ion-col>\n            <ion-col col-9>\n              <ion-item  (click)="goToEdit(f)" >\n                <ion-label >{{f.title}}</ion-label>\n                \n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n              </ion-item>\n            </ion-col>\n            <ion-col col-1 >\n            <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>\n              <ion-icon name="more"></ion-icon>\n            </button>\n          </ion-col>\n        </ion-row>\n      </div>\n    </ion-list>\n\n\n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\tracker-especifico\tracker-especifico.html"*/,
+            selector: 'page-tracker-especifico',template:/*ion-inline-start:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\tracker-especifico\tracker-especifico.html"*/'<!--\n\n  Generated template for the TrackerEspecificoPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Tracker Especifico</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n\n\n<ion-content>\n\n  <!--ADICAO-->\n\n<ion-content>\n\n    <ion-grid>\n\n      <ion-row class="roww">\n\n          <ion-item no-lines>\n\n            <ion-label class="nome" >Tracker: </ion-label>\n\n            <ion-input text-right type="text"  value="" [(ngModel)]="input.title" (keyup.enter)="Criacao(tracker)"></ion-input>\n\n          </ion-item>\n\n       \n\n      </ion-row>\n\n  \n\n      <ion-row class="roww">\n\n        <ion-col col-11>\n\n          <ion-item no-lines>\n\n              <ion-range  min="-2" max="2"  snaps color="{{Cor(tracker.nivel)}}" [(ngModel)]="tracker.nivel">\n\n                <ion-icon range-left color="{{Cor(tracker.nivel)}}"  small name="close-circle"></ion-icon>\n\n                <ion-icon range-right  color="{{Cor(tracker.nivel)}}"  small name="checkmark-circle"></ion-icon>\n\n              </ion-range>\n\n            </ion-item>\n\n        </ion-col>\n\n        <ion-col col-1 >\n\n          <button ion-button icon-start round clear no-padding (click)="Nivel(3)">\n\n            <ion-icon color="verde" name="clipboard" (click)="Nivel(3)"> </ion-icon>\n\n          </button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  \n\n  <!--bOTOES ADICAO-------------------------------------------------------------------------------------------------------------------------------------->\n\n  \n\n    <ion-row justify-content-center >\n\n      <button class="btn3" ion-button  round small  (click)="Criacao(tracker)">Adicionar</button>\n\n    </ion-row>\n\n\n\n  <!--Card -------------------------------------------------------------------------------------------------------------------------------------->\n\n\n\n  <ion-card>\n\n    <ion-card-header>\n\n      {{total[0]}}\n\n    </ion-card-header>\n\n\n\n    <ion-list>\n\n      <div *ngFor="let f of (trackers | async) ">\n\n        <ion-row *ngIf=\'f.total == total[0] && f.Hinicio == "" && f.Minicio == ""\'class="item">\n\n        <ion-col col-1>\n\n          <ion-item class="item" no-padding>\n\n            <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n          </ion-item>\n\n        </ion-col>\n\n        <ion-col col-1>\n\n          <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n            <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n          </button>\n\n        </ion-col>\n\n          <ion-col col-9>\n\n            <ion-item  (click)="goToEdit(f)" >\n\n              <ion-label >{{f.title}}</ion-label>\n\n              <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n            </ion-item>\n\n          </ion-col>\n\n          <ion-col col-1 >\n\n            <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>\n\n              <ion-icon name="more"></ion-icon>\n\n            </button>\n\n          </ion-col>\n\n        </ion-row>\n\n      </div>\n\n\n\n      <div *ngFor="let f of (trackers | async) ">\n\n        <ion-row *ngIf=\'f.total == total[0] && f.Minicio != ""\'class="item">\n\n          <ion-col col-1>\n\n            <ion-item class="item" no-padding>\n\n              <ion-checkbox  [(ngModel)]="f.check" color="dark" checked="f.check" (click) ="Atualizar(f)" no-padding></ion-checkbox>    \n\n            </ion-item>\n\n          </ion-col>\n\n          <ion-col col-1>\n\n            <button ion-button icon-start full class="pad" round clear color="{{Cor(f.nivel)}}" (click)="Comecar(f)" no-padding>\n\n              <ion-icon name="{{Icone(f)}}"> </ion-icon>\n\n            </button>\n\n          </ion-col>\n\n            <ion-col col-9>\n\n              <ion-item  (click)="goToEdit(f)" >\n\n                <ion-label >{{f.title}}</ion-label>\n\n                \n\n                <ion-note item-end><p>{{RetornaH(f.duracao)}}</p></ion-note>\n\n              </ion-item>\n\n            </ion-col>\n\n            <ion-col col-1 >\n\n            <button ion-button icon-start full round clear color="dark" (click)="Opcoes(f)" no-padding>\n\n              <ion-icon name="more"></ion-icon>\n\n            </button>\n\n          </ion-col>\n\n        </ion-row>\n\n      </div>\n\n    </ion-list>\n\n\n\n\n\n  </ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\j_vxi\Documents\ControleDiario\src\pages\tracker-especifico\tracker-especifico.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__["a" /* FirebaseServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]])
     ], TrackerEspecificoPage);
     return TrackerEspecificoPage;
 }());
@@ -5334,14 +5716,14 @@ var TrackerEspecificoPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 193:
+/***/ 194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViagensPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5379,14 +5761,14 @@ var ViagensPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 194:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VinhoEditPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5466,15 +5848,15 @@ var VinhoEditPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 195:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VinhosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vinho_edit_vinho_edit__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vinho_edit_vinho_edit__ = __webpack_require__(195);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5622,7 +6004,7 @@ var VinhosPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 234:
+/***/ 235:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -5635,11 +6017,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 234;
+webpackEmptyAsyncContext.id = 235;
 
 /***/ }),
 
-/***/ 277:
+/***/ 278:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -5652,23 +6034,23 @@ var map = {
 		27
 	],
 	"../pages/cards-do-mes/cards-do-mes.module": [
-		725,
+		724,
 		26
 	],
 	"../pages/cards/cards.module": [
-		726,
+		725,
 		25
 	],
 	"../pages/configuracoes-edit/configuracoes-edit.module": [
-		724,
+		726,
 		24
 	],
 	"../pages/configuracoes/configuracoes.module": [
-		728,
+		727,
 		23
 	],
 	"../pages/edicao/edicao.module": [
-		727,
+		728,
 		22
 	],
 	"../pages/filme-edit/filme-edit.module": [
@@ -5680,11 +6062,11 @@ var map = {
 		20
 	],
 	"../pages/graficos1/graficos1.module": [
-		731,
+		732,
 		19
 	],
 	"../pages/livros-edit/livros-edit.module": [
-		732,
+		731,
 		18
 	],
 	"../pages/livros/livros.module": [
@@ -5708,19 +6090,19 @@ var map = {
 		13
 	],
 	"../pages/serie-edit/serie-edit.module": [
-		738,
+		740,
 		12
 	],
 	"../pages/series/series.module": [
-		739,
+		738,
 		11
 	],
 	"../pages/tarefa-edit/tarefa-edit.module": [
-		741,
+		739,
 		10
 	],
 	"../pages/tarefas/tarefas.module": [
-		740,
+		741,
 		9
 	],
 	"../pages/time-tracker-edit/time-tracker-edit.module": [
@@ -5732,31 +6114,31 @@ var map = {
 		7
 	],
 	"../pages/todas-tarefas/todas-tarefas.module": [
-		745,
+		744,
 		6
 	],
 	"../pages/todos-trackers/todos-trackers.module": [
-		744,
+		745,
 		5
 	],
 	"../pages/tracker-especifico/tracker-especifico.module": [
-		746,
+		750,
 		4
 	],
 	"../pages/viagem-edit/viagem-edit.module": [
-		747,
+		746,
 		3
 	],
 	"../pages/viagens/viagens.module": [
-		748,
+		747,
 		2
 	],
 	"../pages/vinho-edit/vinho-edit.module": [
-		749,
+		748,
 		1
 	],
 	"../pages/vinhos/vinhos.module": [
-		750,
+		749,
 		0
 	]
 };
@@ -5771,7 +6153,7 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 277;
+webpackAsyncContext.id = 278;
 module.exports = webpackAsyncContext;
 
 /***/ }),
@@ -5782,12 +6164,12 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adicionar_adicionar__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cards_cards__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adicionar_adicionar__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cards_cards__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__analise_analise__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__time_tracker_time_tracker__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__resumo_semanal_resumo_semanal__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__analise_analise__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__time_tracker_time_tracker__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__resumo_semanal_resumo_semanal__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5942,42 +6324,42 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(711);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(463);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(712);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(462);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_adicionar_adicionar__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_cards_cards__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_adicionar_adicionar__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_cards_cards__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_graficos1_graficos1__ = __webpack_require__(464);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_firebase_service_firebase_service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angularfire2__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_database__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_cards_do_mes_cards_do_mes__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_firebase_service_firebase_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angularfire2__ = __webpack_require__(422);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_database__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_cards_do_mes_cards_do_mes__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_funcoes_gerais_funcoes_gerais__ = __webpack_require__(713);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_edicao_edicao__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_filmes_filmes__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_edicao_edicao__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_filmes_filmes__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_series_series__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_vinhos_vinhos__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_viagens_viagens__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_tarefas_tarefas__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_filme_edit_filme_edit__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_serie_edit_serie_edit__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_tarefa_edit_tarefa_edit__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_vinho_edit_vinho_edit__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_vinhos_vinhos__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_viagens_viagens__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_tarefas_tarefas__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_filme_edit_filme_edit__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_serie_edit_serie_edit__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_tarefa_edit_tarefa_edit__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_vinho_edit_vinho_edit__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_viagem_edit_viagem_edit__ = __webpack_require__(465);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_livros_edit_livros_edit__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_livros_livros__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_todas_tarefas_todas_tarefas__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_restaurantes_edit_restaurantes_edit__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_restaurantes_restaurantes__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_time_tracker_edit_time_tracker_edit__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_time_tracker_time_tracker__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_configuracoes_edit_configuracoes_edit__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_configuracoes_configuracoes__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_todos_trackers_todos_trackers__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_tracker_especifico_tracker_especifico__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_analise_analise__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_notas_notas__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_livros_edit_livros_edit__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_livros_livros__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_todas_tarefas_todas_tarefas__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_restaurantes_edit_restaurantes_edit__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_restaurantes_restaurantes__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_time_tracker_edit_time_tracker_edit__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_time_tracker_time_tracker__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_configuracoes_edit_configuracoes_edit__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_configuracoes_configuracoes__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_todos_trackers_todos_trackers__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_tracker_especifico_tracker_especifico__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_analise_analise__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_notas_notas__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__ionic_native_toast_ngx__ = __webpack_require__(721);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__pages_resumo_semanal_resumo_semanal__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__pages_resumo_semanal_resumo_semanal__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6070,33 +6452,33 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/adicionar/adicionar.module#AdicionarPageModule', name: 'AdicionarPage', segment: 'adicionar', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/analise/analise.module#AnalisePageModule', name: 'AnalisePage', segment: 'analise', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/configuracoes-edit/configuracoes-edit.module#ConfiguracoesEditPageModule', name: 'ConfiguracoesEditPage', segment: 'configuracoes-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cards-do-mes/cards-do-mes.module#CardsDoMesPageModule', name: 'CardsDoMesPage', segment: 'cards-do-mes', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cards/cards.module#CardsPageModule', name: 'CardsPage', segment: 'cards', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/edicao/edicao.module#EdicaoPageModule', name: 'EdicaoPage', segment: 'edicao', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/configuracoes-edit/configuracoes-edit.module#ConfiguracoesEditPageModule', name: 'ConfiguracoesEditPage', segment: 'configuracoes-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/configuracoes/configuracoes.module#ConfiguracoesPageModule', name: 'ConfiguracoesPage', segment: 'configuracoes', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/edicao/edicao.module#EdicaoPageModule', name: 'EdicaoPage', segment: 'edicao', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/filme-edit/filme-edit.module#FilmeEditPageModule', name: 'FilmeEditPage', segment: 'filme-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/filmes/filmes.module#FilmesPageModule', name: 'FilmesPage', segment: 'filmes', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/graficos1/graficos1.module#Graficos1PageModule', name: 'Graficos1Page', segment: 'graficos1', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/livros-edit/livros-edit.module#LivrosEditPageModule', name: 'LivrosEditPage', segment: 'livros-edit', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/graficos1/graficos1.module#Graficos1PageModule', name: 'Graficos1Page', segment: 'graficos1', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/livros/livros.module#LivrosPageModule', name: 'LivrosPage', segment: 'livros', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/notas/notas.module#NotasPageModule', name: 'NotasPage', segment: 'notas', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/restaurantes-edit/restaurantes-edit.module#RestaurantesEditPageModule', name: 'RestaurantesEditPage', segment: 'restaurantes-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/restaurantes/restaurantes.module#RestaurantesPageModule', name: 'RestaurantesPage', segment: 'restaurantes', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/resumo-semanal/resumo-semanal.module#ResumoSemanalPageModule', name: 'ResumoSemanalPage', segment: 'resumo-semanal', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/serie-edit/serie-edit.module#SerieEditPageModule', name: 'SerieEditPage', segment: 'serie-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/series/series.module#SeriesPageModule', name: 'SeriesPage', segment: 'series', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tarefas/tarefas.module#TarefasPageModule', name: 'TarefasPage', segment: 'tarefas', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tarefa-edit/tarefa-edit.module#TarefaEditPageModule', name: 'TarefaEditPage', segment: 'tarefa-edit', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/serie-edit/serie-edit.module#SerieEditPageModule', name: 'SerieEditPage', segment: 'serie-edit', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tarefas/tarefas.module#TarefasPageModule', name: 'TarefasPage', segment: 'tarefas', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/time-tracker-edit/time-tracker-edit.module#TimeTrackerEditPageModule', name: 'TimeTrackerEditPage', segment: 'time-tracker-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/time-tracker/time-tracker.module#TimeTrackerPageModule', name: 'TimeTrackerPage', segment: 'time-tracker', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/todos-trackers/todos-trackers.module#TodosTrackersPageModule', name: 'TodosTrackersPage', segment: 'todos-trackers', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/todas-tarefas/todas-tarefas.module#TodasTarefasPageModule', name: 'TodasTarefasPage', segment: 'todas-tarefas', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tracker-especifico/tracker-especifico.module#TrackerEspecificoPageModule', name: 'TrackerEspecificoPage', segment: 'tracker-especifico', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/todos-trackers/todos-trackers.module#TodosTrackersPageModule', name: 'TodosTrackersPage', segment: 'todos-trackers', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viagem-edit/viagem-edit.module#ViagemEditPageModule', name: 'ViagemEditPage', segment: 'viagem-edit', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viagens/viagens.module#ViagensPageModule', name: 'ViagensPage', segment: 'viagens', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/vinho-edit/vinho-edit.module#VinhoEditPageModule', name: 'VinhoEditPage', segment: 'vinho-edit', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/vinhos/vinhos.module#VinhosPageModule', name: 'VinhosPage', segment: 'vinhos', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/vinhos/vinhos.module#VinhosPageModule', name: 'VinhosPage', segment: 'vinhos', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tracker-especifico/tracker-especifico.module#TrackerEspecificoPageModule', name: 'TrackerEspecificoPage', segment: 'tracker-especifico', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* HttpModule */],
@@ -6161,256 +6543,256 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 669:
+/***/ 662:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 299,
-	"./af.js": 299,
-	"./ar": 300,
-	"./ar-dz": 301,
-	"./ar-dz.js": 301,
-	"./ar-kw": 302,
-	"./ar-kw.js": 302,
-	"./ar-ly": 303,
-	"./ar-ly.js": 303,
-	"./ar-ma": 304,
-	"./ar-ma.js": 304,
-	"./ar-sa": 305,
-	"./ar-sa.js": 305,
-	"./ar-tn": 306,
-	"./ar-tn.js": 306,
-	"./ar.js": 300,
-	"./az": 307,
-	"./az.js": 307,
-	"./be": 308,
-	"./be.js": 308,
-	"./bg": 309,
-	"./bg.js": 309,
-	"./bm": 310,
-	"./bm.js": 310,
-	"./bn": 311,
-	"./bn.js": 311,
-	"./bo": 312,
-	"./bo.js": 312,
-	"./br": 313,
-	"./br.js": 313,
-	"./bs": 314,
-	"./bs.js": 314,
-	"./ca": 315,
-	"./ca.js": 315,
-	"./cs": 316,
-	"./cs.js": 316,
-	"./cv": 317,
-	"./cv.js": 317,
-	"./cy": 318,
-	"./cy.js": 318,
-	"./da": 319,
-	"./da.js": 319,
-	"./de": 320,
-	"./de-at": 321,
-	"./de-at.js": 321,
-	"./de-ch": 322,
-	"./de-ch.js": 322,
-	"./de.js": 320,
-	"./dv": 323,
-	"./dv.js": 323,
-	"./el": 324,
-	"./el.js": 324,
-	"./en-au": 325,
-	"./en-au.js": 325,
-	"./en-ca": 326,
-	"./en-ca.js": 326,
-	"./en-gb": 327,
-	"./en-gb.js": 327,
-	"./en-ie": 328,
-	"./en-ie.js": 328,
-	"./en-il": 329,
-	"./en-il.js": 329,
-	"./en-nz": 330,
-	"./en-nz.js": 330,
-	"./eo": 331,
-	"./eo.js": 331,
-	"./es": 332,
-	"./es-do": 333,
-	"./es-do.js": 333,
-	"./es-us": 334,
-	"./es-us.js": 334,
-	"./es.js": 332,
-	"./et": 335,
-	"./et.js": 335,
-	"./eu": 336,
-	"./eu.js": 336,
-	"./fa": 337,
-	"./fa.js": 337,
-	"./fi": 338,
-	"./fi.js": 338,
-	"./fo": 339,
-	"./fo.js": 339,
-	"./fr": 340,
-	"./fr-ca": 341,
-	"./fr-ca.js": 341,
-	"./fr-ch": 342,
-	"./fr-ch.js": 342,
-	"./fr.js": 340,
-	"./fy": 343,
-	"./fy.js": 343,
-	"./gd": 344,
-	"./gd.js": 344,
-	"./gl": 345,
-	"./gl.js": 345,
-	"./gom-latn": 346,
-	"./gom-latn.js": 346,
-	"./gu": 347,
-	"./gu.js": 347,
-	"./he": 348,
-	"./he.js": 348,
-	"./hi": 349,
-	"./hi.js": 349,
-	"./hr": 350,
-	"./hr.js": 350,
-	"./hu": 351,
-	"./hu.js": 351,
-	"./hy-am": 352,
-	"./hy-am.js": 352,
-	"./id": 353,
-	"./id.js": 353,
-	"./is": 354,
-	"./is.js": 354,
-	"./it": 355,
-	"./it.js": 355,
-	"./ja": 356,
-	"./ja.js": 356,
-	"./jv": 357,
-	"./jv.js": 357,
-	"./ka": 358,
-	"./ka.js": 358,
-	"./kk": 359,
-	"./kk.js": 359,
-	"./km": 360,
-	"./km.js": 360,
-	"./kn": 361,
-	"./kn.js": 361,
-	"./ko": 362,
-	"./ko.js": 362,
-	"./ky": 363,
-	"./ky.js": 363,
-	"./lb": 364,
-	"./lb.js": 364,
-	"./lo": 365,
-	"./lo.js": 365,
-	"./lt": 366,
-	"./lt.js": 366,
-	"./lv": 367,
-	"./lv.js": 367,
-	"./me": 368,
-	"./me.js": 368,
-	"./mi": 369,
-	"./mi.js": 369,
-	"./mk": 370,
-	"./mk.js": 370,
-	"./ml": 371,
-	"./ml.js": 371,
-	"./mn": 372,
-	"./mn.js": 372,
-	"./mr": 373,
-	"./mr.js": 373,
-	"./ms": 374,
-	"./ms-my": 375,
-	"./ms-my.js": 375,
-	"./ms.js": 374,
-	"./mt": 376,
-	"./mt.js": 376,
-	"./my": 377,
-	"./my.js": 377,
-	"./nb": 378,
-	"./nb.js": 378,
-	"./ne": 379,
-	"./ne.js": 379,
-	"./nl": 380,
-	"./nl-be": 381,
-	"./nl-be.js": 381,
-	"./nl.js": 380,
-	"./nn": 382,
-	"./nn.js": 382,
-	"./pa-in": 383,
-	"./pa-in.js": 383,
-	"./pl": 384,
-	"./pl.js": 384,
-	"./pt": 385,
-	"./pt-br": 386,
-	"./pt-br.js": 386,
-	"./pt.js": 385,
-	"./ro": 387,
-	"./ro.js": 387,
-	"./ru": 388,
-	"./ru.js": 388,
-	"./sd": 389,
-	"./sd.js": 389,
-	"./se": 390,
-	"./se.js": 390,
-	"./si": 391,
-	"./si.js": 391,
-	"./sk": 392,
-	"./sk.js": 392,
-	"./sl": 393,
-	"./sl.js": 393,
-	"./sq": 394,
-	"./sq.js": 394,
-	"./sr": 395,
-	"./sr-cyrl": 396,
-	"./sr-cyrl.js": 396,
-	"./sr.js": 395,
-	"./ss": 397,
-	"./ss.js": 397,
-	"./sv": 398,
-	"./sv.js": 398,
-	"./sw": 399,
-	"./sw.js": 399,
-	"./ta": 400,
-	"./ta.js": 400,
-	"./te": 401,
-	"./te.js": 401,
-	"./tet": 402,
-	"./tet.js": 402,
-	"./tg": 403,
-	"./tg.js": 403,
-	"./th": 404,
-	"./th.js": 404,
-	"./tl-ph": 405,
-	"./tl-ph.js": 405,
-	"./tlh": 406,
-	"./tlh.js": 406,
-	"./tr": 407,
-	"./tr.js": 407,
-	"./tzl": 408,
-	"./tzl.js": 408,
-	"./tzm": 409,
-	"./tzm-latn": 410,
-	"./tzm-latn.js": 410,
-	"./tzm.js": 409,
-	"./ug-cn": 411,
-	"./ug-cn.js": 411,
-	"./uk": 412,
-	"./uk.js": 412,
-	"./ur": 413,
-	"./ur.js": 413,
-	"./uz": 414,
-	"./uz-latn": 415,
-	"./uz-latn.js": 415,
-	"./uz.js": 414,
-	"./vi": 416,
-	"./vi.js": 416,
-	"./x-pseudo": 417,
-	"./x-pseudo.js": 417,
-	"./yo": 418,
-	"./yo.js": 418,
-	"./zh-cn": 419,
-	"./zh-cn.js": 419,
-	"./zh-hk": 420,
-	"./zh-hk.js": 420,
-	"./zh-tw": 421,
-	"./zh-tw.js": 421
+	"./af": 292,
+	"./af.js": 292,
+	"./ar": 293,
+	"./ar-dz": 294,
+	"./ar-dz.js": 294,
+	"./ar-kw": 295,
+	"./ar-kw.js": 295,
+	"./ar-ly": 296,
+	"./ar-ly.js": 296,
+	"./ar-ma": 297,
+	"./ar-ma.js": 297,
+	"./ar-sa": 298,
+	"./ar-sa.js": 298,
+	"./ar-tn": 299,
+	"./ar-tn.js": 299,
+	"./ar.js": 293,
+	"./az": 300,
+	"./az.js": 300,
+	"./be": 301,
+	"./be.js": 301,
+	"./bg": 302,
+	"./bg.js": 302,
+	"./bm": 303,
+	"./bm.js": 303,
+	"./bn": 304,
+	"./bn.js": 304,
+	"./bo": 305,
+	"./bo.js": 305,
+	"./br": 306,
+	"./br.js": 306,
+	"./bs": 307,
+	"./bs.js": 307,
+	"./ca": 308,
+	"./ca.js": 308,
+	"./cs": 309,
+	"./cs.js": 309,
+	"./cv": 310,
+	"./cv.js": 310,
+	"./cy": 311,
+	"./cy.js": 311,
+	"./da": 312,
+	"./da.js": 312,
+	"./de": 313,
+	"./de-at": 314,
+	"./de-at.js": 314,
+	"./de-ch": 315,
+	"./de-ch.js": 315,
+	"./de.js": 313,
+	"./dv": 316,
+	"./dv.js": 316,
+	"./el": 317,
+	"./el.js": 317,
+	"./en-au": 318,
+	"./en-au.js": 318,
+	"./en-ca": 319,
+	"./en-ca.js": 319,
+	"./en-gb": 320,
+	"./en-gb.js": 320,
+	"./en-ie": 321,
+	"./en-ie.js": 321,
+	"./en-il": 322,
+	"./en-il.js": 322,
+	"./en-nz": 323,
+	"./en-nz.js": 323,
+	"./eo": 324,
+	"./eo.js": 324,
+	"./es": 325,
+	"./es-do": 326,
+	"./es-do.js": 326,
+	"./es-us": 327,
+	"./es-us.js": 327,
+	"./es.js": 325,
+	"./et": 328,
+	"./et.js": 328,
+	"./eu": 329,
+	"./eu.js": 329,
+	"./fa": 330,
+	"./fa.js": 330,
+	"./fi": 331,
+	"./fi.js": 331,
+	"./fo": 332,
+	"./fo.js": 332,
+	"./fr": 333,
+	"./fr-ca": 334,
+	"./fr-ca.js": 334,
+	"./fr-ch": 335,
+	"./fr-ch.js": 335,
+	"./fr.js": 333,
+	"./fy": 336,
+	"./fy.js": 336,
+	"./gd": 337,
+	"./gd.js": 337,
+	"./gl": 338,
+	"./gl.js": 338,
+	"./gom-latn": 339,
+	"./gom-latn.js": 339,
+	"./gu": 340,
+	"./gu.js": 340,
+	"./he": 341,
+	"./he.js": 341,
+	"./hi": 342,
+	"./hi.js": 342,
+	"./hr": 343,
+	"./hr.js": 343,
+	"./hu": 344,
+	"./hu.js": 344,
+	"./hy-am": 345,
+	"./hy-am.js": 345,
+	"./id": 346,
+	"./id.js": 346,
+	"./is": 347,
+	"./is.js": 347,
+	"./it": 348,
+	"./it.js": 348,
+	"./ja": 349,
+	"./ja.js": 349,
+	"./jv": 350,
+	"./jv.js": 350,
+	"./ka": 351,
+	"./ka.js": 351,
+	"./kk": 352,
+	"./kk.js": 352,
+	"./km": 353,
+	"./km.js": 353,
+	"./kn": 354,
+	"./kn.js": 354,
+	"./ko": 355,
+	"./ko.js": 355,
+	"./ky": 356,
+	"./ky.js": 356,
+	"./lb": 357,
+	"./lb.js": 357,
+	"./lo": 358,
+	"./lo.js": 358,
+	"./lt": 359,
+	"./lt.js": 359,
+	"./lv": 360,
+	"./lv.js": 360,
+	"./me": 361,
+	"./me.js": 361,
+	"./mi": 362,
+	"./mi.js": 362,
+	"./mk": 363,
+	"./mk.js": 363,
+	"./ml": 364,
+	"./ml.js": 364,
+	"./mn": 365,
+	"./mn.js": 365,
+	"./mr": 366,
+	"./mr.js": 366,
+	"./ms": 367,
+	"./ms-my": 368,
+	"./ms-my.js": 368,
+	"./ms.js": 367,
+	"./mt": 369,
+	"./mt.js": 369,
+	"./my": 370,
+	"./my.js": 370,
+	"./nb": 371,
+	"./nb.js": 371,
+	"./ne": 372,
+	"./ne.js": 372,
+	"./nl": 373,
+	"./nl-be": 374,
+	"./nl-be.js": 374,
+	"./nl.js": 373,
+	"./nn": 375,
+	"./nn.js": 375,
+	"./pa-in": 376,
+	"./pa-in.js": 376,
+	"./pl": 377,
+	"./pl.js": 377,
+	"./pt": 378,
+	"./pt-br": 379,
+	"./pt-br.js": 379,
+	"./pt.js": 378,
+	"./ro": 380,
+	"./ro.js": 380,
+	"./ru": 381,
+	"./ru.js": 381,
+	"./sd": 382,
+	"./sd.js": 382,
+	"./se": 383,
+	"./se.js": 383,
+	"./si": 384,
+	"./si.js": 384,
+	"./sk": 385,
+	"./sk.js": 385,
+	"./sl": 386,
+	"./sl.js": 386,
+	"./sq": 387,
+	"./sq.js": 387,
+	"./sr": 388,
+	"./sr-cyrl": 389,
+	"./sr-cyrl.js": 389,
+	"./sr.js": 388,
+	"./ss": 390,
+	"./ss.js": 390,
+	"./sv": 391,
+	"./sv.js": 391,
+	"./sw": 392,
+	"./sw.js": 392,
+	"./ta": 393,
+	"./ta.js": 393,
+	"./te": 394,
+	"./te.js": 394,
+	"./tet": 395,
+	"./tet.js": 395,
+	"./tg": 396,
+	"./tg.js": 396,
+	"./th": 397,
+	"./th.js": 397,
+	"./tl-ph": 398,
+	"./tl-ph.js": 398,
+	"./tlh": 399,
+	"./tlh.js": 399,
+	"./tr": 400,
+	"./tr.js": 400,
+	"./tzl": 401,
+	"./tzl.js": 401,
+	"./tzm": 402,
+	"./tzm-latn": 403,
+	"./tzm-latn.js": 403,
+	"./tzm.js": 402,
+	"./ug-cn": 404,
+	"./ug-cn.js": 404,
+	"./uk": 405,
+	"./uk.js": 405,
+	"./ur": 406,
+	"./ur.js": 406,
+	"./uz": 407,
+	"./uz-latn": 408,
+	"./uz-latn.js": 408,
+	"./uz.js": 407,
+	"./vi": 409,
+	"./vi.js": 409,
+	"./x-pseudo": 410,
+	"./x-pseudo.js": 410,
+	"./yo": 411,
+	"./yo.js": 411,
+	"./zh-cn": 412,
+	"./zh-cn.js": 412,
+	"./zh-hk": 413,
+	"./zh-hk.js": 413,
+	"./zh-tw": 414,
+	"./zh-tw.js": 414
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -6426,7 +6808,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 669;
+webpackContext.id = 662;
 
 /***/ }),
 
@@ -6437,17 +6819,17 @@ webpackContext.id = 669;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(462);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(463);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_filmes_filmes__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_filmes_filmes__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_series_series__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tarefas_tarefas__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_vinhos_vinhos__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_viagens_viagens__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_livros_livros__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_restaurantes_restaurantes__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_time_tracker_time_tracker__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tarefas_tarefas__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_vinhos_vinhos__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_viagens_viagens__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_livros_livros__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_restaurantes_restaurantes__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_time_tracker_time_tracker__ = __webpack_require__(106);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6602,14 +6984,14 @@ var FuncoesGeraisProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 81:
+/***/ 82:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TarefaEditPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_firebase_service_firebase_service__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
