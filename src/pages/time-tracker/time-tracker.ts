@@ -80,6 +80,10 @@ export class TimeTrackerPage {
 
   public pontos = 0;
 
+  trackersEspecifico
+
+  DataHoje = new Date
+
   
 
   constructor(private toastCtrl: ToastController, public statusBar:StatusBar,public alertCtrl: AlertController , public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider, public actionSheetCtrl: ActionSheetController) {
@@ -93,6 +97,8 @@ export class TimeTrackerPage {
    
 
     this.trackers = this.dbService.getAllEspecificoMsm('trackers','total',50).map(b => b.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['Hinicio']+b['Minicio']/60))- Number(String(a['Hinicio']+a['Minicio']/60))}))
+    this.trackersEspecifico = this.dbService.getAllEspecifico('trackers','total',"").map(b => b.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['Hinicio']+b['Minicio']/60))- Number(String(a['Hinicio']+a['Minicio']/60))}))
+
     this.statusBar.backgroundColorByHexString('#ffffff');
     this.atalhos = this.dbService.getAll('configuracoes/tarefas','nivel')
     this.Indicadores = this.Calcula(this.Total());
@@ -184,6 +190,29 @@ export class TimeTrackerPage {
 
     
     
+
+  }
+
+
+  AtualizaTrackerEspecifico(Total){
+
+  this.trackersEspecifico = this.dbService.getAllEspecifico('trackers','total',Total).map(b => b.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['Hinicio']+b['Minicio']/60))- Number(String(a['Hinicio']+a['Minicio']/60))}))
+  }
+
+  Mostra(){
+    
+    this.MudandoData(this.DataHoje)
+  }
+
+  MudandoData(valor){
+    
+    var fields = valor.split('-')
+    var dia = fields[2].split('T')
+    var dia2 = dia[0]
+    var ano =  fields[0]
+    var mes =  String(Number(fields[1]))
+    var total =  String(Number(Number(ano)*10000 + Number(mes)*100 + Number(dia2)));
+    this.AtualizaTrackerEspecifico(total)
 
   }
 

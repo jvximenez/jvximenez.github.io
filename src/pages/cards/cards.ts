@@ -214,6 +214,11 @@ export class CardsPage {
         comeco += 1
      }
       comeco = 201901
+      while (comeco <= 201912){
+        array.push(comeco)
+        comeco += 1
+      }
+      comeco = 202001
       while (comeco <= total){
         array.push(comeco)
         comeco += 1

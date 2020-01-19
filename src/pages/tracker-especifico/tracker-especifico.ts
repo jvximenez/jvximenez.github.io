@@ -110,6 +110,10 @@ export class TrackerEspecificoPage {
     }
   }
 
+  atualiza(){
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }
+
 
 
   CorIfTrue(dado){
