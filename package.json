@@ -27,7 +27,7 @@
     "@ionic-native/toast": "^5.9.0",
     "@ionic/storage": "2.2.0",
     "angularfire2": "^5.0.0-rc.12",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "cordova-android": "7.0.0",
     "cordova-browser": "6.0.0",
     "cordova-plugin-badge": "0.8.8",
