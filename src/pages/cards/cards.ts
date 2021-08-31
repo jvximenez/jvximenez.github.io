@@ -205,35 +205,22 @@ export class CardsPage {
     var ano = data.getFullYear();
     total = Number(ano*100 + (mes+1));
     var comeco = 201810;
+    var ano1 = 2018
+    var mes1 = 10
     
-    var teste1 = (total - 201810);
+    array.push(comeco)
+    while (comeco <= total) {
+      mes1 = mes1 +1
+      if (mes1 = 13){
+        ano1 = ano1+1
+        mes1 = 1
+      }
+      comeco = Number(ano1*100 + (mes1));
+      array.push(comeco)
+
+    }
     
-    if (teste1 > 15) {
-      while (comeco <= 201812) {
-        array.push(comeco)
-        comeco += 1
-     }
-      comeco = 201901
-      while (comeco <= 201912){
-        array.push(comeco)
-        comeco += 1
-      }
-      comeco = 202001
-      while (comeco <= total){
-        array.push(comeco)
-        comeco += 1
-      }
-    }
 
-    if (teste1 < 100) {
-      
-
-      while (comeco <= total){
-
-        array.push(comeco)
-        comeco += 1
-      }
-    }
     array = array.reverse()
     return array
   }
