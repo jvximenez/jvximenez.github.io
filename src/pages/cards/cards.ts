@@ -209,10 +209,10 @@ export class CardsPage {
     var mes1 = 10
     
     array.push(comeco)
-    while (comeco <= total) {
+    while (comeco < total) {
       mes1 = mes1 +1
-      if (mes1 = 13){
-        ano1 = ano1+1
+      if (mes1 == 13){
+        ano1 = ano1 + 1
         mes1 = 1
       }
       comeco = Number(ano1*100 + (mes1));
