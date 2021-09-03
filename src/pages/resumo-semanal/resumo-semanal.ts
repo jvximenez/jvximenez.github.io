@@ -121,15 +121,16 @@ export class ResumoSemanalPage {
   }
 
   GetData(Tipo){
+    var parcial = 0
     let data = new Date
     if (Tipo == "Mes"){
       let mes = data.getMonth()+1
     let ano = data.getFullYear()
-    var parcial = Number(ano)*100+mes
+    parcial = Number(ano)*100+mes
     }
     if (Tipo == "Ano"){
     let ano = data.getFullYear()
-    var parcial = Number(ano)
+    parcial = Number(ano)
     }
 
     return (parcial)

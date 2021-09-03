@@ -84,7 +84,10 @@ export class CardsPage {
        valor += Number(item[parametro]) 
        }})})
        valor = valor/contador
-      
+       if(isNaN(valor)==true){
+         valor = 0
+        return("-")
+      }
       return(valor)}
 
     if (tipo == "Numero0"){
@@ -92,7 +95,9 @@ export class CardsPage {
       valor += Number(item[parametro]/item['tempinhoQ'])
       }})})
       valor = valor/contador
-    
+      if(isNaN(valor)){
+        return("-")
+      }
     return(valor)}
 
     if (tipo == "TorF"){
@@ -163,7 +168,7 @@ export class CardsPage {
   VerificaMelhor(title,parametro,tipo,condicao){
     var mes = this.RetornaMedia(title,parametro,tipo)
     var total = this.RetornaMediaTotal(title,parametro,tipo)
-    var resultado =  total - mes
+    var resultado =  total - Number(mes)
     if (resultado < 0){
       if (condicao == 'maior'){
         return ('arrow-round-up')
@@ -180,8 +185,12 @@ export class CardsPage {
   }
 
   Arredonda(val,casas){
+    if(isNaN(val))
     var b;
     b = (Math.round(val*10**casas)/(10**casas))
+    if(isNaN(b)==true){
+      b = "- "
+    }
     return b
   }
 
