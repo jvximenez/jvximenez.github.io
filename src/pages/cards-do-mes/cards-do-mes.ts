@@ -37,7 +37,7 @@ export class CardsDoMesPage {
   public gastos: any
 
   public teste
-  public passos;tempinho;quantidade;UHU;cafe;lancheM;almoco;lancheT;jantar;estudos;aulas
+  public passos;tempinho;quantidade;UHU;cafe;lancheM;almoco;lancheT;jantar;estudos;aulas;trabalho
   public refrigerante; alcool;leitura;agradecimento
 
   public graficoG;graficoData;graficoDado
@@ -121,6 +121,7 @@ export class CardsDoMesPage {
     this.jantar = this.Media("jantar");
     this.estudos = this.Media("tempoE");
     this.aulas = this.Media("tempoA");
+    this.trabalho = this.Media("tempoTrab");
     
     
     this.refrigerante = this.SeHouve('refrigerante')

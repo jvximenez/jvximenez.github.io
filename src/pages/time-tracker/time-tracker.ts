@@ -276,7 +276,7 @@ export class TimeTrackerPage {
   }
 
   Calcula(dia){
-    var array = [0,0,0,0,0,0,0,0,0,0,0]
+    var array = [0,0,0,0,0,0,0,0,0,0,0,0]
      this.trackers.forEach(itens => itens.forEach(item => {
        if(item.title.includes("Dormir") && item.total == dia)
        {array[0] += item.duracao}; 
@@ -299,7 +299,9 @@ export class TimeTrackerPage {
        if(item.title.includes("Dani") && item.total == dia)
        {array[9] += item.duracao};
        if(item.title.includes("Estudar") && item.total == dia)
-       {array[10] += item.duracao};}))
+       {array[10] += item.duracao};
+       if(item.title.includes("Trabalhar") && item.total == dia)
+       {array[11] += item.duracao};}))
       return array
   }
 

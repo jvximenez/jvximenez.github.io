@@ -225,6 +225,15 @@
   
       <ion-row  class="roww">
         <ion-item no-lines>
+          <ion-range no-padding min="0" max="16" [(ngModel)]="controle.tempoTrab">
+            <ion-label class="nome" range-left>Trabalhando: </ion-label>
+            <ion-label range-right>{{controle.tempoTrab}}</ion-label>
+          </ion-range>
+        </ion-item>
+      </ion-row>
+
+      <ion-row  class="roww">
+        <ion-item no-lines>
           <ion-range no-padding min="0" max="12" [(ngModel)]="controle.tempoE">
             <ion-label class="nome" range-left>Estudando: </ion-label>
             <ion-label range-right>{{controle.tempoE}}</ion-label>

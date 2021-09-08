@@ -23,7 +23,7 @@ export class AnalisePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
   
     this.Dados = this.dbService.getAll('diario','parcial').map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['total']- Number(String(a['total']))))}))
-    this.itens = [{title:"Leitura"},{title:"Corrida"},{title:"8000"},{title:"Agradecer"},
+    this.itens = [{title:"Leitura"},{title:"Corrida"},{title:"8000"},{title:"Aula"},{title:"Agradecer"},
     {title:"Meditar"},{title:"Peso"},{title:"Passos"}
     ]
       

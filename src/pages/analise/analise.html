@@ -26,7 +26,7 @@
       </ion-row>
 
       <ion-row *ngFor="let dado of (Dados | async)">
-      <ion-row col-12 *ngIf="ChecaDia(dado.dia,dado.mes,dado.ano) == true"> ____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</ion-row>        
+      <ion-row col-12 *ngIf="ChecaDia(dado.dia,dado.mes,dado.ano) == true"> _______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</ion-row>        
         <ion-col no-padding col-1 justify-content-center (click)="GoEdicao(dado)">
           <h2 class="dados">{{dado.dia}}/{{dado.mes}}</h2>
         </ion-col>
@@ -45,6 +45,11 @@
         <ion-col no-padding col-1 justify-content-center>
           <h2 class="dados" justify-content-center>
             <ion-icon  color="{{contadorCor(dado.passos,'8000')}}" name="{{contador(dado.passos,'8000')}}"></ion-icon>
+          </h2>
+        </ion-col>
+
+        <ion-col no-padding col-1 justify-content-center>
+          <h2 class="dados" justify-content-center> {{dado.passos}}
           </h2>
         </ion-col>
 
@@ -70,9 +75,6 @@
           <h2 class="dados" justify-content-center> {{dado.passos}}
           </h2>
         </ion-col>
-
-        
-
 
       </ion-row>
     </div>

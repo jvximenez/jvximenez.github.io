@@ -57,6 +57,7 @@ export class CardsPage {
       {title:"itens",parametro:"agradecimento",tipo:'TorF',arredonda:'0',nome:'Agrad.',extra:'%',quero:"maior"},
       {title:"itens",parametro:"tempoA",tipo:'Numero',arredonda:'2',nome:'Aula',extra:'h',quero:"maior"},
       {title:"itens",parametro:"tempoE",tipo:'Numero',arredonda:'2',nome:'Estudo',extra:'h',quero:"maior"},
+      {title:"itens",parametro:"tempoTrab",tipo:'Numero',arredonda:'2',nome:'Trabalho',extra:'h',quero:"maior"},
     ]
    
   }

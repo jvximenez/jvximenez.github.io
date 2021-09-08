@@ -52,6 +52,7 @@ export class EdicaoPage {
     'estudos':'',
     'tempoE':'',
     'tempoA':'',
+    'tempoTrab':'',
     'role':'',
     'pessoas':'',
     'resumo':'',

@@ -69,6 +69,7 @@ export class AdicionarPage {
     'estudos':'',
     'tempoE':'0',
     'tempoA':'0',
+    'tempoTrab':'0',
     'role':'',
     'pessoas':'',
     'resumo':'',
@@ -346,9 +347,10 @@ export class AdicionarPage {
         trackers = trackers.reverse()
         var trackersArray = trackers;
 
-        var array = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var array = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         var Estudos = []
         var Aulas = []
+        var Trabalho = []
         trackersArray.forEach(item => {
           if(item.title.includes("Dormir"))
           {array[0] += item.duracao}; 
@@ -376,6 +378,8 @@ export class AdicionarPage {
           {array[11] += item.duracao};
           if(item.title.includes("Andar"))
           {array[12] += item.duracao}
+          if(item.title.includes("Trabalhar"))
+          {array[13] += item.duracao; Trabalho.push(item.title)};
         })
         
         var array2 = []
