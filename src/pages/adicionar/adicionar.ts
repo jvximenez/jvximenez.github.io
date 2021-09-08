@@ -92,7 +92,7 @@ export class AdicionarPage {
   }
 
   public Remedios;Roles;Estudos;Pessoas;Atividades;Dentes;
-  public ArrayDeTrackers = [0,0,0,0,0,0,0,0,0,0,10]
+  public ArrayDeTrackers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   
 
   
@@ -339,7 +339,7 @@ export class AdicionarPage {
         obj = tracker.val()
         obj.key = tracker.key
 
-        if (obj['total'] == total ){
+        if (String(obj['total']) == total ){
 
           trackers.push(obj);
           return false;
@@ -393,7 +393,7 @@ export class AdicionarPage {
         "\n"+Estudos+"\n"+Aulas)
         let toast = this.toastCtrl.create({
         message: texto,
-        duration: 6000
+        duration: 8000
         });
         toast.present();
      

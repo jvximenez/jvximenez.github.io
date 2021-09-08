@@ -23,8 +23,13 @@ export class AnalisePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService: FirebaseServiceProvider) {
   
     this.Dados = this.dbService.getAll('diario','parcial').map(a => a.reverse()).map(a => a.sort(function(a, b) {return Number(String(b['total']- Number(String(a['total']))))}))
-    this.itens = [{title:"Leitura"},{title:"Corrida"},{title:"8000"},{title:"Aula"},{title:"Agradecer"},
-    {title:"Meditar"},{title:"Peso"},{title:"Passos"}
+    this.itens = [{title:"Leitura"},{title:"Corrida"},{title:"8000"},
+    {title:"Aula"},{title:"Trabalho"},
+    {title:"Peso"},{title:"Passos"},
+    {title:"Refri"},{title:"Alcool"},{title:"Besteira"},
+    
+    {title:"Agradecer"},{title:"Meditar"},
+
     ]
       
     
@@ -55,6 +60,13 @@ export class AnalisePage {
     else {return("dark")}
   }
 
+  iconColorInverso(dado){
+    if (dado == false){
+      return("primary")
+    }
+    else {return("dark")}
+  }
+
   contem(dado,parametro){
     if(dado.includes(parametro) == true){
       return("checkmark-circle")
@@ -69,6 +81,8 @@ export class AnalisePage {
     else {return("dark")}
   }
 
+  
+
   contador(dado,parametro){
     if(Number(dado) > parametro){
       return("checkmark-circle")
@@ -76,8 +90,22 @@ export class AnalisePage {
     else {return("close-circle")}
   }
 
+  contadorMenor(dado,parametro){
+    if(Number(dado)< parametro){
+      return("close-circle")
+    }
+    else {return("checkmark-circle")}
+  }
+
   contadorCor(dado,parametro){
     if(Number(dado) > parametro){
+      return("primary")
+    }
+    else {return("dark")}
+  }
+
+  contadorCorMenor(dado,parametro){
+    if(Number(dado) < parametro){
       return("primary")
     }
     else {return("dark")}

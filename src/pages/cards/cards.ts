@@ -130,7 +130,11 @@ export class CardsPage {
     
     if (tipo == "Numero"){
       this.controleArray.forEach(itens => {itens.forEach(item =>{contador += 1;
-       valor += Number(item[parametro]) 
+      
+        if(isNaN(item[parametro])==true){
+       valor += 0, contador -=1 }
+       else{
+       valor += Number(item[parametro]) }
        })})
        valor = valor/contador
       
